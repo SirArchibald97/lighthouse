@@ -5,7 +5,3 @@ export function formatUUID(uuid: string) {
         + uuid.substring(16, 20) + "-" 
         + uuid.substring(20);
 }
-
-export function getLoadingTip() {
-
-}
