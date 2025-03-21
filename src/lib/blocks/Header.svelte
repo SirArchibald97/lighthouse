@@ -18,16 +18,9 @@
 		<div class="flex h-16 justify-between">
 			<div class="flex flex-row justify-between">
                 <div class="flex shrink-0 items-center">
-                    <img
-                        class="block h-8 w-8 lg:hidden"
-                        src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-                        alt="Your Company"
-                    />
-                    <img
-                        class="hidden h-8 w-8 lg:block"
-                        src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-                        alt="Your Company"
-                    />
+                    <a href="/">
+                        <img src="https://cdn.islandstats.xyz/emojis/crown.png" alt="Crown Emoji Icon" class="size-8" />
+                    </a>
                 </div>
                 <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8 *:duration-75">
                     {#each pages as page}
@@ -91,8 +84,9 @@
             <div class="flex flex-col justify-center gap-y-1 pt-2 pb-3">
                 {#each pages as page}
                     <a
+                        onclick={() => mobileMenuOpen = false}
                         href={page.href}
-                        class={`inline-flex border-b-4 px-1 pt-1 text-sm font-medium ${active === page.href ? "border-neutral-50 text-neutral-50" : "border-transparent text-neutral-400 hover:border-neutral-100 hover:text-neutral-100"}`}
+                        class={`border-b-4 px-4 pt-1 text-sm font-medium ${active === page.href ? "border-neutral-50 text-neutral-50" : "border-transparent text-neutral-400 hover:border-neutral-100 hover:text-neutral-100"}`}
                         aria-current="page"
                     >
                         {page.label}

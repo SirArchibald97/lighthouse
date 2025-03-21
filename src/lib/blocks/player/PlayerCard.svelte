@@ -6,8 +6,7 @@
 	export let player: Player;
 
     function calculateTimeAgo(time: string) {
-        if (player?.status) {
-            const lastJoinDate = DateTime.fromISO(time);
+        const lastJoinDate = DateTime.fromISO(time);
             const diff = DateTime.now().diff(lastJoinDate, ["months", "weeks", "days", "hours", "minutes", "seconds"]);
             if (diff.months > 0) return `${diff.months} month${diff.months === 1 ? "" : "s"} ago`;
             if (diff.weeks > 0) return `${diff.days} week${diff.days === 1 ? "" : "s"} ago`;
@@ -15,7 +14,6 @@
             if (diff.hours > 0) return `${diff.hours} hour${diff.hours === 1 ? "" : "s"} ago`;
             if (diff.minutes > 0) return `${diff.minutes} minute${diff.minutes === 1 ? "" : "s"} ago`;
             if (diff.seconds > 0) return `${diff.seconds} second${diff.seconds === 1 ? "" : "s"} ago`;
-        }
     }
 </script>
 
@@ -33,35 +31,35 @@
                 {/if}
 			</span>
 		</span>
-		<div class="flex flex-col items-center gap-y-1">
+		<div class="self-center flex flex-col gap-y-1">
 			<div class="flex flex-row gap-x-2">
-                <img class="size-8" src={`https://cdn.islandstats.xyz/ranks/${getRankIcon(player?.ranks || [])}.png`} alt={`${getRankIcon(player.ranks || [])} Rank Icon`} />
+                <img class="size-8 bg-neutral-700 rounded-sm" src={`https://cdn.islandstats.xyz/ranks/${getRankIcon(player?.ranks || [])}.png`} alt={`${getRankIcon(player.ranks || [])} Rank Icon`} />
                 <span class="text-2xl font-semibold">{player.username}</span>
             </div>
-            {#if player.status && player.status.online}
-                <div class="flex flex-row gap-x-1 items-center">
+            {#if player.status}
+                {#if player.status.online}
                     {#if player.status.server.category === "GAME"}
-                        <p class="flex flex-row gap-x-1">
+                        <p class="flex flex-row gap-x-2">
                             <span>Playing</span>
-                            <img class="w-4 h-4 2xl:w-6 2xl:h-6 self-center" src={`https://cdn.islandstats.xyz/games/${getStatusIcon(player.status.server.associatedGame)}/icon.png`} alt={`${player.status.server?.associatedGame} Icon`} />
+                            <img class="size-6 self-center" src={`https://cdn.islandstats.xyz/games/${getStatusIcon(player.status.server.associatedGame)}/icon.png`} alt={`${player.status.server?.associatedGame} Icon`} />
                             <span class="font-semibold">{getStatusString(player.status.server.associatedGame || player.status.server.subType)}</span>
                         </p>
                     {:else if player.status.server?.category === "LOBBY"}
-                        <p class="flex flex-row gap-x-1">
+                        <p class="flex flex-row gap-x-2">
                             {#if player.status.server.subType === "fishing"}
                                 <span>On a</span>
-                                <img class="w-4 h-4 2xl:w-6 2xl:h-6 self-center" src={`https://cdn.islandstats.xyz/games/fishing/icon.png`} alt="Fishing Rod Icon" />
+                                <img class="size-6 self-center" src={`https://cdn.islandstats.xyz/games/fishing/icon.png`} alt="Fishing Rod Icon" />
                                 <span class="font-semibold">Fishing Island</span>
                             {:else}
                                 <span>In the</span>
-                                <img class="w-4 h-4 2xl:w-6 2xl:h-6 self-center" src={`https://cdn.islandstats.xyz/games/${getStatusIcon(player.status.server.associatedGame) || "lobby"}/icon.png`} alt="Main Lobby Icon" />
+                                <img class="size-6 self-center" src={`https://cdn.islandstats.xyz/games/${getStatusIcon(player.status.server.associatedGame) || "lobby"}/icon.png`} alt="Main Lobby Icon" />
                                 <span class="font-semibold">{getStatusString(player.status.server.associatedGame || player.status.server.subType) || "Main"} Lobby</span>
                             {/if}
                         </p>
                     {/if}
-                </div>
-            {:else}
-                <p>Last online: <span class="font-semibold">{calculateTimeAgo(player.status?.lastJoin || "")}</span></p>
+                {:else}
+                    <p>Last online: <span class="font-semibold">{calculateTimeAgo(player.status?.lastJoin || "")}</span></p>
+                {/if}
             {/if}
 		</div>
 	</div>

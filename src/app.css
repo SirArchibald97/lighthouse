@@ -5,6 +5,7 @@
 @theme {
     --font-sans: InterVariable, sans-serif;
 
+    --animate-fade-fast: fade 0.1s ease-in-out;
     --animate-fade: fade 0.5s ease-in-out;
     --animate-fade-slow: fade 1.5s ease-in-out;
     @keyframes fade {
