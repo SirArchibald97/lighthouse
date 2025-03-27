@@ -130,9 +130,9 @@
                                                                 </div>
                                                             </div>
                                                             <p class="flex gap-x-2 text-neutral-400 text-base">
-                                                                <span>Type: <span class="text-neutral-900 dark:text-neutral-100">{fish.fish.elusive ? "Elusive" : "Normal"}</span></span>
+                                                                <span>Type: <span class="text-neutral-100">{fish.fish.elusive ? "Elusive" : "Normal"}</span></span>
                                                                 <span>•</span>
-                                                                <span>Catch Time: <span class="text-neutral-900 dark:text-neutral-100">{fish.fish.catchTime.toLowerCase()[0].toUpperCase() + fish.fish.catchTime.toLowerCase().slice(1, fish.fish.catchTime.length)}</span></span>
+                                                                <span>Catch Time: <span class="text-neutral-100">{fish.fish.catchTime.toLowerCase()[0].toUpperCase() + fish.fish.catchTime.toLowerCase().slice(1, fish.fish.catchTime.length)}</span></span>
                                                             </p>
                                                         </div>
                                                     </div>                                             
