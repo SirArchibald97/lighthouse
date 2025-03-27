@@ -31,7 +31,7 @@
                     ({player.crownLevel.levelData.nextLevelProgress.obtained.toLocaleString()}/{player.crownLevel.levelData.nextLevelProgress.obtainable.toLocaleString()})
                 </span>
             </p>
-            <p class="flex flex-col lg:flex-row gap-x-1.5 items-center">
+            <p class="flex gap-x-1.5 items-center">
                 <span>Next evolution is </span>
                 <span class="flex flex-row gap-x-1 text-neutral-300 border-2 border-neutral-700 rounded-md px-1 shadow-xl">
                     <img src={`https://cdn.islandstats.xyz/icons/crowns/${player.crownLevel.levelData.evolution + 1}.png`} alt={`Crown Level ${player.crownLevel.levelData.evolution} Icon`} class="size-5 self-center" />
@@ -58,7 +58,7 @@
                     { label: "Angler Trophies", icon: "blue", stats: [player.trophies.angler.total, player.trophies.angler.max] },
                     { label: "Bonus Trophies", icon: "silver", stats: [player.trophies.bonus] },
                 ] as { label: string, icon: string, stats: number[] }[] as trophyType}
-                    <p class="flex flex-row gap-x-2 text-md">
+                    <p class="flex flex-row gap-x-2 text-sm lg:text-base">
                         <img src={`https://cdn.islandstats.xyz/icons/trophies/${trophyType.icon}.png`} alt={`${trophyType.label} Icon`} class="size-6 lg:size-8" />
                         <span class="tabular-nums self-center">{trophyType.stats[0].toLocaleString()}</span>
                         {#if trophyType.stats.length > 1}<span class="text-neutral-500 tabular-nums self-center"> / {trophyType.stats[1].toLocaleString()}</span>{/if}
@@ -76,7 +76,7 @@
                     { label: "A.N.G.L.R Tokens", icon: "angler_token", stat: player.collections?.currency.anglrTokens },
                     { label: "Royal Reputation", icon: "royal_reputation", stat: player.collections?.currency.royalReputation },
                 ] as { label: string, icon: string, stat: number }[] as trophyType}
-                    <p class="flex flex-row gap-x-2 text-sm lg:text-md">
+                    <p class="flex flex-row gap-x-2 text-sm lg:text-base">
                         <img src={`https://cdn.islandstats.xyz/icons/currency/${trophyType.icon}.png`} alt={`${trophyType.label} Icon`} class="size-6 lg:size-8" />
                         <span class="tabular-nums self-center">{trophyType.stat?.toLocaleString() || "Unknown"}</span>
                     </p>

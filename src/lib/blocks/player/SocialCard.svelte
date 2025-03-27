@@ -60,7 +60,7 @@
 							<img
 								src={`https://cdn.islandstats.xyz/ranks/${getRankIcon(friend.ranks)}.png`}
 								alt={`${getRankIcon(friend.ranks)} Rank Icon`}
-								class="hidden lg:flex size-8 rounded-sm bg-neutral-700"
+								class="hidden xl:flex size-8 rounded-sm bg-neutral-700"
 							/>
 							<p class="self-center text-md lg:text-lg">{friend.username}</p>
 						</div>
@@ -68,23 +68,23 @@
 							{#if friend.status.online}
 								{#if friend.status.server.category === 'GAME'}
 									<img
-										class="size-6 lg:size-8 self-center"
 										src={`https://cdn.islandstats.xyz/games/${getStatusIcon(friend.status.server.associatedGame)}/icon.png`}
 										alt={`${friend.status.server?.associatedGame} Icon`}
+                                        class="hidden lg:flex size-6 lg:size-8 self-center"
 									/>
 								{:else if friend.status.server?.category === 'LOBBY'}
 									<p class="flex flex-row gap-x-2">
 										{#if friend.status.server.subType === 'fishing'}
 											<img
-												class="size-6 lg:size-8 self-center"
 												src={`https://cdn.islandstats.xyz/games/fishing/icon.png`}
 												alt="Fishing Rod Icon"
+                                                class="hidden lg:flex size-6 lg:size-8 self-center"
 											/>
 										{:else}
 											<img
-												class="size-6 lg:size-8 self-center"
 												src={`https://cdn.islandstats.xyz/games/${getStatusIcon(friend.status.server.associatedGame) || 'lobby'}/icon.png`}
 												alt="Main Lobby Icon"
+                                                class="hidden lg:flex size-6 lg:size-8 self-center"
 											/>
 										{/if}
 									</p>

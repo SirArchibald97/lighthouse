@@ -42,7 +42,7 @@
 				<button
 					type="button"
                     onclick={() => mobileMenuOpen = !mobileMenuOpen}
-					class="relative inline-flex items-center justify-center rounded-md bg-neutral-800 p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden"
+					class="relative inline-flex items-center justify-center rounded-md bg-neutral-800 p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500"
 					aria-controls="mobile-menu"
 					aria-expanded="false"
 				>

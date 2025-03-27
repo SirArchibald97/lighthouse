@@ -8,9 +8,9 @@
     let { stats }: { stats: BattleBoxStatistics } = $props();
 </script>
 
-<div class="flex flex-col border-t border-neutral-800 px-4 divide-y divide-neutral-800 text-lg">
-    <div class="flex flex-row gap-x-20 py-4">
-        <div class="flex flex-col gap-y-4 justify-between">
+<div class="flex flex-col border-t border-neutral-800 px-4 divide-y divide-neutral-800 text-base lg:text-lg">
+    <div class="flex flex-col xl:flex-row gap-y-4 gap-x-20 py-4">
+        <div class="flex flex-col gap-x-8 gap-y-4 justify-between">
             <div>
                 <p>Rounds Won: <span class="tabular-nums font-semibold">{stats.rounds_won.toLocaleString()}</span></p>
                 <p>Rounds Lost: <span class="tabular-nums font-semibold">{(stats.games_played! * 3 - stats.rounds_won!)}</span></p>

@@ -15,7 +15,7 @@
 </script>
 
 <div class="flex flex-col border-t border-neutral-800 px-4 divide-y divide-neutral-800 text-lg">
-    <div class="flex flex-row gap-x-20 py-4">
+    <div class="flex flex-col lg:flex-row gap-y-4 gap-x-20 py-4">
         <div>
             <p>Total XP: <span class="tabular-nums font-semibold">{player.statistics?.total_xp.toLocaleString()}</span></p>
             <p>Game XP: <span class="tabular-nums font-semibold">{player.statistics?.game_xp.toLocaleString()}</span></p>
@@ -35,7 +35,7 @@
 
     <div class="py-4">
         <p class="text-xl font-semibold mb-2">Skill Trophy Progress</p>
-        <div class="grid grid-cols-4 gap-2">
+        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2">
             {#each [
                 { label: "Battle Box", icon: "battle_box", stats: player.statistics?.battle_box!, badges: badges.battle_box, tieredBadges: badges.battle_box_tiered },
                 { label: "Sky Battle", icon: "sky_battle", stats: player.statistics?.sky_battle.quads!, badges: badges.sky_battle, tieredBadges: badges.sky_battle_tiered },

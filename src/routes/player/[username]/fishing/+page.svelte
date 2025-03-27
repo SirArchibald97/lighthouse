@@ -14,7 +14,7 @@
     <div class="flex flex-col gap-y-4 border-b border-x border-neutral-800 rounded-b-md">
         {#if player?.collections}
             <div class="flex flex-col items-center py-4 mt-2">
-                <div class="flex flex-row justify-between w-1/2">
+                <div class="flex flex-row justify-between w-5/6 lg:w-1/2">
                     <img src={`https://cdn.islandstats.xyz/fishing/level/${player.crownLevel.fishingLevelData.evolution}.png`} alt={``} class="size-8" />
                     <span class="ml-2 text-xl font-bold self-center">{player.crownLevel.fishingLevelData.level}</span>
             
@@ -81,20 +81,20 @@
                                         alt={`${collection.icon} Collection`} 
                                         class="size-8"
                                     />
-                                    <p class="text-xl font-semibold self-center">{collection.name}</p>
+                                    <p class="text-lg lg:text-xl font-semibold self-center">{collection.name}</p>
                                 </div>
-                                <span class="size-8 text-neutral-500 self-center mr-2"><ChevronUpDown /></span>
+                                <span class="size-6 lg:size-8 text-neutral-500 self-center mr-2"><ChevronUpDown /></span>
                             </button>
                         {:else}
                             <div class="w-full flex flex-row justify-between bg-neutral-800/80">
                                 <div class="flex flex-row gap-x-2 p-3">
                                     <img src={collection.icon.startsWith("/") ? collection.icon : `https://cdn.islandstats.xyz/fishing/islands/${collection.icon}.png`} alt={``} class="size-8"/>
-                                    <p class="text-xl font-semibold self-center">{collection.name}</p>
+                                    <p class="text-lg lg:text-xl font-semibold self-center">{collection.name}</p>
                                 </div>
-                                <div class="flex gap-x-2 self-center mr-4">
+                                <div class="flex gap-x-2 self-center mr-4 text-neutral-400">
                                     <p class="self-center">Unlocked at</p>
                                     <div class="flex gap-x-1">
-                                        <img src={`https://cdn.islandstats.xyz/fishing/level/${Math.floor(collection.level / 10)}.png`} alt={``} class="size-8" />
+                                        <img src={`https://cdn.islandstats.xyz/fishing/level/${Math.floor(collection.level / 10)}.png`} alt={``} class="size-6 lg:size-8" />
                                         <span class="self-center tabular-nums">{collection.level}</span>
                                     </div>
                                 </div>
