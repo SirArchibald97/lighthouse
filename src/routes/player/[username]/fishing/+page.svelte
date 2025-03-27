@@ -2,7 +2,6 @@
 	import ChevronUpDown from '$lib/icons/ChevronUpDown.svelte';
 	import { calculateTrophiesToNextEvolution, getCrownColour, getRarityColour } from '$lib/utils';
 	import { slide } from 'svelte/transition';
-    import crab_pot from "$lib/images/crab_pot.png";
     import type { PageProps } from './$types';
 	import FishingIslandStats from '$lib/blocks/fishing/FishingIslandStats.svelte';
 	let { data }: PageProps = $props();
@@ -56,19 +55,19 @@
                 {#each [
                     { name: "Verdant Woods", climate: "TEMPERATE", icon: "verdant_woods", level: 0, type: "fish" },
                     { name: "Sunken Swamp", climate: "TEMPERATE", icon: "grotto_temperate", level: 0, type: "fish" },
-                    { name: "Temperate Crab Pots", climate: "TEMPERATE", icon: crab_pot, level:  0, type: "crab" },
+                    { name: "Temperate Crab Pots", climate: "TEMPERATE", icon: "crab_pot", level:  0, type: "crab" },
                     { name: "Floral Forest", climate: "TEMPERATE", icon: "floral_forest", level: 10, type: "fish" },
                     { name: "Dark Grove", climate: "TEMPERATE", icon: "dark_grove", level: 20, type: "fish" },
                     
                     { name: "Tropical Overgrowth", climate: "TROPICAL", icon: "tropical_overgrowth", level: 30, type: "fish" },
                     { name: "Mirrored Oasis", climate: "TROPICAL", icon: "grotto_tropical", level: 30, type: "fish" },
-                    { name: "Tropical Crab Pots", climate: "TROPICAL", icon: crab_pot, level:  30, type: "crab" },
+                    { name: "Tropical Crab Pots", climate: "TROPICAL", icon: "crab_pot", level:  30, type: "crab" },
                     { name: "Coral Shores", climate: "TROPICAL", icon: "coral_shores", level: 40, type: "fish" },
                     { name: "Twisted Swamp", climate: "TROPICAL", icon: "twisted_swamp", level: 45, type: "fish" },
 
                     { name: "Ancient Sands", climate: "BARREN", icon: "ancient_sands", level: 50, type: "fish" },
                     { name: "Volcanic Springs", climate: "BARREN", icon: "grotto_barren", level: 50, type: "fish" },
-                    { name: "Barren Crab Pots", climate: "BARREN", icon: crab_pot, level:  50, type: "crab" },
+                    { name: "Barren Crab Pots", climate: "BARREN", icon: "crab_pot", level:  50, type: "crab" },
                     { name: "Blazing Canyon", climate: "BARREN", icon: "blazing_canyon", level: 55, type: "fish" },
                     { name: "Ashen Wastes", climate: "BARREN", icon: "ashen_wastes", level: 60, type: "fish" }
                 ] as { name: string, climate: string, icon: string, level: number, type: "fish" | "crab" }[] as collection}
@@ -77,7 +76,7 @@
                             <button onclick={() => { if (expandedSection === collection.name) expandedSection = ""; else expandedSection = collection.name; }} class="w-full cursor-pointer flex flex-row justify-between hover:bg-neutral-800/50 duration-100">
                                 <div class="flex flex-row gap-x-2 p-3">
                                     <img 
-                                        src={collection.icon.startsWith("/") ? collection.icon : `https://cdn.islandstats.xyz/fishing/islands/${collection.icon}.png`} 
+                                        src={collection.icon.startsWith("!") ? collection.icon : `https://cdn.islandstats.xyz/fishing/islands/${collection.icon}.png`} 
                                         alt={`${collection.icon} Collection`} 
                                         class="size-8"
                                     />

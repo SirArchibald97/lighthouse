@@ -2,7 +2,6 @@
 	import { page } from '$app/state';
 	import Loader from '$lib/blocks/Loader.svelte';
 	import Error from '$lib/blocks/Error.svelte';
-	import wardrobe from '$lib/images/wardrobe.png';
 	import type { LayoutProps } from './$types';
 	import PlayerCard from '$lib/blocks/player/PlayerCard.svelte';
 	import InfoCard from '$lib/blocks/player/InfoCard.svelte';
@@ -15,7 +14,7 @@
 		{ label: 'Games', href: 'games', icon: 'emojis/crown', alt: 'Crown' },
 		{ label: 'Trophy Hunting', href: 'hunting', icon: 'icons/trophies/yellow', alt: 'Trophy' },
 		{ label: 'Fishing', href: 'fishing', icon: 'games/fishing/icon', alt: 'Fishing Rod' },
-		{ label: 'Wardrobe', href: 'wardrobe', icon: wardrobe, alt: 'Wardrobe' }
+		{ label: 'Wardrobe', href: 'wardrobe', icon: 'icons/wardrobe/icon', alt: 'Wardrobe' }
 	];
 
     let selectMenuOpen = $state(false);
@@ -97,9 +96,7 @@
                                     >
                                         <p class="flex gap-x-2">
                                             <img
-                                                src={tab.icon.startsWith('/')
-                                                    ? tab.icon
-                                                    : `https://cdn.islandstats.xyz/${tab.icon}.png`}
+                                                src={`https://cdn.islandstats.xyz/${tab.icon}.png`}
                                                 alt={`${tab.alt} Icon`}
                                                 class="size-6"
                                             />
