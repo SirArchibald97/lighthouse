@@ -48,7 +48,7 @@
 
     <!-- trophies and wallet -->
     <div class="flex flex-row divide-x divide-neutral-800">
-        <div class="w-1/2 p-4">
+        <div class="w-3/5 p-4">
             <p class="text-md lg:text-lg font-semibold mb-2">Trophies</p>
             <div class="flex flex-col gap-y-1">
                 {#each [
@@ -59,7 +59,7 @@
                     { label: "Bonus Trophies", icon: "silver", stats: [player.trophies.bonus] },
                 ] as { label: string, icon: string, stats: number[] }[] as trophyType}
                     <p class="flex flex-row gap-x-2 text-sm lg:text-base">
-                        <img src={`https://cdn.islandstats.xyz/icons/trophies/${trophyType.icon}.png`} alt={`${trophyType.label} Icon`} class="size-6 lg:size-8" />
+                        <img src={`https://cdn.islandstats.xyz/icons/trophies/${trophyType.icon}.png`} alt={`${trophyType.label} Icon`} class="size-7 2xl:size-8" />
                         <span class="tabular-nums self-center">{trophyType.stats[0].toLocaleString()}</span>
                         {#if trophyType.stats.length > 1}<span class="text-neutral-500 tabular-nums self-center"> / {trophyType.stats[1].toLocaleString()}</span>{/if}
                     </p>

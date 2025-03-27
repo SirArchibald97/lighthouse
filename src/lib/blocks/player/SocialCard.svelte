@@ -38,7 +38,7 @@
         </div>
 
 		{#if activeTab === 'Friends'}
-			<div class="grid grow grid-cols-2 md:grid-cols-3 grid-rows-5 gap-2 p-4">
+			<div class="grid grow grid-cols-2 lg:grid-cols-3 gap-2 p-4">
 				{#each player.social.friends.slice(currentIndex * 15, currentIndex * 15 + 15) as friend}
 					<a
 						href={`/player/${friend.username}/games`}
@@ -49,7 +49,7 @@
 								<img
 									src={`https://mc-heads.net/avatar/${friend.uuid}/128`}
 									alt={`${friend.username}'s Skin'`}
-									class="size-6 lg:size-8 rounded-sm"
+									class="size-7 2xl:size-8 rounded-sm"
 								/>
                                 {#if friend.status}
                                     <span class="absolute right-0 bottom-0 block translate-x-1/2 translate-y-1/2 transform rounded-full border-3 border-neutral-950">
@@ -60,9 +60,9 @@
 							<img
 								src={`https://cdn.islandstats.xyz/ranks/${getRankIcon(friend.ranks)}.png`}
 								alt={`${getRankIcon(friend.ranks)} Rank Icon`}
-								class="hidden xl:flex size-8 rounded-sm bg-neutral-700"
+								class="hidden xl:flex size-7 2xl:size-8 rounded-sm bg-neutral-700"
 							/>
-							<p class="self-center text-md lg:text-lg">{friend.username}</p>
+							<p class="self-center text-base 2xl:text-lg">{friend.username}</p>
 						</div>
 						{#if friend.status}
 							{#if friend.status.online}
@@ -70,7 +70,7 @@
 									<img
 										src={`https://cdn.islandstats.xyz/games/${getStatusIcon(friend.status.server.associatedGame)}/icon.png`}
 										alt={`${friend.status.server?.associatedGame} Icon`}
-                                        class="hidden lg:flex size-6 lg:size-8 self-center"
+                                        class="hidden lg:flex size-6 self-center"
 									/>
 								{:else if friend.status.server?.category === 'LOBBY'}
 									<p class="flex flex-row gap-x-2">
@@ -78,13 +78,13 @@
 											<img
 												src={`https://cdn.islandstats.xyz/games/fishing/icon.png`}
 												alt="Fishing Rod Icon"
-                                                class="hidden lg:flex size-6 lg:size-8 self-center"
+                                                class="hidden lg:flex size-6 self-center"
 											/>
 										{:else}
 											<img
 												src={`https://cdn.islandstats.xyz/games/${getStatusIcon(friend.status.server.associatedGame) || 'lobby'}/icon.png`}
 												alt="Main Lobby Icon"
-                                                class="hidden lg:flex size-6 lg:size-8 self-center"
+                                                class="hidden lg:flex size-6 self-center"
 											/>
 										{/if}
 									</p>

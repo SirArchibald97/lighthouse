@@ -32,7 +32,7 @@
 	{/await}
 </svelte:head>
 <div>
-	<div class="mx-4 my-4 flex items-center justify-center lg:mx-44">
+	<div class="mx-4 my-4 flex items-center justify-center xl:mx-12 2xl:mx-32">
 		{#await data.streamed.player}
 			<Loader />
 		{:then player}

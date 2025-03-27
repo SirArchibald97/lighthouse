@@ -37,7 +37,7 @@
     <div class="flex gap-x-4 border border-neutral-800 rounded-md p-2">
         <span 
             class={`flex justify-center items-center size-14 lg:size-18 bg-neutral-100 rounded-full ${getCrownColour(player.crownLevel.fishingLevelData.level)}`}  
-            style={`background: conic-gradient(${getCrownColourHex(player.crownLevel.fishingLevelData.level)} ${Math.floor((player.collections!.fish.filter(f => f.fish.collection === collection.name && f.weights.length > 0).length / player.collections!.fish.filter(f => f.fish.collection === collection.name && f.weights.length > 0).length) * 360)}deg, oklch(0.269 0 0) 0deg)`}
+            style={`background: conic-gradient(${getCrownColourHex(player.crownLevel.fishingLevelData.level)} ${Math.floor((player.collections!.fish.filter(f => f.fish.collection === collection.name && f.weights.length > 0).length / player.collections!.fish.filter(f => f.fish.collection === collection.name).length) * 360)}deg, oklch(0.269 0 0) 0deg)`}
         >
             <span class="flex justify-center items-center size-10 lg:size-14 bg-neutral-900 rounded-full">
                 <img src="https://cdn.islandstats.xyz/games/fishing/icon.png" alt="Fishing Game Icon" class="size-6 lg:size-8" />
@@ -52,7 +52,7 @@
                     <span>{player.collections!.fish.filter(f => f.fish.collection === collection.name).length}</span>
                     <span class="text-neutral-500">({calculatePercentage(
                         player.collections!.fish.filter(f => f.fish.collection === collection.name && f.weights.length > 0).length,
-                        player.collections!.fish.filter(f => f.fish.collection === collection.name && f.weights.length > 0).length
+                        player.collections!.fish.filter(f => f.fish.collection === collection.name).length
                     )}%)</span>
                 </p>
             </div>
