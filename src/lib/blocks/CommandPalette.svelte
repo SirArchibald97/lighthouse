@@ -32,11 +32,11 @@
     </button>
 
     {#if showCommandPalette}
-        <div class="relative z-10" role="dialog" aria-modal="true">
+        <div id="command-menu" class="relative z-10" role="dialog" aria-modal="true">
             <div class="fixed inset-0 bg-gray-500/15 transition-opacity" aria-hidden="true"></div>
 
             <div class="fixed inset-0 z-10 w-screen overflow-y-auto p-4 sm:p-6 md:p-20 text-neutral-100 animate-fade">
-                <div class="mx-auto max-w-xl transform bg-neutral-950 divide-y divide-neutral-500 overflow-hidden rounded-xl shadow-2xl ring-1 ring-black/5 transition-all">
+                <div class="mx-auto max-w-xl transform bg-neutral-950 divide-y divide-neutral-800 overflow-hidden rounded-xl shadow-2xl ring-1 ring-black/5 transition-all">
                     <div class="grid grid-cols-1">
                         <form method="POST" action="?/getPlayer" class="col-start-1 row-start-1">
                             <!-- svelte-ignore a11y_autofocus -->
@@ -65,6 +65,18 @@
                                 clip-rule="evenodd"
                             />
                         </svg>
+                    </div>
+                    <div class="flex flex-col gap-y-2 p-2">
+                        {#each [
+                            { label: "View the leaderboards", href: "/leaderboards", icon: "emojis/crown" },
+                            { label: "Compare players", href: "/compare", icon: "icons/trophies/yellow" },
+                            { label: "Let's go gamlbing!", href: "/simulator", icon: "emojis/sunglasses" }
+                        ] as { label: string, href: string, icon: string }[] as link}
+                            <a onclick={() => showCommandPalette = false} class="flex gap-x-2 hover:bg-neutral-800/50 duration-100 p-2 rounded-md" href={link.href}>
+                                <img src={`https://cdn.islandstats.xyz/${link.icon}.png`} alt={link.icon} class="size-6 self-center" />
+                                <span>{link.label}</span>
+                            </a>
+                        {/each}
                     </div>
 
                     {#if recentSearches.length > 0}

@@ -10,7 +10,7 @@
         { label: "Openable Simulator", href: "/simulator" }
     ];
 
-    let mobileMenuOpen = $state(true);
+    let mobileMenuOpen = $state(false);
 </script>
 
 <nav class="bg-neutral-950 shadow-xs">

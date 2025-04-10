@@ -14,7 +14,7 @@
 </script>
 
 {#each badges as badge}
-    <div class={`flex flex-col gap-y-2 text-base lg:text-lg border ${getBadgeStat(badge.stat) > 0 ? "bg-green-800/10 border-green-800/50" : "border-neutral-800"}`}>
+    <div class={`flex flex-col gap-y-2 text-base lg:text-lg rounded-md border ${getBadgeStat(badge.stat) > 0 ? "bg-green-800/10 border-green-800/50" : "border-neutral-800"}`}>
         <div class="flex flex-row gap-x-2 p-2">
             <div class="flex gap-x-4 min-w-full justify-between">
                 <div class="flex gap-x-2">
@@ -30,17 +30,21 @@
                 </div>
             </div>
         </div>
-        <div class={`flex flex-row justify-between rounded-b-lg mt-auto p-2 px-3 text-sm lg:text-base ${getBadgeStat(badge.stat) > 0 ? "bg-green-800/50" : "bg-neutral-800"}`}>
+        <div class={`flex flex-row justify-between rounded-b-md mt-auto p-2 px-3 text-sm lg:text-base ${getBadgeStat(badge.stat) > 0 ? "bg-green-800/50" : "bg-neutral-800"}`}>
             {#if getBadgeStat(badge.stat) > 0}
                 <p class="flex gap-x-1 text-green-500">
-                    <span class="size-4 lg:size-6 self-center"><Check /></span>
+                    <span class="size-4 lg:size-6 self-center">
+                        <img src="https://cdn.discordapp.com/emojis/1042056406997663844.webp?size=96" alt="Check Icon" class="size-6 self-center" />
+                    </span>
                     <span>Completed </span>
                     <span class="tabular-nums font-semibold">{getBadgeStat(badge.stat).toLocaleString()}</span>
                     <span>time{getBadgeStat(badge.stat) === 1 ? "" : "s"}</span>
                 </p>
             {:else}
                 <p class="flex gap-x-1 text-neutral-400">
-                    <span class="size-4 lg:size-6 self-center"><X /></span>
+                    <span class="size-4 lg:size-6 self-center">
+                        <img src="https://cdn.discordapp.com/emojis/1042056408423739492.webp?size=96" alt="X Icon" class="size-6 self-center" />
+                    </span>
                     <span class="self-center">Not completed</span>
                 </p>
             {/if}

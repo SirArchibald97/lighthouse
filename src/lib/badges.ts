@@ -52,7 +52,7 @@ export const badges = {
         { name: "Untouchable Assassin", description: "Place 1st as a team whilst taking no damage and getting at least 4 eliminations", icon: "battle_box/untouchable_assassin", stat: "untouchable_assassin", trophies: 70 },
     ] as IslandBadge[],
     battle_box_tiered: [
-        { name: "Battle Box Player", description: "Play all 3 rounds of games of Battle Box", icon: "battle_box/battle_box_player", stat: "games_played", suggestionStat: "games_played/games_played", tiers: [
+        { name: "Battle Box Player", description: "Play all 3 rounds of%%games of Battle Box", icon: "battle_box/battle_box_player", stat: "games_played", game: "battle_box", tiers: [
             { name: "I", amount: 15, trophies: 10 },
             { name: "II", amount: 50, trophies: 20 },
             { name: "III", amount: 125, trophies: 30 },
@@ -61,7 +61,7 @@ export const badges = {
             { name: "VI", amount: 800, trophies: 100 },
             { name: "VII", amount: 1300, trophies: 125 },
         ]},
-        { name: "Battle Box Warrior", description: "Eliminate players in Battle Box", icon: "battle_box/battle_box_warrior", stat: "kills", suggestionStat: "kills/games_played", tiers: [
+        { name: "Battle Box Warrior", description: "Eliminate%%players in Battle Box", icon: "battle_box/battle_box_warrior", stat: "kills", game: "battle_box", tiers: [
             { name: "I", amount: 25, trophies: 10 },
             { name: "II", amount: 75, trophies: 20 },
             { name: "III", amount: 175, trophies: 30 },
@@ -70,7 +70,7 @@ export const badges = {
             { name: "VI", amount: 1200, trophies: 100 },
             { name: "VII", amount: 2000, trophies: 125 },    
         ]},
-        { name: "Battle Box Champion", description: "Finish games of Battle Box with your team in 1st place", icon: "battle_box/battle_box_champion", stat: "team_first_place", suggestionStat: "team_first_place/games_played", tiers: [
+        { name: "Battle Box Champion", description: "Finish%%games of Battle Box with your team in 1st place", icon: "battle_box/battle_box_champion", stat: "team_first_place", game: "battle_box", tiers: [
             { name: "I", amount: 5, trophies: 10 },
             { name: "II", amount: 15, trophies: 20 },
             { name: "III", amount: 35, trophies: 30 },
@@ -79,7 +79,7 @@ export const badges = {
             { name: "VI", amount: 250, trophies: 100 },
             { name: "VII", amount: 400, trophies: 125 },    
         ]},
-        { name: "Battle Box Expert", description: "Win rounds of Battle Box", icon: "battle_box/battle_box_expert", stat: "rounds_won", suggestionStat: "rounds_won/games_played", tiers: [
+        { name: "Battle Box Expert", description: "Win%%rounds of Battle Box", icon: "battle_box/battle_box_expert", stat: "rounds_won", game: "battle_box", tiers: [
             { name: "I", amount: 25, trophies: 10 },
             { name: "II", amount: 75, trophies: 20 },
             { name: "III", amount: 175, trophies: 30 },
@@ -100,7 +100,7 @@ export const badges = {
         { name: "Wings to Fly", description: "Don't touch the ground for 30s after using a levitation spark", icon: "sky_battle/wings_to_fly", stat: "wings_to_fly", trophies: 30, secret: true },
     ] as IslandBadge[],
     sky_battle_tiered: [
-        { name: "Sky Battle Player", description: "Survive for at least 60s in games of Sky Battle", icon: "sky_battle/sky_battle_player", stat: "survived_minute", suggestionStat: "survived_minute/games_played", tiers: [
+        { name: "Sky Battle Player", description: "Survive for at least 60s in%%games of Sky Battle", icon: "sky_battle/sky_battle_player", stat: "survived_minute", game: "sky_battle", tiers: [
             { name: "I", amount: 30, trophies: 10 },
             { name: "II", amount: 90, trophies: 20 },
             { name: "III", amount: 200, trophies: 30 },
@@ -109,7 +109,7 @@ export const badges = {
             { name: "VI", amount: 1400, trophies: 100 },
             { name: "VII", amount: 2300, trophies: 125 },
         ]},
-        { name: "Sky Battle Warrior", description: "Eliminate players in games of Sky Battle", icon: "sky_battle/sky_battle_warrior", stat: "kills", suggestionStat: "kills/games_played", tiers: [
+        { name: "Sky Battle Warrior", description: "Eliminate%%players in games of Sky Battle", icon: "sky_battle/sky_battle_warrior", stat: "kills", game: "sky_battle", tiers: [
             { name: "I", amount: 25, trophies: 10 },
             { name: "II", amount: 75, trophies: 20 },
             { name: "III", amount: 150, trophies: 30 },
@@ -118,7 +118,7 @@ export const badges = {
             { name: "VI", amount: 1000, trophies: 100 },
             { name: "VII", amount: 1700, trophies: 125 },    
         ]},
-        { name: "Sky Battle Champion", description: "Reach survival placement of 1st in games of Sky Battle", icon: "sky_battle/sky_battle_champion", stat: "solo_first_place", suggestionStat: "solo_first_place/games_played", tiers: [
+        { name: "Sky Battle Champion", description: "Reach survival placement of 1st in%%games of Sky Battle", icon: "sky_battle/sky_battle_champion", stat: "solo_first_place", game: "sky_battle", tiers: [
             { name: "I", amount: 2, trophies: 10 },
             { name: "II", amount: 5, trophies: 20 },
             { name: "III", amount: 15, trophies: 30 },
@@ -127,7 +127,7 @@ export const badges = {
             { name: "VI", amount: 100, trophies: 100 },
             { name: "VII", amount: 150, trophies: 125 },    
         ]},
-        { name: "Sky Battle Expert", description: "Reach survival placement of 8 or better in games of Sky Battle", icon: "sky_battle/sky_battle_expert", stat: "solo_top_eight", suggestionStat: "solo_top_eight/games_played", tiers: [
+        { name: "Sky Battle Expert", description: "Reach survival placement of 8 or better in%%games of Sky Battle", icon: "sky_battle/sky_battle_expert", stat: "solo_top_eight", game: "sky_battle", tiers: [
             { name: "I", amount: 20, trophies: 10 },
             { name: "II", amount: 65, trophies: 20 },
             { name: "III", amount: 150, trophies: 30 },
@@ -148,7 +148,7 @@ export const badges = {
         { name: "Victorious Pacifist", description: "Place 1st without punching anyone", icon: "tgttos/victorious_pacifist", stat: "victorious_pacifist", trophies: 50 },
     ] as IslandBadge[],
     tgttos_tiered: [
-        { name: "Chicken Puncher", description: "Punch chickens in games of TGTTOS", icon: "tgttos/chicken_puncher", stat: "chickens_punched", suggestionStat: "chickens_punched/games_played", tiers: [
+        { name: "Chicken Puncher", description: "Punch%%chickens in games of TGTTOS", icon: "tgttos/chicken_puncher", stat: "chickens_punched", game: "tgttos", tiers: [
             { name: "I", amount: 50, trophies: 10 },
             { name: "II", amount: 150, trophies: 20 },
             { name: "III", amount: 325, trophies: 30 },
@@ -157,7 +157,7 @@ export const badges = {
             { name: "VI", amount: 2250, trophies: 100 },
             { name: "VII", amount: 3750, trophies: 125 },
         ]},
-        { name: "Round Champion", description: "Finish rounds of TGTTOS in 1st place", icon: "tgttos/tgttos_round_champion", stat: "round_first_place", suggestionStat: "round_first_place/games_played", tiers: [
+        { name: "Round Champion", description: "Finish%%rounds of TGTTOS in 1st place", icon: "tgttos/tgttos_round_champion", stat: "round_first_place", game: "tgttos", tiers: [
             { name: "I", amount: 2, trophies: 10 },
             { name: "II", amount: 7, trophies: 20 },
             { name: "III", amount: 15, trophies: 30 },
@@ -166,7 +166,7 @@ export const badges = {
             { name: "VI", amount: 110, trophies: 100 },
             { name: "VII", amount: 180, trophies: 125 },    
         ]},
-        { name: "Round Expert", description: "Finish rounds of TGTTOS in 5th place or better", icon: "tgttos/tgttos_round_expert", stat: "round_top_five", suggestionStat: "round_top_five/games_played", tiers: [
+        { name: "Round Expert", description: "Finish%%rounds of TGTTOS in 5th place or better", icon: "tgttos/tgttos_round_expert", stat: "round_top_five", game: "tgttos", tiers: [
             { name: "I", amount: 15, trophies: 10 },
             { name: "II", amount: 50, trophies: 20 },
             { name: "III", amount: 110, trophies: 30 },
@@ -175,7 +175,7 @@ export const badges = {
             { name: "VI", amount: 750, trophies: 100 },
             { name: "VII", amount: 1250, trophies: 125 },    
         ]},
-        { name: "TGTTOS Champion", description: "Finish games of TGTTOS in 1st place", icon: "tgttos/tgttos_champion", stat: "first_place", suggestionStat: "first_place/games_played", tiers: [
+        { name: "TGTTOS Champion", description: "Finish%%games of TGTTOS in 1st place", icon: "tgttos/tgttos_champion", stat: "first_place", game: "tgttos", tiers: [
             { name: "I", amount: 1, trophies: 10 },
             { name: "II", amount: 2, trophies: 20 },
             { name: "III", amount: 5, trophies: 30 },
@@ -184,7 +184,7 @@ export const badges = {
             { name: "VI", amount: 40, trophies: 100 },
             { name: "VII", amount: 60, trophies: 125 },    
         ]},
-        { name: "TGTTOS Expert", description: "Finish games of TGTTOS in 5th place or better", icon: "tgttos/tgttos_expert", stat: "top_five", suggestionStat: "top_five/games_played", tiers: [
+        { name: "TGTTOS Expert", description: "Finish%%games of TGTTOS in 5th place or better", icon: "tgttos/tgttos_expert", stat: "top_five", game: "tgttos", tiers: [
             { name: "I", amount: 5, trophies: 10 },
             { name: "II", amount: 15, trophies: 20 },
             { name: "III", amount: 35, trophies: 30 },
@@ -200,10 +200,10 @@ export const badges = {
         { name: "Something in the Waves", description: "Catch a fish during a game of HITW", icon: "hitw/something_in_the_waves", stat: "fish_catcher", trophies: 70, secret: true },
         { name: "Barely Broiled", description: "Survive being launched by a hot potato", icon: "hitw/barely_broiled", stat: "hot_potato_survivor", trophies: 50 },
         { name: "Monster Catch", description: "Hook a guardian with a fishing rod", icon: "hitw/monster_catch", stat: "monster_catcher", trophies: 100, secret: true },
-        { name: "Slimey Rivalry", description: "Survival all 4 minutes of a game of HITW", icon: "hitw/slimey_rivalry", stat: "slimey_rivalry", trophies: 70 },
+        { name: "Slimey Rivalry", description: "Survival until the end of a game of HITW", icon: "hitw/slimey_rivalry", stat: "slimey_rivalry", trophies: 70 },
     ] as IslandBadge[],
     hitw_tiered: [
-        { name: "HITW Champion", description: "Finish games of HITW in 1st place or survive till the end", icon: "hitw/hitw_champion", stat: "first_place", suggestionStat: "first_place/games_played", tiers: [
+        { name: "HITW Champion", description: "Finish%%games of HITW in 1st place or survive till the end", icon: "hitw/hitw_champion", stat: "first_place", game: "hitw", tiers: [
             { name: "I", amount: 2, trophies: 10 },
             { name: "II", amount: 5, trophies: 20 },
             { name: "III", amount: 10, trophies: 30 },
@@ -212,7 +212,7 @@ export const badges = {
             { name: "VI", amount: 70, trophies: 100 },
             { name: "VII", amount: 125, trophies: 125 },
         ]},
-        { name: "HITW Expert", description: "Finish games of HITW in 5th place or better", icon: "hitw/hitw_expert", stat: "top_five", suggestionStat: "top_five/games_played", tiers: [
+        { name: "HITW Expert", description: "Finish%%games of HITW in 5th place or better", icon: "hitw/hitw_expert", stat: "top_five", game: "hitw", tiers: [
             { name: "I", amount: 10, trophies: 10 },
             { name: "II", amount: 25, trophies: 20 },
             { name: "III", amount: 75, trophies: 30 },
@@ -221,7 +221,7 @@ export const badges = {
             { name: "VI", amount: 425, trophies: 100 },
             { name: "VII", amount: 700, trophies: 125 },
         ]},
-        { name: "Bring on the Wall", description: "Dodge walls in games of HITW", icon: "hitw/bring_on_the_wall", stat: "walls_dodged", suggestionStat: "walls_dodged/games_played", tiers: [
+        { name: "Bring on the Wall", description: "Dodge%%walls in games of HITW", icon: "hitw/bring_on_the_wall", stat: "walls_dodged", game: "hitw", tiers: [
             { name: "I", amount: 350, trophies: 10 },
             { name: "II", amount: 1100, trophies: 20 },
             { name: "III", amount: 2500, trophies: 30 },
@@ -241,7 +241,7 @@ export const badges = {
         { name: "Ultimate Baller", description: "Win a game as the only remaining player against at least 3 enemies", icon: "dynaball/ultimate_baller", stat: "only_survivor_against_3", trophies: 70 },
     ] as IslandBadge[],
     dynaball_tiered: [
-        { name: "Dynaball Champion", description: "Win games of Dynaball while surviving till the end", icon: "dynaball/dynaball_champion", stat: "wins", suggestionStat: "wins/games_played", tiers: [
+        { name: "Dynaball Champion", description: "Win%%games of Dynaball while surviving till the end", icon: "dynaball/dynaball_champion", stat: "wins", game: "dynaball", tiers: [
             { name: "I", amount: 3, trophies: 10 },
             { name: "II", amount: 7, trophies: 20 },
             { name: "III", amount: 15, trophies: 30 },
@@ -250,7 +250,7 @@ export const badges = {
             { name: "VI", amount: 100, trophies: 100 },
             { name: "VII", amount: 175, trophies: 125 },
         ]},
-        { name: "Dynaball Demolitionist", description: "Destroy blocks in games of Dynaball", icon: "dynaball/dynaball_demolitionist", stat: "blocks_destroyed", suggestionStat: "blocks_destroyed/games_played", tiers: [
+        { name: "Dynaball Demolitionist", description: "Destroy%%blocks in games of Dynaball", icon: "dynaball/dynaball_demolitionist", stat: "blocks_destroyed", game: "dynaball", tiers: [
             { name: "I", amount: 2000, trophies: 10 },
             { name: "II", amount: 6000, trophies: 20 },
             { name: "III", amount: 15000, trophies: 30 },
@@ -259,7 +259,7 @@ export const badges = {
             { name: "VI", amount: 100000, trophies: 100 },
             { name: "VII", amount: 150000, trophies: 125 },
         ]},
-        { name: "Dynaball Sniper", description: "Eliminate players in games of Dynaball", icon: "dynaball/dynaball_sniper", stat: "kills", suggestionStat: "kills/games_played", tiers: [
+        { name: "Dynaball Sniper", description: "Eliminate%%players in games of Dynaball", icon: "dynaball/dynaball_sniper", stat: "kills", game: "dynaball", tiers: [
             { name: "I", amount: 10, trophies: 10 },
             { name: "II", amount: 30, trophies: 20 },
             { name: "III", amount: 75, trophies: 30 },
@@ -268,7 +268,7 @@ export const badges = {
             { name: "VI", amount: 450, trophies: 100 },
             { name: "VII", amount: 800, trophies: 125 },    
         ]},
-        { name: "Dynaball Engineer", description: "Place repair blocks in games of Dynaball", icon: "dynaball/dynaball_engineer", stat: "blocks_placed", suggestionStat: "blocks_placed/games_played", tiers: [
+        { name: "Dynaball Engineer", description: "Place%%repair blocks in games of Dynaball", icon: "dynaball/dynaball_engineer", stat: "blocks_placed", game: "dynaball", tiers: [
             { name: "I", amount: 1000, trophies: 10 },
             { name: "II", amount: 3000, trophies: 20 },
             { name: "III", amount: 7000, trophies: 30 },
@@ -277,7 +277,7 @@ export const badges = {
             { name: "VI", amount: 45000, trophies: 100 },
             { name: "VII", amount: 80000, trophies: 125 },
         ]},
-        { name: "Spawner Smasher", description: "Destroy spawners in games of Dynaball", icon: "dynaball/dynaball_spawner_smasher", stat: "spawners_destroyed", suggestionStat: "spawners_destroyed/games_played", tiers: [
+        { name: "Spawner Smasher", description: "Destroy%%spawners in games of Dynaball", icon: "dynaball/dynaball_spawner_smasher", stat: "spawners_destroyed", game: "dynaball", tiers: [
             { name: "I", amount: 10, trophies: 10 },
             { name: "II", amount: 30, trophies: 20 },
             { name: "III", amount: 75, trophies: 30 },
@@ -286,7 +286,7 @@ export const badges = {
             { name: "VI", amount: 450, trophies: 100 },
             { name: "VII", amount: 800, trophies: 125 },    
         ]},
-        { name: "Dynaball Survivor", description: "Survive for at least 2 minutes in games of Dynaball", icon: "dynaball/dynaball_survivor", stat: "survive_2m", suggestionStat: "survive_2m/games_played", tiers: [
+        { name: "Dynaball Survivor", description: "Survive for at least 2 minutes in%%games of Dynaball", icon: "dynaball/dynaball_survivor", stat: "survive_2m", game: "dynaball", tiers: [
             { name: "I", amount: 15, trophies: 10 },
             { name: "II", amount: 50, trophies: 20 },
             { name: "III", amount: 100, trophies: 30 }, 
@@ -297,7 +297,7 @@ export const badges = {
         ]}
     ] as IslandTieredBadge[],
     dojo_tiered: [
-        { name: "Standard Completionist", description: "Perform a Standard completion on all courses of a PKW Dojo rotation", icon: "parkour_warrior/pkw_standard_completionist", stat: "unique_rot_standard", suggestionStat: "unique_rot_standard/unique_rot_standard", tiers: [
+        { name: "Standard Completionist", description: "Perform a Standard completion on all courses of a PKW Dojo rotation", icon: "parkour_warrior/pkw_standard_completionist", stat: "unique_rot_standard", game: "parkour_warrior/solo", tiers: [
             { name: "I", amount: 1, trophies: 10 },
             { name: "II", amount: 2, trophies: 20 },
             { name: "III", amount: 3, trophies: 30 },
@@ -306,7 +306,7 @@ export const badges = {
             { name: "VI", amount: 10, trophies: 100 },
             { name: "VII", amount: 15, trophies: 125 },
         ]},
-        { name: "Advanced Completionist", description: "Perform an Advanced completion on all courses of a PKW Dojo rotation", icon: "parkour_warrior/pkw_advanced_completionist", stat: "unique_rot_advanced", suggestionStat: "unique_rot_advanced/unique_rot_advanced", tiers: [
+        { name: "Advanced Completionist", description: "Perform an Advanced completion on all courses of a PKW Dojo rotation", icon: "parkour_warrior/pkw_advanced_completionist", stat: "unique_rot_advanced", game: "parkour_warrior/solo", tiers: [
             { name: "I", amount: 1, trophies: 10 },
             { name: "II", amount: 2, trophies: 20 },
             { name: "III", amount: 3, trophies: 30 },
@@ -315,7 +315,7 @@ export const badges = {
             { name: "VI", amount: 10, trophies: 100 },
             { name: "VII", amount: 15, trophies: 125 },
         ]},
-        { name: "Expert Completionist", description: "Perform an Expert completion on all courses of a PKW Dojo rotation", icon: "parkour_warrior/pkw_expert_completionist", stat: "unique_rot_expert", suggestionStat: "unique_rot_expert/unique_rot_expert", tiers: [
+        { name: "Expert Completionist", description: "Perform an Expert completion on all courses of a PKW Dojo rotation", icon: "parkour_warrior/pkw_expert_completionist", stat: "unique_rot_expert", game: "parkour_warrior/solo", tiers: [
             { name: "I", amount: 1, trophies: 10 },
             { name: "II", amount: 2, trophies: 20 },
             { name: "III", amount: 3, trophies: 30 },
@@ -324,7 +324,7 @@ export const badges = {
             { name: "VI", amount: 10, trophies: 100 },
             { name: "VII", amount: 15, trophies: 125 },
         ]},
-        { name: "Standard Leaper", description: "Perform Standard completions on unique PKW Dojo courses", icon: "parkour_warrior/pkw_standard_leaper", stat: "unique_standard", suggestionStat: "unique_standard/unique_standard", tiers: [
+        { name: "Standard Leaper", description: "Perform Standard completions on%%unique PKW Dojo courses", icon: "parkour_warrior/pkw_standard_leaper", stat: "unique_standard", game: "parkour_warrior/solo", tiers: [
             { name: "I", amount: 7, trophies: 10 },
             { name: "II", amount: 15, trophies: 20 },
             { name: "III", amount: 25, trophies: 30 },
@@ -333,7 +333,7 @@ export const badges = {
             { name: "VI", amount: 125, trophies: 100 },
             { name: "VII", amount: 200, trophies: 125 },
         ]},
-        { name: "Advanced Leaper", description: "Perform Advanced completions on unique PKW Dojo courses", icon: "parkour_warrior/pkw_advanced_leaper", stat: "unique_advanced", suggestionStat: "unique_advanced/unique_advanced", tiers: [
+        { name: "Advanced Leaper", description: "Perform Advanced completions on%%unique PKW Dojo courses", icon: "parkour_warrior/pkw_advanced_leaper", stat: "unique_advanced", game: "parkour_warrior/solo", tiers: [
             { name: "I", amount: 7, trophies: 10 },
             { name: "II", amount: 15, trophies: 20 },
             { name: "III", amount: 25, trophies: 30 },
@@ -342,7 +342,7 @@ export const badges = {
             { name: "VI", amount: 125, trophies: 100 },
             { name: "VII", amount: 200, trophies: 125 },
         ]},
-        { name: "Expert Leaper", description: "Perform Expert completions on unique PKW Dojo courses", icon: "parkour_warrior/pkw_expert_leaper", stat: "unique_expert", suggestionStat: "unique_expert/unique_expert", tiers: [
+        { name: "Expert Leaper", description: "Perform Expert completions on%%unique PKW Dojo courses", icon: "parkour_warrior/pkw_expert_leaper", stat: "unique_expert", game: "parkour_warrior/solo", tiers: [
             { name: "I", amount: 7, trophies: 10 },
             { name: "II", amount: 15, trophies: 20 },
             { name: "III", amount: 25, trophies: 30 },
@@ -353,7 +353,7 @@ export const badges = {
         ]},
     ] as IslandTieredBadge[],
     survivor_tiered: [
-        { name: "PKW Champion", description: "Win the final duel in games of Parkour Warrior Survivor", icon: "parkour_warrior/parkour_warrior_champion", stat: "wins", suggestionStat: "wins/games_played", tiers: [
+        { name: "PKW Champion", description: "Win the final duel in%%games of Parkour Warrior Survivor", icon: "parkour_warrior/parkour_warrior_champion", stat: "wins", game: "parkour_warrior", tiers: [
             { name: "I", amount: 1, trophies: 10 },
             { name: "II", amount: 3, trophies: 20 },
             { name: "III", amount: 5, trophies: 30 },
@@ -362,7 +362,7 @@ export const badges = {
             { name: "VI", amount: 45, trophies: 100 },
             { name: "VII", amount: 75, trophies: 125 },
         ]},
-        { name: "PKW Finalist", description: "Complete Leap 6 in games of Parkour Warrior Survivor", icon: "parkour_warrior/parkour_warrior_finalist", stat: "leap_6", suggestionStat: "leap_6/games_played", tiers: [
+        { name: "PKW Finalist", description: "Complete Leap 6 in%%games of Parkour Warrior Survivor", icon: "parkour_warrior/parkour_warrior_finalist", stat: "leap_6", game: "parkour_warrior", tiers: [
             { name: "I", amount: 10, trophies: 10 },
             { name: "II", amount: 25, trophies: 20 },
             { name: "III", amount: 60, trophies: 30 },
@@ -371,7 +371,7 @@ export const badges = {
             { name: "VI", amount: 375, trophies: 100 },
             { name: "VII", amount: 625, trophies: 125 },
         ]},
-        { name: "PKW Assassin", description: "Eliminate players in games of Parkour Warrior Survivor", icon: "parkour_warrior/parkour_warrior_ninja", stat: "kills", suggestionStat: "kills/games_played", tiers: [
+        { name: "PKW Assassin", description: "Eliminate players in%%games of Parkour Warrior Survivor", icon: "parkour_warrior/parkour_warrior_ninja", stat: "kills", game: "parkour_warrior", tiers: [
             { name: "I", amount: 100, trophies: 10 },
             { name: "II", amount: 350, trophies: 20 },
             { name: "III", amount: 800, trophies: 30 },
@@ -392,7 +392,7 @@ export const badges = {
         { name: "Ultimate Rocketeer", description: "Eliminate 5 players in a single game", icon: "rocket_spleef/ultimate_rocketeer", stat: "eliminate_5", trophies: 100 },
     ] as IslandBadge[],
     rocket_spleef_tiered: [
-        { name: "Rocket Spleef Champion", description: "Place 1st in games of Rocket Spleef Rush", icon: "rocket_spleef/rocket_spleef_champion", stat: "first_place", suggestionStat: "first_place/games_played", tiers: [
+        { name: "Rocket Spleef Champion", description: "Place 1st in%%games of Rocket Spleef Rush", icon: "rocket_spleef/rocket_spleef_champion", stat: "first_place", game: "rocket_spleef", tiers: [
             { name: "I", amount: 2, trophies: 10 },
             { name: "II", amount: 5, trophies: 20 },
             { name: "III", amount: 10, trophies: 30 },
@@ -401,7 +401,7 @@ export const badges = {
             { name: "VI", amount: 100, trophies: 100 },
             { name: "VII", amount: 150, trophies: 125 },
 		]},
-		{ name: "Rocket Spleef Expert", description: "Place in the top 5 in games of Rocket Spleef Rush", icon: "rocket_spleef/rocket_spleef_expert", stat: "top_five", suggestionStat: "top_five/games_played", tiers: [
+		{ name: "Rocket Spleef Expert", description: "Place in the top 5 in%%games of Rocket Spleef Rush", icon: "rocket_spleef/rocket_spleef_expert", stat: "top_five", game: "rocket_spleef", tiers: [
             { name: "I", amount: 10, trophies: 10 },
             { name: "II", amount: 30, trophies: 20 },
             { name: "III", amount: 75, trophies: 30 },
@@ -410,7 +410,7 @@ export const badges = {
             { name: "VI", amount: 450, trophies: 100 },
             { name: "VII", amount: 800, trophies: 125 },
         ]},
-		{ name: "Rocket Spleef Glider", description: "Survive for at least 1 minute in games of Rocket Spleef Rush", icon: "rocket_spleef/rocket_spleef_glider", stat: "survive_60s", suggestionStat: "survive_60s/games_played", tiers: [
+		{ name: "Rocket Spleef Glider", description: "Survive for at least 1 minute in%%games of Rocket Spleef Rush", icon: "rocket_spleef/rocket_spleef_glider", stat: "survive_60s", game: "rocket_spleef", tiers: [
             { name: "I", amount: 20, trophies: 10 },
             { name: "II", amount: 60, trophies: 20 },
             { name: "III", amount: 150, trophies: 30 },
@@ -419,7 +419,7 @@ export const badges = {
             { name: "VI", amount: 1000, trophies: 100 },
             { name: "VII", amount: 1500, trophies: 125 },
         ]},
-		{ name: "Rocket Spleef Warrior", description: "Land direct hits with rockets during games of Rocket Spleef Rush", icon: "rocket_spleef/rocket_spleef_warrior", stat: "rockets_hit", suggestionStat: "rockets_hit/games_played", tiers: [
+		{ name: "Rocket Spleef Warrior", description: "Land direct hits with%%rockets during games of Rocket Spleef Rush", icon: "rocket_spleef/rocket_spleef_warrior", stat: "rockets_hit", game: "rocket_spleef", tiers: [
             { name: "I", amount: 50, trophies: 10 },
             { name: "II", amount: 150, trophies: 20 },
             { name: "III", amount: 350, trophies: 30 },
@@ -428,7 +428,7 @@ export const badges = {
             { name: "VI", amount: 2500, trophies: 100 },
             { name: "VII", amount: 4000, trophies: 125 },
         ]},
-		{ name: "Rocket Spleef Survivor", description: "Outlive players during games of Rocket Spleef Rush", icon: "rocket_spleef/rocket_spleef_survivor", stat: "players_outlived", suggestionStat: "players_outlived/games_played", tiers: [
+		{ name: "Rocket Spleef Survivor", description: "Outlive%%players during games of Rocket Spleef Rush", icon: "rocket_spleef/rocket_spleef_survivor", stat: "players_outlived", game: "rocket_spleef", tiers: [
             { name: "I", amount: 150, trophies: 10 },
             { name: "II", amount: 500, trophies: 20 },
             { name: "III", amount: 1100, trophies: 30 },

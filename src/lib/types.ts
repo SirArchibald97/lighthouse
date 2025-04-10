@@ -463,11 +463,12 @@ export interface IslandBadge {
 }
 
 export interface IslandTieredBadge {
+    [key: string]: any
     name: string
     description: string
     icon: string
     stat: string
-    suggestionStat: string
+    game: string
     tiers: {
         name: string
         amount: number

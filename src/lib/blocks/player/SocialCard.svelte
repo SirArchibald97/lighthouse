@@ -38,7 +38,7 @@
         </div>
 
 		{#if activeTab === 'Friends'}
-			<div class="grid grow grid-cols-2 lg:grid-cols-3 gap-2 p-4">
+			<div class="grid grow grid-cols-2 lg:grid-cols-3 grid-rows-5 gap-2 p-4">
 				{#each player.social.friends.slice(currentIndex * 15, currentIndex * 15 + 15) as friend}
 					<a
 						href={`/player/${friend.username}/games`}

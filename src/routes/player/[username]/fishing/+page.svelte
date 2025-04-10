@@ -100,13 +100,13 @@
                             </div>
                         {/if}
                         {#if expandedSection === collection.name}
-                            <div transition:slide={{ duration: 400 }} class="text-lg p-4 border-t border-neutral-800">
+                            <div transition:slide={{ duration: 400 }} class="text-base md:text-lg p-4 border-t border-neutral-800">
                                 <div class="w-full divide-y divide-neutral-800">
                                     <FishingIslandStats {player} {collection} />
 
                                     <div class="pt-4 flex flex-col gap-y-2">
                                         {#each ["COMMON", "UNCOMMON", "RARE", "EPIC", "LEGENDARY", "MYTHIC"] as rarity}
-                                            <div class="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
+                                            <div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-4">
                                                 <!-- FISH -->
                                                 {#each (collection.type === "fish" ? 
                                                     player.collections.fish.filter(fish => fish.fish.collection === collection.name && fish.fish.rarity === rarity) : 
@@ -116,7 +116,7 @@
                                                         <img class="size-12 self-center" src={`https://cdn.islandstats.xyz/fishing/fish/${collection.type === "fish" ? fish.fish.collection.toLowerCase().replaceAll(" ", "_") : "crab_collection"}/${fish.fish.name.toLowerCase().replaceAll(" ", "_")}.png`} alt={fish.fish.name} />
                                                         <div class="flex flex-col w-full">
                                                             <div class="flex gap-x-4">
-                                                                <p class={`text-lg font-semibold ${getRarityColour(fish.fish.rarity)}`}>{fish.fish.name}</p>
+                                                                <p class={`text-md lg:text-lg font-semibold ${getRarityColour(fish.fish.rarity)}`}>{fish.fish.name}</p>
                                                                 <div class="flex gap-x-1">
                                                                     {#if collection.type === "crab"}
                                                                         {#each ["average", "large", "colossal"] as weight}
@@ -129,7 +129,7 @@
                                                                     {/if}
                                                                 </div>
                                                             </div>
-                                                            <p class="flex gap-x-2 text-neutral-400 text-base">
+                                                            <p class="flex gap-x-2 text-neutral-400 text-sm md:text-base">
                                                                 <span>Type: <span class="text-neutral-100">{fish.fish.elusive ? "Elusive" : "Normal"}</span></span>
                                                                 <span>•</span>
                                                                 <span>Catch Time: <span class="text-neutral-100">{fish.fish.catchTime.toLowerCase()[0].toUpperCase() + fish.fish.catchTime.toLowerCase().slice(1, fish.fish.catchTime.length)}</span></span>
