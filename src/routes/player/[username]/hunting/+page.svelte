@@ -48,13 +48,13 @@
                     <div class="mt-4 md:mt-0 w-full md:w-auto flex flex-col md:flex-row gap-y-2 gap-x-4 self-start">
                         <div class="flex gap-x-2">
                             <!-- tier -->
-                            <button onclick={() => forNextTier = !forNextTier} class="w-1/2 grow flex justify-center gap-x-2 px-2 py-2 border border-neutral-800 rounded-md hover:bg-neutral-800/60 duration-100 cursor-pointer">
+                            <button onclick={() => forNextTier = !forNextTier} class="w-1/2 md:w-auto flex justify-center gap-x-2 px-2 py-2 border border-neutral-800 rounded-md hover:bg-neutral-800/60 duration-100 cursor-pointer">
                                 <span class="size-5 self-center">{#if forNextTier}<ChevronRight />{:else}<ChevronDoubleRight />{/if}</span>
                                 <p class="self-center">{forNextTier ? "Next" : "Final"} Tier</p>
                             </button>
 
                             <!-- order -->
-                            <button onclick={cycleOrder} class="w-1/2 grow flex justify-center gap-x-2 px-2 py-2 border border-neutral-800 rounded-md hover:bg-neutral-800/60 duration-100 cursor-pointer">
+                            <button onclick={cycleOrder} class="w-1/2 md:w-auto flex justify-center gap-x-2 px-2 py-2 border border-neutral-800 rounded-md hover:bg-neutral-800/60 duration-100 cursor-pointer">
                                 <span class="size-5 self-center">
                                     {#if order === "Games Left"}
                                         <ChartBar />
