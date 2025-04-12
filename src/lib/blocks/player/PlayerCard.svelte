@@ -41,8 +41,8 @@
                     {#if player.status.server.category === "GAME"}
                         <p class="flex flex-row gap-x-2">
                             <span>Playing</span>
-                            <img class="size-6 self-center" src={`https://cdn.islandstats.xyz/games/${getStatusIcon(player.status.server.associatedGame)}/icon.png`} alt={`${player.status.server?.associatedGame} Icon`} />
-                            <span class="font-semibold">{getStatusString(player.status.server.associatedGame || player.status.server.subType)}</span>
+                            <img class="size-6 self-center" src={`https://cdn.islandstats.xyz/games/${getStatusIcon(player.status.server.associatedGame === "PARKOUR_WARRIOR" ? player.status.server.subType : player.status.server.associatedGame)}/icon.png`} alt={`${player.status.server?.associatedGame} Icon`} />
+                            <span class="font-semibold">{getStatusString(player.status.server.associatedGame === "PARKOUR_WARRIOR" ? player.status.server.subType : player.status.server.associatedGame)}</span>
                         </p>
                     {:else if player.status.server?.category === "LOBBY"}
                         <p class="flex flex-row gap-x-2">
@@ -53,7 +53,7 @@
                             {:else}
                                 <span>In the</span>
                                 <img class="size-6 self-center" src={`https://cdn.islandstats.xyz/games/${getStatusIcon(player.status.server.associatedGame) || "lobby"}/icon.png`} alt="Main Lobby Icon" />
-                                <span class="font-semibold">{getStatusString(player.status.server.associatedGame || player.status.server.subType) || "Main"} Lobby</span>
+                                <span class="font-semibold">{getStatusString(player.status.server.associatedGame) || "Main"} Lobby</span>
                             {/if}
                         </p>
                     {/if}
