@@ -61,14 +61,14 @@
                                     {#if gameIcon === "parkour_warrior/solo"}
                                         {calculateStatLeft(badge)}
                                     {:else}
-                                        {Math.round(calculateStatLeft(badge) / (stats[badge.stat] / (gameIcon === "parkour_warrior/solo" ? totalDojoRotations() : stats.games_played))).toLocaleString()}
+                                        {(Math.round(calculateStatLeft(badge) / (stats[badge.stat] / stats.games_played)) || "Unknown").toLocaleString()}
                                     {/if}
                                 </span> 
                                 <span class="text-neutral-500">
                                     {#if badge.game === "parkour_warrior/solo"}
                                         {!badge.name.includes("Leaper") ? `(${roundNumber(stats[badge.stat] / totalDojoRotations()).toLocaleString()} per rotation)` : ""}
                                     {:else}
-                                        ({roundNumber(stats[badge.stat] / stats.games_played).toLocaleString()} per game)
+                                        ({(roundNumber(stats[badge.stat] / stats.games_played) || 0).toLocaleString()} per game)
                                     {/if}
                                 </span>
                             </p>
