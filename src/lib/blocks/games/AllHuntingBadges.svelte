@@ -21,6 +21,15 @@
     function calculateStatLeft(badge: IslandTieredBadge) {
         return forNextTier ? calculateBadgeTier(stats[badge.game][badge.stat], badge.tiers).next.amount - stats[badge.game][badge.stat] : badge.tiers[badge.tiers.length - 1].amount - stats[badge.game][badge.stat];
     }
+
+    function totalDojoRotations() {
+        const currentTime = new Date().getTime();
+        const startTime = new Date("2023-08-20T00:00:00Z").getTime();
+        const timeDiff = currentTime - startTime;
+        const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+        const monthsDiff = Math.floor(daysDiff / 30);
+        return monthsDiff;
+    }
 </script>
 
 {#if badges.length === 0}
@@ -54,8 +63,20 @@
                                 <span>{badge.description.split("%%")[1]}</span>
                             </p>
                             <p class="mt-2 text-sm lg:text-base text-neutral-300">
-                                <span>Games Left:</span> <span class="font-semibold">~{Math.round(calculateStatLeft(badge) / (stats[badge.game][badge.stat] / stats[badge.game].games_played)).toLocaleString()}</span> 
-                                <span class="text-neutral-500">({roundNumber(stats[badge.game][badge.stat] / stats[badge.game].games_played).toLocaleString()} per game)</span>
+                                <span>Estimated {badge.game === "parkour_warrior/solo" ? "Completions" : "Games"} Left:</span> <span class="font-semibold">
+                                    {#if badge.game === "parkour_warrior/solo"}
+                                        {calculateStatLeft(badge)}
+                                    {:else}
+                                        {Math.round(calculateStatLeft(badge) / (stats[badge.game][badge.stat] / (badge.game === "parkour_warrior/solo" ? totalDojoRotations() : stats[badge.game].games_played))).toLocaleString()}
+                                    {/if}
+                                </span> 
+                                <span class="text-neutral-500">
+                                    {#if badge.game === "parkour_warrior/solo"}
+                                        {!badge.name.includes("Leaper") ? `(${roundNumber(stats[badge.game][badge.stat] / totalDojoRotations()).toLocaleString()} per rotation)` : ""}
+                                    {:else}
+                                        ({roundNumber(stats[badge.game][badge.stat] / stats[badge.game].games_played).toLocaleString()} per game)
+                                    {/if}
+                                </span>
                             </p>
                             <p class="flex gap-x-1 text-sm lg:text-base text-neutral-300">
                                 <img src="https://cdn.islandstats.xyz/icons/trophies/red.png" alt="Trophies Icon" class="size-5 self-center" />

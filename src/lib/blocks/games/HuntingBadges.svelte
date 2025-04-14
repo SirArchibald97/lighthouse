@@ -16,6 +16,15 @@
         return forNextTier ? calculateBadgeTier(stats[badge.stat], badge.tiers).next.amount - stats[badge.stat] : badge.tiers[badge.tiers.length - 1].amount - stats[badge.stat];
     }
 
+    function totalDojoRotations() {
+        const currentTime = new Date().getTime();
+        const startTime = new Date("2023-08-20T00:00:00Z").getTime();
+        const timeDiff = currentTime - startTime;
+        const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+        const monthsDiff = Math.floor(daysDiff / 30);
+        return monthsDiff;
+    }
+
     const sortedBadges = badges.filter(b => stats[b.stat] < b.tiers[b.tiers.length - 1].amount);
 </script>
 
@@ -27,7 +36,7 @@
 {:else}
     {#each sortedBadges.sort((a, b) => {
         if (sortedBy === "Games Left") {
-            return Math.round(calculateStatLeft(a) / (stats[a.stat] / stats.games_played)) - Math.round(calculateStatLeft(b) / (stats[b.stat] / stats.games_played));
+            return Math.round(calculateStatLeft(a) / (stats[a.stat] / (gameIcon === "parkour_warrior/solo" ? totalDojoRotations() : stats.games_played))) - Math.round(calculateStatLeft(b) / (stats[b.stat] / (gameIcon === "parkour_warrior/solo" ? totalDojoRotations() : stats.games_played)));
         } else if (sortedBy === "Stats Left") {
             return calculateStatLeft(a) - calculateStatLeft(b);
         } else if (sortedBy === "Trophies") {
@@ -48,8 +57,20 @@
                                 <span>{badge.description.split("%%")[1]}</span>
                             </p>
                             <p class="mt-2 text-sm lg:text-base text-neutral-300">
-                                <span>Games Left:</span> <span class="font-semibold">~{Math.round(calculateStatLeft(badge) / (stats[badge.stat] / stats.games_played)).toLocaleString()}</span> 
-                                <span class="text-neutral-500">({roundNumber(stats[badge.stat] / stats.games_played).toLocaleString()} per game)</span>
+                                <span>Estimated {gameIcon === "parkour_warrior/solo" ? "Completions" : "Games"} Left:</span> <span class="font-semibold">
+                                    {#if gameIcon === "parkour_warrior/solo"}
+                                        {calculateStatLeft(badge)}
+                                    {:else}
+                                        {Math.round(calculateStatLeft(badge) / (stats[badge.stat] / (gameIcon === "parkour_warrior/solo" ? totalDojoRotations() : stats.games_played))).toLocaleString()}
+                                    {/if}
+                                </span> 
+                                <span class="text-neutral-500">
+                                    {#if badge.game === "parkour_warrior/solo"}
+                                        {!badge.name.includes("Leaper") ? `(${roundNumber(stats[badge.stat] / totalDojoRotations()).toLocaleString()} per rotation)` : ""}
+                                    {:else}
+                                        ({roundNumber(stats[badge.stat] / stats.games_played).toLocaleString()} per game)
+                                    {/if}
+                                </span>
                             </p>
                             <p class="flex gap-x-1 text-sm lg:text-base text-neutral-300">
                                 <img src="https://cdn.islandstats.xyz/icons/trophies/red.png" alt="Trophies Icon" class="size-5 self-center" />
