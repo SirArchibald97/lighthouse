@@ -28,8 +28,8 @@ export function roundNumber(number: number) {
 }
 
 export function calculatePercentage(num1: number, num2: number) {
-    const percentage = Math.round(num1 / num2 * 100);
-    return percentage === 0 ? "<1" : percentage;
+    const percentage = num1 / num2 * 100;
+    return percentage > 0 && percentage < 1 ? "<1" : Math.round(percentage);
 }
 
 export function getRankIcon(ranks: string[]) {

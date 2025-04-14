@@ -33,16 +33,16 @@
             <div>
                 <p>Survived 1 Minute: 
                     <span class="tabular-nums font-semibold">{(stats.survive_1m - stats.survive_2m).toLocaleString()}</span>
-                    <span class="text-slate-500">({calculatePercentage(stats.survive_1m - stats.survive_2m, stats.games_played)}%)</span></p>
+                    <span class="text-neutral-500">({calculatePercentage(stats.survive_1m - stats.survive_2m, stats.games_played)}%)</span></p>
                 <p>Survived 2 Minutes: 
                     <span class="tabular-nums font-semibold">{(stats.survive_2m - stats.survive_3m).toLocaleString()}</span>
-                    <span class="text-slate-500">({calculatePercentage(stats.survive_2m - stats.survive_3m, stats.games_played)}%)</span></p>
+                    <span class="text-neutral-500">({calculatePercentage(stats.survive_2m - stats.survive_3m, stats.games_played)}%)</span></p>
                 <p>Survived 3 Minutes: 
                     <span class="tabular-nums font-semibold">{(stats.survive_3m - stats.survive_4m).toLocaleString()}</span>
-                    <span class="text-slate-500">({calculatePercentage(stats.survive_3m - stats.survive_4m, stats.games_played)}%)</span></p>
+                    <span class="text-neutral-500">({calculatePercentage(stats.survive_3m - stats.survive_4m, stats.games_played)}%)</span></p>
                 <p>Survived 4 Minutes: 
                     <span class="tabular-nums font-semibold">{stats.survive_4m.toLocaleString()}</span>
-                    <span class="text-slate-500">({calculatePercentage(stats.survive_4m, stats.games_played)}%)</span></p>
+                    <span class="text-neutral-500">({calculatePercentage(stats.survive_4m, stats.games_played)}%)</span></p>
             </div>
         </div>
         <div class="flex flex-col gap-y-4 justify-between">

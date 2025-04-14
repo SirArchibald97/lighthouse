@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { badges  } from "$lib/badges";
 	import type { ParkourWarriorSurvivorStatistics } from "$lib/types";
+	import { calculatePercentage } from "$lib/utils";
 	import TieredBadges from "./TieredBadges.svelte";
 
     let { stats }: { stats: ParkourWarriorSurvivorStatistics } = $props();
@@ -12,7 +13,10 @@
             <div>
                 <p>Games Won: <span class="tabular-nums font-semibold">{stats.wins.toLocaleString()}</span></p>
                 <p>Games Lost: <span class="tabular-nums font-semibold">{stats.losses.toLocaleString()}</span></p>
-                <p>WLR: <span class="tabular-nums font-semibold">{stats.wlr.toLocaleString()}</span></p>
+                <p>WLR: 
+                    <span class="tabular-nums font-semibold">{stats.wlr.toLocaleString()}</span>
+                    <span class="tabular-nums text-neutral-500">({calculatePercentage(stats.wins, stats.games_played)}%)</span>
+                </p>
             </div>
         </div>
         <div class="flex flex-col gap-y-4 justify-between">

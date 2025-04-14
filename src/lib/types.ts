@@ -82,6 +82,7 @@ export interface IslandFish {
 }
 
 export interface IslandFishWeight {
+    [key: string]: string
     weight: "AVERAGE" | "LARGE" | "MASSIVE" | "GARGANTUAN" | "COLOSSAL"
     firstCaught: string
 }
