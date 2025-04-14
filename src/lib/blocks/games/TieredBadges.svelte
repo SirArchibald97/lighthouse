@@ -44,6 +44,10 @@
             
                 {#if badge.tiers.indexOf(tier) !== badge.tiers.length - 1}<span class="text-neutral-600 pr-2 px-1">•</span>{/if}
             {/each}
+
+            {#if badge.tiers[badge.tiers.length - 1].amount < stats[badge.stat]}
+                <span class="text-green-600 self-center">({stats[badge.stat].toLocaleString()})</span>
+            {/if}
         </p>
     </div>
 {/each}

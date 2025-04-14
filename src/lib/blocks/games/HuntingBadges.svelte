@@ -18,10 +18,10 @@
 
     function totalDojoRotations() {
         const currentTime = new Date().getTime();
-        const startTime = new Date("2023-08-20T00:00:00Z").getTime();
+        const startTime = new Date("2023-06-20T00:00:00Z").getTime();
         const timeDiff = currentTime - startTime;
         const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-        const monthsDiff = Math.floor(daysDiff / 30);
+        const monthsDiff = Math.ceil(daysDiff / 30);
         return monthsDiff;
     }
 

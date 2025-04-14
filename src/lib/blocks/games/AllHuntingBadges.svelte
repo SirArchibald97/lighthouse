@@ -28,7 +28,7 @@
         const timeDiff = currentTime - startTime;
         const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
         const monthsDiff = Math.floor(daysDiff / 30);
-        return monthsDiff;
+        return monthsDiff + 3;
     }
 </script>
 
