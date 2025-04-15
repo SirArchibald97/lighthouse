@@ -67,7 +67,7 @@
                                     {#if badge.game === "parkour_warrior/solo"}
                                         {calculateStatLeft(badge)}
                                     {:else}
-                                        {(Math.round(calculateStatLeft(badge) / (stats[badge.game][badge.stat] / stats[badge.game].games_played)) || "Unknown").toLocaleString()}
+                                        {(Math.ceil(calculateStatLeft(badge) / (stats[badge.game][badge.stat] / stats[badge.game].games_played)) || "Unknown").toLocaleString()}
                                     {/if}
                                 </span> 
                                 <span class="text-neutral-500">
