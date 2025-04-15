@@ -51,10 +51,11 @@
         const islands = collections.filter(c => player.crownLevel.fishingLevelData.level >= c.level && (type === "grotto" ? grottos.includes(c.name) : (c.type === type && !grottos.includes(c.name))));
         const islandPoints = {} as { [island: string]: number };
         for (const island of islands) {
+            islandPoints[island.name] = 0;
             for (const fish of player.collections?.fish.filter(f => f.fish.collection === island.name) || []) {
                 const points = { "AVERAGE": 1, "LARGE": 2, "MASSIVE": 3, "GARGANTUAN": 4, "COLOSSAL": 4 } as { [weight: string]: number };
                 for (const weight of fish.weights) {
-                    islandPoints[island.name] = (islandPoints[island.name] || 0) + points[weight.weight];
+                    islandPoints[island.name] = islandPoints[island.name] + points[weight.weight];
                 }
             }
         }
