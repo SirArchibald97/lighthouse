@@ -36,12 +36,23 @@
 
     let expandedSection = $state("");
 
-    function getRecommendedIsland(player: Player) {
-        const islands = collections.filter(c => player.crownLevel.fishingLevelData.level >= c.level && c.type === "fish");
+    const recommendedTypes = {
+        "fish": "Fish",
+        "crab": "Crab Pots",
+        "grotto": "Grotto"
+    } as { [type: string]: string };
+    let recommendedType = $state("fish");
+    function cycleRecommendedType() {
+        const types = ["fish", "crab", "grotto"];
+        recommendedType = types[types.indexOf(recommendedType) + 1 >= types.length ? 0 : types.indexOf(recommendedType) + 1];
+    }
+    function getRecommendedIsland(player: Player, type: string) {
+        const grottos = ["Sunken Swamp", "Mirrored Oasis", "Volcanic Springs"];
+        const islands = collections.filter(c => player.crownLevel.fishingLevelData.level >= c.level && (type === "grotto" ? grottos.includes(c.name) : (c.type === type && !grottos.includes(c.name))));
         const islandPoints = {} as { [island: string]: number };
         for (const island of islands) {
             for (const fish of player.collections?.fish.filter(f => f.fish.collection === island.name) || []) {
-                const points = { "AVERAGE": 1, "LARGE": 2, "COLLOSAL": 3, "GARGANTUAN": 4 } as { [weight: string]: number };
+                const points = { "AVERAGE": 1, "LARGE": 2, "MASSIVE": 3, "GARGANTUAN": 4, "COLOSSAL": 4 } as { [weight: string]: number };
                 for (const weight of fish.weights) {
                     islandPoints[island.name] = (islandPoints[island.name] || 0) + points[weight.weight];
                 }
@@ -50,7 +61,7 @@
         
         let recommendedIsland = Object.entries(islandPoints)[0];
         for (const [name, points] of Object.entries(islandPoints)) {
-            if (points > recommendedIsland[1]) {
+            if (points < recommendedIsland[1]) {
                 recommendedIsland = [name, points];
             }
         }
@@ -78,9 +89,8 @@
                     
                             <span class="text-xl font-bold self-center">{player.crownLevel.fishingLevelData.level + 1}</span>
                         </div>
-                        <div class="flex flex-col items-center text-neutral-500 mt-2 gap-y-1">
-                            <p>
-                                <span>Progress: </span>
+                        <div class="flex justify-between gap-x-2 text-neutral-500 mt-2 gap-y-1 text-base">
+                            <p class="self-center">
                                 <span class="text-neutral-300 tabular-nums">
                                     {Math.round((player.crownLevel.fishingLevelData.nextLevelProgress.obtained / player.crownLevel.fishingLevelData.nextLevelProgress.obtainable * 100) * 10) / 10}%
                                 </span>
@@ -88,14 +98,14 @@
                                     ({player.crownLevel.fishingLevelData.nextLevelProgress.obtained.toLocaleString()}/{player.crownLevel.fishingLevelData.nextLevelProgress.obtainable.toLocaleString()})
                                 </span>
                             </p>
+                            <p> / </p>
                             <p class="flex flex-row gap-x-1.5 items-center">
-                                <span>Next evolution is </span>
-                                <span class="flex flex-row gap-x-1 text-neutral-300 border-2 border-neutral-700 rounded-md px-1 shadow-xl">
+                                <span class="flex flex-row gap-x-1 text-neutral-300">
                                     <img src={`https://cdn.islandstats.xyz/fishing/level/${player.crownLevel.fishingLevelData.evolution + 1}.png`} alt={`Crown Level ${player.crownLevel.fishingLevelData.evolution} Icon`} class="size-5 self-center" />
                                     <span class="font-semibold tabular-nums">{player.crownLevel.fishingLevelData.nextEvolutionLevel}</span>
                                 </span>
                                 <span>in</span>
-                                <span class="flex flex-row gap-x-1 text-neutral-300 border-2 border-neutral-700 rounded-md px-1 shadow-xl">
+                                <span class="flex flex-row gap-x-1 text-neutral-300">
                                     <img src={`https://cdn.islandstats.xyz/icons/trophies/blue.png`} alt="Trophy Icon" class="size-5 self-center" />
                                     <span class="font-semibold tabular-nums">{calculateTrophiesToNextEvolution("fishing", player.trophies.angler.total, player.crownLevel.fishingLevelData.nextEvolutionLevel).toLocaleString()}</span>
                                 </span>
@@ -104,26 +114,36 @@
                     </div>
                     <div class="pt-4 flex flex-col">
                        {#if player.collections.fish}
-                            {@const recommendedIsland = getRecommendedIsland(player)}
+                            {@const recommendedIsland = getRecommendedIsland(player, recommendedType)}
                             {#if recommendedIsland}
-                                <p class="text-xl font-semibold">Recommended Island</p>
-                                <div class="flex gap-x-3">
-                                    <img src="https://cdn.islandstats.xyz/fishing/islands/{recommendedIsland?.icon}.png" alt="Fishing Game Icon" class="size-14 lg:size-16 self-center" />
-                                    <div class="flex flex-col gap-y-1 self-center">
-                                        <p class="text-base font-semibold">{recommendedIsland?.name}</p>
-                                        <div class="grid grid-cols-2 xl:flex gap-x-4">
-                                            {#each ["AVERAGE", "LARGE", "MASSIVE", "GARGANTUAN"] as weight}
-                                                <p class="flex gap-x-2 tabular-nums">
-                                                    <img src={`https://cdn.islandstats.xyz/fishing/stars/${weight.toLowerCase()}.png`} alt={``} class="size-6" />
-                                                    <span>
-                                                        {player.collections.fish.filter(f => f.fish.collection === recommendedIsland?.name && f.weights.find(w => w.weight === weight)).length}
-                                                        /
-                                                        {player.collections.fish.filter(f => f.fish.collection === recommendedIsland?.name).length}
-                                                    </span>
-                                                </p>
-                                            {/each}
+                                <div class="flex justify-between">
+                                    <div class="flex flex-col gap-y-1">
+                                        <p class="text-xl font-semibold">Recommended Island</p>   
+                                        <div class="flex gap-x-3">
+                                            <img src="https://cdn.islandstats.xyz/fishing/islands/{recommendedIsland?.icon}.png" alt="Fishing Game Icon" class="size-14 lg:size-16 self-center" />
+                                            <div class="flex flex-col gap-y-1 self-center">
+                                                <div class="flex gap-x-3">
+                                                    <p class="text-lg font-semibold">{recommendedIsland?.name}</p>
+                                                    <p class="text-sm self-center px-3 border rounded-full {climateStyles[recommendedIsland.climate]}">{recommendedIsland.climate[0] + recommendedIsland.climate.slice(1).toLowerCase()}</p>
+                                                </div>  
+                                                <div class="grid grid-cols-2 xl:flex gap-x-4">
+                                                    {#each (recommendedType === "crab" ? ["AVERAGE", "LARGE", "COLOSSAL"] : ["AVERAGE", "LARGE", "MASSIVE", "GARGANTUAN"]) as weight}
+                                                        <p class="flex gap-x-2 tabular-nums">
+                                                            <img src={`https://cdn.islandstats.xyz/fishing/stars/${(weight === "COLOSSAL" ? "GARGANTUAN" : weight).toLowerCase()}.png`} alt={``} class="size-6 self-center" />
+                                                            <span>
+                                                                {player.collections.fish.filter(f => f.fish.collection === recommendedIsland?.name && f.weights.find(w => w.weight === weight)).length}
+                                                                /
+                                                                {player.collections.fish.filter(f => f.fish.collection === recommendedIsland?.name).length}
+                                                            </span>
+                                                        </p>
+                                                    {/each}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+                                    <button onclick={cycleRecommendedType} class="flex gap-x-1 self-start border border-neutral-800 rounded-md px-2 py-1 hover:bg-neutral-800/50 duration-100 cursor-pointer">
+                                        {recommendedTypes[recommendedType]}
+                                    </button>
                                 </div>
                             {/if}
                        {/if}
@@ -131,8 +151,7 @@
                 </div>
 
                 <!-- fishing islands overview -->
-                <div class="w-full lg:w-3/5 flex flex-col gap-y-4 items-center p-4 border border-neutral-800 rounded-md">
-                    <p class="font-semibold text-2xl self-start">Fishing Overview</p>
+                <div class="w-full lg:w-3/5 flex flex-col justify-center gap-y-4 items-center p-4 border border-neutral-800 rounded-md">
                     <div class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-4 w-full">
                         {#each collections as collection}
                             {#if player.crownLevel.fishingLevelData.level >= collection.level}
