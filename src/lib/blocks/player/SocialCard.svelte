@@ -94,7 +94,7 @@
 					</a>
 				{/each}
 			</div>
-			<div class="flex h-14 flex-row justify-center gap-x-6">
+			<div class="flex h-12 flex-row justify-center gap-x-6">
 				<button
 					onclick={() => selectPage(currentIndex - 1)}
 					class="size-6 cursor-pointer self-center rounded-md border border-neutral-800 p-1 hover:border-transparent hover:bg-neutral-800"
