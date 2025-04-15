@@ -21,9 +21,8 @@
     
             <span class="text-xl font-bold self-center">{player.crownLevel.levelData.level + 1}</span>
         </div>
-        <div class="flex flex-col items-center text-neutral-500 mt-2 gap-y-1">
-            <p>
-                <span>Progress: </span>
+        <div class="flex gap-x-2 justify-center text-neutral-500 mt-2 gap-y-1 text-base">
+            <p class="self-center">
                 <span class="text-neutral-300 tabular-nums">
                     {Math.round((player.crownLevel.levelData.nextLevelProgress.obtained / player.crownLevel.levelData.nextLevelProgress.obtainable * 100) * 10) / 10}%
                 </span>
@@ -31,14 +30,14 @@
                     ({player.crownLevel.levelData.nextLevelProgress.obtained.toLocaleString()}/{player.crownLevel.levelData.nextLevelProgress.obtainable.toLocaleString()})
                 </span>
             </p>
+            <p> / </p>
             <p class="flex gap-x-1.5 items-center">
-                <span>Next evolution is </span>
-                <span class="flex flex-row gap-x-1 text-neutral-300 border-2 border-neutral-700 rounded-md px-1 shadow-xl">
+                <span class="flex flex-row gap-x-1 text-neutral-300">
                     <img src={`https://cdn.islandstats.xyz/icons/crowns/${player.crownLevel.levelData.evolution + 1}.png`} alt={`Crown Level ${player.crownLevel.levelData.evolution} Icon`} class="size-5 self-center" />
                     <span class="font-semibold tabular-nums">{player.crownLevel.levelData.nextEvolutionLevel}</span>
                 </span>
                 <span>in</span>
-                <span class="flex flex-row gap-x-1 text-neutral-300 border-2 border-neutral-700 rounded-md px-1 shadow-xl">
+                <span class="flex flex-row gap-x-1 text-neutral-300">
                     <img src={`https://cdn.islandstats.xyz/icons/trophies/yellow.png`} alt="Trophy Icon" class="size-5 self-center" />
                     <span class="font-semibold tabular-nums">{calculateTrophiesToNextEvolution("crown", player.trophies.total, player.crownLevel.levelData.nextEvolutionLevel).toLocaleString()}</span>
                 </span>
