@@ -8,6 +8,7 @@
     --animate-fade-fast: fade 0.1s ease-in-out;
     --animate-fade: fade 0.5s ease-in-out;
     --animate-fade-slow: fade 1.5s ease-in-out;
+    --animate-pallette-in: fade 0.3s cubic-bezier(0,0,0,1);
     @keyframes fade {
         0% {
             opacity: 0%;

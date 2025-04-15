@@ -35,7 +35,7 @@
         <div id="command-menu" class="relative z-10" role="dialog" aria-modal="true">
             <div class="fixed inset-0 bg-gray-500/15 transition-opacity" aria-hidden="true"></div>
 
-            <div class="fixed inset-0 z-10 w-screen overflow-y-auto p-4 sm:p-6 md:p-20 text-neutral-100 animate-fade">
+            <div class="fixed inset-0 z-10 w-screen overflow-y-auto p-4 sm:p-6 md:p-20 text-neutral-100 animate-pallette-in">
                 <div class="mx-auto max-w-xl transform bg-neutral-950 divide-y divide-neutral-800 overflow-hidden rounded-xl shadow-2xl ring-1 ring-black/5 transition-all">
                     <div class="grid grid-cols-1">
                         <form method="POST" action="?/getPlayer" class="col-start-1 row-start-1">
