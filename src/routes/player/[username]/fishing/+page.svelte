@@ -257,7 +257,7 @@
             <div class="flex flex-row items-center justify-center py-16 rounded-lg bg-neutral-950/40 text-neutral-400">
                 <div class="flex flex-col gap-y-1">
                     <img
-                        src="https://cdn.collectionstats.xyz/icons/warnings/orange.png"
+                        src="https://cdn.islandstats.xyz/icons/warnings/orange.png"
                         alt="Orange warning icon"
                         class="size-8 self-center"
                     />
