@@ -74,7 +74,7 @@
                             </p>
                             <p class="flex gap-x-1 text-sm lg:text-base text-neutral-300">
                                 <img src="https://cdn.islandstats.xyz/icons/trophies/red.png" alt="Trophies Icon" class="size-5 self-center" />
-                                <span class="font-semibold">{calculateBadgeTier(stats[badge.stat], badge.tiers).next.trophies}</span>
+                                <span class="font-semibold tabular-nums">{calculateBadgeTier(stats[badge.stat], badge.tiers).next.trophies}</span>
                                 <span>for next tier</span> 
                             </p>
                         </div>

@@ -111,7 +111,7 @@
                         <HuntingBadges stats={player.statistics.sky_battle.quads} badges={badges.sky_battle_tiered} gameIcon="sky_battle" {forNextTier} sortedBy={order} all={false} />
                     {:else if gameFilter.label === "TGTTOS"}
                         <HuntingBadges stats={player.statistics.tgttos} badges={badges.tgttos_tiered} gameIcon="tgttos" {forNextTier} sortedBy={order} all={false} />
-                    {:else if gameFilter.label === "Hole in the Wall"}
+                    {:else if gameFilter.label === "HITW"}
                         <HuntingBadges stats={player.statistics.hitw} badges={badges.hitw_tiered} gameIcon="hitw" {forNextTier} sortedBy={order} all={false} />
                     {:else if gameFilter.label === "Dynaball"}
                         <HuntingBadges stats={player.statistics.dynaball} badges={badges.dynaball_tiered} gameIcon="dynaball" {forNextTier} sortedBy={order} all={false} />

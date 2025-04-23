@@ -11,9 +11,26 @@
 	import Dojo from '$lib/blocks/games/Dojo.svelte';
 	import Survivor from '$lib/blocks/games/Survivor.svelte';
 	import RocketSpleef from '$lib/blocks/games/RocketSpleef.svelte';
+	import { onMount } from 'svelte';
 	let { data }: PageProps = $props();
 
     let expandedSection: string | null = $state(null);
+
+    onMount(async () => {
+        const player = await data.streamed.player;
+        const recentSearches = localStorage.getItem("searches")?.split(",") || [];
+
+        if (!recentSearches.includes(`${player?.username}:${player?.uuid}`)) {
+            if (recentSearches.length >= 5) {
+                recentSearches.pop();
+            }
+            recentSearches.unshift(`${player?.username}:${player?.uuid}`);
+        } else {
+            recentSearches.splice(recentSearches.indexOf(`${player?.username}:${player?.uuid}`), 1);
+            recentSearches.unshift(`${player?.username}:${player?.uuid}`);
+        }
+        localStorage.setItem("searches", recentSearches.join(","));
+    });
 </script>
 
 {#await data.streamed.player then player}

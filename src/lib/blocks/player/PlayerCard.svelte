@@ -22,14 +22,14 @@
 		<span class="relative inline-block">
 			<img
 				class="size-16 rounded-md"
-				src={`https://mc-heads.net/avatar/${player?.uuid}/128`}
+				src="https://crafatar.com/avatars/{player.uuid}?overlay"
 				alt={`${player.username}'s Skin`}
 			/>
-			<span class="absolute right-1 bottom-1 block translate-x-1/2 translate-y-1/2 transform rounded-full border-4 border-neutral-950">
-				{#if player.status}
-                    <span class={`block size-3 rounded-full ${player.status.online ? "bg-green-400" : "bg-red-400"}`}></span>
-                {/if}
-			</span>
+            {#if player.status}
+                <span class="absolute right-1 bottom-1 block translate-x-1/2 translate-y-1/2 transform rounded-full border-4 border-neutral-950">
+                        <span class={`block size-3 rounded-full ${player.status.online ? "bg-green-400" : "bg-red-400"}`}></span>
+                </span>
+            {/if}
 		</span>
 		<div class="self-center flex flex-col gap-y-1">
 			<div class="flex flex-row gap-x-2">
@@ -48,12 +48,12 @@
                         <p class="flex flex-row gap-x-2">
                             {#if player.status.server.subType === "fishing"}
                                 <span>On a</span>
-                                <img class="size-6 self-center" src={`https://cdn.islandstats.xyz/games/fishing/icon.png`} alt="Fishing Rod Icon" />
+                                <img class="size-6 self-center" src="https://cdn.islandstats.xyz/games/fishing/icon.png" alt="Fishing Game Icon" />
                                 <span class="font-semibold">Fishing Island</span>
                             {:else}
-                                <span>In the</span>
-                                <img class="size-6 self-center" src={`https://cdn.islandstats.xyz/games/${getStatusIcon(player.status.server.associatedGame) || "lobby"}/icon.png`} alt="Main Lobby Icon" />
-                                <span class="font-semibold">{getStatusString(player.status.server.associatedGame) || "Main"} Lobby</span>
+                                <span>On the</span>
+                                <img class="size-6 self-center" src="https://cdn.islandstats.xyz/games/lobby/icon.png" alt="Main Island Icon" />
+                                <span class="font-semibold">Main Island</span>
                             {/if}
                         </p>
                     {/if}

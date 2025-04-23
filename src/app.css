@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+@plugin 'flowbite/plugin';
 
 @theme {
     --font-sans: InterVariable, sans-serif;
@@ -24,3 +25,10 @@
 input {
     @apply border-transparent focus:ring-0
 }
+
+@layer base {
+    button, [role="button"] {
+        cursor: pointer;
+    }
+}
+@source "../node_modules/flowbite-svelte/dist";

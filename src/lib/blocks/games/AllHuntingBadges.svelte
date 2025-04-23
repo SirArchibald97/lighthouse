@@ -32,7 +32,7 @@
     }
 </script>
 
-{#if badges.length === 0}
+{#if badges.filter(b => stats[b.game][b.stat] < b.tiers[b.tiers.length - 1].amount).length === 0}
     <div class="flex gap-x-2 px-1 text-lg">
         <img src="https://cdn.discordapp.com/emojis/1042056406997663844.webp" alt="Trophies Icon" class="size-6 self-center" />
         <p>All badges complete!</p>
@@ -80,7 +80,7 @@
                             </p>
                             <p class="flex gap-x-1 text-sm lg:text-base text-neutral-300">
                                 <img src="https://cdn.islandstats.xyz/icons/trophies/red.png" alt="Trophies Icon" class="size-5 self-center" />
-                                <span class="font-semibold">{calculateBadgeTier(stats[badge.game][badge.stat], badge.tiers).next.trophies}</span>
+                                <span class="font-semibold tabular-nums">{calculateBadgeTier(stats[badge.game][badge.stat], badge.tiers).next.trophies}</span>
                                 <span>for next tier</span> 
                             </p>
                         </div>

@@ -4,7 +4,7 @@
 	import Error from '$lib/blocks/Error.svelte';
 	import type { LayoutProps } from './$types';
 	import PlayerCard from '$lib/blocks/player/PlayerCard.svelte';
-	import InfoCard from '$lib/blocks/player/InfoCard.svelte';
+	import StatsCard from '$lib/blocks/player/StatsCard.svelte';
 	import SocialCard from '$lib/blocks/player/SocialCard.svelte';
 	import ChevronUpDown from '$lib/icons/ChevronUpDown.svelte';
 	import { slide } from 'svelte/transition';
@@ -26,7 +26,7 @@
 		<title>Fetching player...</title>
 	{:then player}
 		<title>{player?.username} • Lighthouse</title>
-		<link rel="icon" href={`https://mc-heads.net/avatar/${player?.uuid}/128`} />
+		<link rel="icon" href="https://crafatar.com/avatars/{player?.uuid}?overlay" />
 	{:catch error}
 		<title>Error!</title>
 	{/await}
@@ -43,7 +43,7 @@
 					<div class="flex flex-col gap-4 xl:flex-row">
 						<div class="flex w-full flex-col gap-y-4 xl:w-1/3">
 							<PlayerCard {player} />
-							<InfoCard {player} />
+							<StatsCard {player} />
 						</div>
 						<div class="w-full xl:w-2/3">
 							<SocialCard {player} />

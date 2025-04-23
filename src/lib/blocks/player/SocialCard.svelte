@@ -1,19 +1,17 @@
 <script lang="ts">
     import ChevronLeft from '$lib/icons/ChevronLeft.svelte';
 	import ChevronRight from '$lib/icons/ChevronRight.svelte';
-	import ChevronUpDown from '$lib/icons/ChevronUpDown.svelte';
 	import Star from '$lib/icons/Star.svelte';
 	import type { Player } from '$lib/types';
-	import { getRankIcon, getStatusIcon } from '$lib/utils';
+	import { getRankIcon, getStatusIcon, getStatusString } from '$lib/utils';
+    import { Tooltip } from "flowbite-svelte";
+	import { fade } from 'svelte/transition';
 
-	export let player: Player | undefined;
+    let { player }: { player: Player | undefined } = $props();
 
-	let activeTab = 'Friends';
-	function setTab(newTab: string) {
-		activeTab = newTab;
-	}
+	let activeTab = $state('Friends');
 
-	let currentIndex = 0;
+	let currentIndex = $state(0);
 	function selectPage(index: number) {
 		if (index < 0) index = Math.ceil(player?.social?.friends.length! / 15) - 1;
 		if (index >= Math.ceil(player?.social?.friends.length! / 15)) index = 0;
@@ -37,6 +35,7 @@
             {/each}
         </div>
 
+        <!-- FRIENDS -->  
 		{#if activeTab === 'Friends'}
 			<div class="grid grow grid-cols-2 lg:grid-cols-3 grid-rows-5 gap-2 p-4">
 				{#each player.social.friends.slice(currentIndex * 15, currentIndex * 15 + 15) as friend}
@@ -47,7 +46,7 @@
 						<div class="flex flex-row gap-x-2 self-center">
 							<span class="relative">
 								<img
-									src={`https://mc-heads.net/avatar/${friend.uuid}/128`}
+									src="https://crafatar.com/avatars/{friend.uuid}?overlay"
 									alt={`${friend.username}'s Skin'`}
 									class="size-7 2xl:size-8 rounded-sm"
 								/>
@@ -60,34 +59,43 @@
 							<img
 								src={`https://cdn.islandstats.xyz/ranks/${getRankIcon(friend.ranks)}.png`}
 								alt={`${getRankIcon(friend.ranks)} Rank Icon`}
-								class="hidden xl:flex size-7 2xl:size-8 rounded-sm bg-neutral-700"
+								class="hidden 2xl:flex size-7 2xl:size-8 rounded-sm bg-neutral-700"
 							/>
 							<p class="self-center text-base 2xl:text-lg">{friend.username}</p>
 						</div>
 						{#if friend.status}
 							{#if friend.status.online}
 								{#if friend.status.server.category === 'GAME'}
-									<img
-										src={`https://cdn.islandstats.xyz/games/${getStatusIcon(friend.status.server.associatedGame)}/icon.png`}
-										alt={`${friend.status.server?.associatedGame} Icon`}
+                                    <img
+                                        src={`https://cdn.islandstats.xyz/games/${getStatusIcon(friend.status.server.associatedGame === "PARKOUR_WARRIOR" ? friend.status.server.subType : friend.status.server.associatedGame)}/icon.png`}
+                                        alt={`${friend.status.server.associatedGame} Icon`}
                                         class="hidden lg:flex size-6 self-center"
-									/>
-								{:else if friend.status.server?.category === 'LOBBY'}
-									<p class="flex flex-row gap-x-2">
+                                    />
+                                    <Tooltip arrow={false} type="custom" class="text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md duration-75">
+                                        {getStatusString(friend.status.server.associatedGame === "PARKOUR_WARRIOR" ? friend.status.server.subType : friend.status.server.associatedGame)}
+                                    </Tooltip>
+								{:else if friend.status.server.category === 'LOBBY'}
+									<div class="flex flex-row gap-x-2">
 										{#if friend.status.server.subType === 'fishing'}
-											<img
-												src={`https://cdn.islandstats.xyz/games/fishing/icon.png`}
-												alt="Fishing Rod Icon"
+                                            <img
+                                                src={`https://cdn.islandstats.xyz/games/fishing/icon.png`}
+                                                alt="Fishing Rod Icon"
                                                 class="hidden lg:flex size-6 self-center"
-											/>
+                                            />
+                                            <Tooltip transition={fade} params={{ duration: 100 }} arrow={false} type="custom" placement="top" class="text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md duration-75">
+                                                Fishing
+                                            </Tooltip>
 										{:else}
-											<img
-												src={`https://cdn.islandstats.xyz/games/${getStatusIcon(friend.status.server.associatedGame) || 'lobby'}/icon.png`}
-												alt="Main Lobby Icon"
+                                            <img
+                                                src="https://cdn.islandstats.xyz/games/lobby/icon.png"
+                                                alt="Main Island Icon"
                                                 class="hidden lg:flex size-6 self-center"
-											/>
+                                            />
+                                            <Tooltip transition={fade} params={{ duration: 100 }} arrow={false} type="custom" placement="top" class="text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md duration-75">
+                                                Main Island
+                                            </Tooltip>
 										{/if}
-									</p>
+                                    </div>
 								{/if}
 							{/if}
 						{/if}
@@ -109,6 +117,9 @@
 					><ChevronRight /></button
 				>
 			</div>
+
+
+        <!-- PARTY -->    
 		{:else if activeTab === 'Party'}
 			{#if player.social.party.active}
 				<div class="flex flex-col gap-2 p-4">
@@ -120,7 +131,7 @@
 							<div class="flex flex-row gap-x-2">
 								<span class="relative">
 									<img
-										src={`https://mc-heads.net/avatar/${member.uuid}/128`}
+										src="https://crafatar.com/avatars/{member.uuid}?overlay"
 										alt={``}
 										class="size-8 rounded-sm"
 									/>
@@ -143,11 +154,16 @@
 							{#if member.status}
 								{#if member.status.online}
 									{#if member.status.server.category === 'GAME'}
-										<img
-											class="size-8 self-center"
-											src={`https://cdn.islandstats.xyz/games/${getStatusIcon(member.status.server.associatedGame)}/icon.png`}
-											alt={`${member.status.server?.associatedGame} Icon`}
-										/>
+										<div class="flex flex-col">
+                                            <img
+                                                class="size-8 self-center"
+                                                src={`https://cdn.islandstats.xyz/games/${getStatusIcon(member.status.server.associatedGame === "PARKOUR_WARRIOR" ? member.status.server.subType : member.status.server.associatedGame)}/icon.png`}
+                                                alt={`${member.status.server?.associatedGame} Icon`}
+                                            />
+                                            <Tooltip arrow={false} type="custom" class="text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md duration-75">
+                                                {getStatusString(member.status.server.associatedGame === "PARKOUR_WARRIOR" ? member.status.server.subType : member.status.server.associatedGame)}
+                                            </Tooltip>
+                                        </div>
 									{:else if member.status.server?.category === 'LOBBY'}
 										<p class="flex flex-row gap-x-2">
 											{#if member.status.server.subType === 'fishing'}
@@ -156,12 +172,18 @@
 													src={`https://cdn.islandstats.xyz/games/fishing/icon.png`}
 													alt="Fishing Rod Icon"
 												/>
+                                                <Tooltip arrow={false} type="custom" class="text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md duration-75">
+                                                    Fishing
+                                                </Tooltip>
 											{:else}
 												<img
 													class="size-8 self-center"
 													src={`https://cdn.islandstats.xyz/games/${getStatusIcon(member.status.server.associatedGame) || 'lobby'}/icon.png`}
 													alt="Main Lobby Icon"
 												/>
+                                                <Tooltip arrow={false} type="custom" class="text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md duration-75">
+                                                    {getStatusString(member.status.server.associatedGame) || "Main"} Lobby
+                                                </Tooltip>
 											{/if}
 										</p>
 									{/if}

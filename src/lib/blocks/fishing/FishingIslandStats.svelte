@@ -2,10 +2,10 @@
 	import type { Player } from "$lib/types";
 	import { calculatePercentage, caughtWeightsForIsland, earnedTrophiesForIsland, getCrownColour, getCrownColourHex, totalTrophiesForIsland } from "$lib/utils";
 
-    const { player, collection }: { player: Player, collection: { name: string, climate: string, icon: string, level: number, type: "fish" | "crab" } } = $props();
+    const { player, collection }: { player: Player, collection: { name: string, climate: string, icon: string, level: number, type: "fish" | "crab" | "grotto" } } = $props();
 </script>
 
-<div class="w-full flex flex-col lg:grid lg:grid-cols-2 xl:grid-cols-3 gap-x-4 gap-y-4 pb-4">
+<div class="w-full flex flex-col lg:grid lg:grid-cols-3 gap-2">
     <!-- TROPHIES -->
     <div class="flex gap-x-4 border border-neutral-800 rounded-md p-2">
         <span 
@@ -75,10 +75,10 @@
                 <p class="text-base">
                     <span>{caughtWeightsForIsland(player.collections!.fish, collection.name)}</span>
                     <span> / </span>
-                    <span>{player.collections!.fish.filter(f => f.fish.collection === collection.name).length * (collection.type === "fish" ? 4 : 3)}</span>
+                    <span>{player.collections!.fish.filter(f => f.fish.collection === collection.name).length * (collection.type === "crab" ? 3 : 4)}</span>
                     <span class="text-neutral-500">({calculatePercentage(
                         caughtWeightsForIsland(player.collections!.fish, collection.name),
-                        player.collections!.fish.filter(f => f.fish.collection === collection.name).length * (collection.type === "fish" ? 4 : 3)
+                        player.collections!.fish.filter(f => f.fish.collection === collection.name).length * (collection.type === "crab" ? 3 : 4)
                     )}%)</span>
                 </p>
             </div>
