@@ -132,7 +132,7 @@
                         alt="Orange warning icon"
                         class="size-8 self-center"
                     />
-                    <p class="text-lg">Statistics disabled!</p>
+                    <p class="text-lg">Statistics are disabled!</p>
                 </div>
             </div>
         {/if}

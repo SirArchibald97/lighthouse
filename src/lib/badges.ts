@@ -297,7 +297,7 @@ export const badges = {
         ]}
     ] as IslandTieredBadge[],
     dojo_tiered: [
-        { name: "Standard Completionist", description: "Perform a Standard completion on all courses of%%PKW Dojo rotation", icon: "parkour_warrior/pkw_standard_completionist", stat: "unique_rot_standard", game: "parkour_warrior/solo", tiers: [
+        { name: "Standard Completionist", description: "Perform a Standard completion on all courses of%%Parkour Warrior Dojo rotation", icon: "parkour_warrior/pkw_standard_completionist", stat: "unique_rot_standard", game: "parkour_warrior/solo", tiers: [
             { name: "I", amount: 1, trophies: 10 },
             { name: "II", amount: 2, trophies: 20 },
             { name: "III", amount: 3, trophies: 30 },
@@ -306,7 +306,7 @@ export const badges = {
             { name: "VI", amount: 10, trophies: 100 },
             { name: "VII", amount: 15, trophies: 125 },
         ]},
-        { name: "Advanced Completionist", description: "Perform an Advanced completion on all courses of%%PKW Dojo rotation", icon: "parkour_warrior/pkw_advanced_completionist", stat: "unique_rot_advanced", game: "parkour_warrior/solo", tiers: [
+        { name: "Advanced Completionist", description: "Perform an Advanced completion on all courses of%%Parkour Warrior Dojo rotation", icon: "parkour_warrior/pkw_advanced_completionist", stat: "unique_rot_advanced", game: "parkour_warrior/solo", tiers: [
             { name: "I", amount: 1, trophies: 10 },
             { name: "II", amount: 2, trophies: 20 },
             { name: "III", amount: 3, trophies: 30 },
@@ -315,7 +315,7 @@ export const badges = {
             { name: "VI", amount: 10, trophies: 100 },
             { name: "VII", amount: 15, trophies: 125 },
         ]},
-        { name: "Expert Completionist", description: "Perform an Expert completion on all courses of%%PKW Dojo rotation", icon: "parkour_warrior/pkw_expert_completionist", stat: "unique_rot_expert", game: "parkour_warrior/solo", tiers: [
+        { name: "Expert Completionist", description: "Perform an Expert completion on all courses of%%Parkour Warrior Dojo rotation", icon: "parkour_warrior/pkw_expert_completionist", stat: "unique_rot_expert", game: "parkour_warrior/solo", tiers: [
             { name: "I", amount: 1, trophies: 10 },
             { name: "II", amount: 2, trophies: 20 },
             { name: "III", amount: 3, trophies: 30 },
@@ -324,7 +324,7 @@ export const badges = {
             { name: "VI", amount: 10, trophies: 100 },
             { name: "VII", amount: 15, trophies: 125 },
         ]},
-        { name: "Standard Leaper", description: "Perform Standard completions on%%unique PKW Dojo courses", icon: "parkour_warrior/pkw_standard_leaper", stat: "unique_standard", game: "parkour_warrior/solo", tiers: [
+        { name: "Standard Leaper", description: "Perform Standard completions on%%unique Parkour Warrior Dojo courses", icon: "parkour_warrior/pkw_standard_leaper", stat: "unique_standard", game: "parkour_warrior/solo", tiers: [
             { name: "I", amount: 7, trophies: 10 },
             { name: "II", amount: 15, trophies: 20 },
             { name: "III", amount: 25, trophies: 30 },
@@ -333,7 +333,7 @@ export const badges = {
             { name: "VI", amount: 125, trophies: 100 },
             { name: "VII", amount: 200, trophies: 125 },
         ]},
-        { name: "Advanced Leaper", description: "Perform Advanced completions on%%unique PKW Dojo courses", icon: "parkour_warrior/pkw_advanced_leaper", stat: "unique_advanced", game: "parkour_warrior/solo", tiers: [
+        { name: "Advanced Leaper", description: "Perform Advanced completions on%%unique Parkour Warrior Dojo courses", icon: "parkour_warrior/pkw_advanced_leaper", stat: "unique_advanced", game: "parkour_warrior/solo", tiers: [
             { name: "I", amount: 7, trophies: 10 },
             { name: "II", amount: 15, trophies: 20 },
             { name: "III", amount: 25, trophies: 30 },
@@ -342,7 +342,7 @@ export const badges = {
             { name: "VI", amount: 125, trophies: 100 },
             { name: "VII", amount: 200, trophies: 125 },
         ]},
-        { name: "Expert Leaper", description: "Perform Expert completions on%%unique PKW Dojo courses", icon: "parkour_warrior/pkw_expert_leaper", stat: "unique_expert", game: "parkour_warrior/solo", tiers: [
+        { name: "Expert Leaper", description: "Perform Expert completions on%%unique Parkour Warrior Dojo courses", icon: "parkour_warrior/pkw_expert_leaper", stat: "unique_expert", game: "parkour_warrior/solo", tiers: [
             { name: "I", amount: 7, trophies: 10 },
             { name: "II", amount: 15, trophies: 20 },
             { name: "III", amount: 25, trophies: 30 },
@@ -353,7 +353,7 @@ export const badges = {
         ]},
     ] as IslandTieredBadge[],
     survivor_tiered: [
-        { name: "PKW Champion", description: "Win the final duel in%%games of Parkour Warrior Survivor", icon: "parkour_warrior/parkour_warrior_champion", stat: "wins", game: "parkour_warrior", tiers: [
+        { name: "Parkour Warrior Champion", description: "Win the final duel in%%games of Parkour Warrior Survivor", icon: "parkour_warrior/parkour_warrior_champion", stat: "wins", game: "parkour_warrior", tiers: [
             { name: "I", amount: 1, trophies: 10 },
             { name: "II", amount: 3, trophies: 20 },
             { name: "III", amount: 5, trophies: 30 },
@@ -362,7 +362,7 @@ export const badges = {
             { name: "VI", amount: 45, trophies: 100 },
             { name: "VII", amount: 75, trophies: 125 },
         ]},
-        { name: "PKW Finalist", description: "Complete Leap 6 in%%games of Parkour Warrior Survivor", icon: "parkour_warrior/parkour_warrior_finalist", stat: "leap_6", game: "parkour_warrior", tiers: [
+        { name: "Parkour Warrior Finalist", description: "Complete Leap 6 in%%games of Parkour Warrior Survivor", icon: "parkour_warrior/parkour_warrior_finalist", stat: "leap_6", game: "parkour_warrior", tiers: [
             { name: "I", amount: 10, trophies: 10 },
             { name: "II", amount: 25, trophies: 20 },
             { name: "III", amount: 60, trophies: 30 },
@@ -371,7 +371,7 @@ export const badges = {
             { name: "VI", amount: 375, trophies: 100 },
             { name: "VII", amount: 625, trophies: 125 },
         ]},
-        { name: "PKW Assassin", description: "Eliminate%%players in games of Parkour Warrior Survivor", icon: "parkour_warrior/parkour_warrior_ninja", stat: "kills", game: "parkour_warrior", tiers: [
+        { name: "Parkour Warrior Assassin", description: "Eliminate%%players in games of Parkour Warrior Survivor", icon: "parkour_warrior/parkour_warrior_ninja", stat: "kills", game: "parkour_warrior", tiers: [
             { name: "I", amount: 100, trophies: 10 },
             { name: "II", amount: 350, trophies: 20 },
             { name: "III", amount: 800, trophies: 30 },

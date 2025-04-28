@@ -137,7 +137,8 @@
                                                 <div class="grid grid-cols-2 2xl:flex gap-x-4">
                                                     {#each (recommendedType === "crab" ? ["AVERAGE", "LARGE", "COLOSSAL"] : ["AVERAGE", "LARGE", "MASSIVE", "GARGANTUAN"]) as weight}
                                                         <p class="flex gap-x-2 tabular-nums">
-                                                            <img src={`https://cdn.islandstats.xyz/fishing/stars/${(weight === "COLOSSAL" ? "GARGANTUAN" : weight).toLowerCase()}.png`} alt={``} class="size-6 self-center" />
+                                                            <img src={`https://cdn.islandstats.xyz/fishing/stars/${(weight === "COLOSSAL" ? "GARGANTUAN" : weight).toLowerCase()}.png`} alt={``} class="size-6 self-center cursor-pointer" />
+                                                            <Tooltip arrow={false} type="custom" placement="top" class="z-20 text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md">{weight[0] + weight.slice(1).toLowerCase()}</Tooltip>
                                                             <span>
                                                                 {player.collections.fish.filter(f => f.fish.collection === recommendedIsland?.name && f.weights.find(w => w.weight === weight)).length}
                                                                 /
@@ -164,7 +165,7 @@
                         {#each collections as collection}
                             {#if player.crownLevel.fishingLevelData.level >= collection.level}
                                 <div class="flex gap-x-2">
-                                    <span class="relative">
+                                    <div class="relative cursor-pointer">
                                         <span class="flex justify-center items-center size-8 lg:size-12 bg-neutral-800 rounded-md">
                                             <img src="https://cdn.islandstats.xyz/fishing/islands/{collection.icon}.png" alt="Fishing Game Icon" class="z-10 size-6 lg:size-8 shadow-2xl" />
                                         </span>
@@ -172,7 +173,7 @@
                                             class="absolute size-auto top-0 left-0 right-0 bottom-0 {getCrownColour(player.crownLevel.fishingLevelData.level)} {(earnedTrophiesForIsland(player.collections.fish, collection.name) / totalTrophiesForIsland(player.collections.fish, collection.name)) < 1 ? "rounded-l-md" : "rounded-md"}" 
                                             style={`width: ${(earnedTrophiesForIsland(player.collections.fish, collection.name) / totalTrophiesForIsland(player.collections.fish, collection.name)) * 100}%`}
                                         ></span>
-                                    </span>
+                                    </div>
                                     <Tooltip arrow={false} type="custom" placement="top" class="z-20 text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md duration-75">{collection.name}</Tooltip>
                                     <div class="flex gap-x-1 self-center">
                                         <img src="https://cdn.islandstats.xyz/icons/trophies/blue.png" alt="Skill Trophy Icon" class="size-6 self-center" />
@@ -184,7 +185,7 @@
                                 </div>
                             {:else}
                                 <div class="flex gap-x-2">
-                                    <span class="relative">
+                                    <span class="relative cursor-pointer">
                                         <span class="flex justify-center items-center size-8 lg:size-12 bg-neutral-800 rounded-md">
                                             <img src="https://cdn.islandstats.xyz/fishing/islands/{collection.icon}.png" alt="Fishing Game Icon" class="z-10 size-6 lg:size-8 shadow-2xl" />
                                         </span>
@@ -292,7 +293,7 @@
                         alt="Orange warning icon"
                         class="size-8 self-center"
                     />
-                    <p class="text-lg">Collections disabled!</p>
+                    <p class="text-lg">Collections are disabled!</p>
                 </div>
             </div>
         {/if}

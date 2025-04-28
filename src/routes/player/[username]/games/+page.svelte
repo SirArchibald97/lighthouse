@@ -46,13 +46,13 @@
                     { label: "Dynaball", icon: "games/dynaball/icon" },
                     { label: "Parkour Warrior Dojo", icon: "games/parkour_warrior/solo/icon" },
                     { label: "Parkour Warrior Survivor", icon: "games/parkour_warrior/icon" },
-                    { label: "Rocket Spleef", icon: "games/rocket_spleef/icon" }
+                    { label: "Rocket Spleef Rush", icon: "games/rocket_spleef/icon" }
                 ] as { label: string, icon: string, component: any }[] as game}
                     <div class="border border-neutral-800 rounded-md">
                         <button onclick={() => { if (expandedSection === game.label) expandedSection = null; else expandedSection = game.label; }} class="w-full cursor-pointer flex flex-row justify-between hover:bg-neutral-800/50 duration-100">
                             <div class="flex flex-row gap-x-2 p-3">
-                                <img src={`https://cdn.islandstats.xyz/${game.icon}.png`} alt={``} class="size-8"/>
-                                <p class="text-xl font-semibold self-center">{game.label}</p>
+                                <img src={`https://cdn.islandstats.xyz/${game.icon}.png`} alt={``} class="size-6 lg:size-8"/>
+                                <p class="text-base lg:text-xl font-semibold self-center">{game.label}</p>
                             </div>
                             <span class="size-8 text-neutral-500 self-center mr-2"><ChevronUpDown /></span>
                         </button>
@@ -74,7 +74,7 @@
                                     <Dojo stats={player.statistics.pkw.dojo} />
                                 {:else if expandedSection === "Parkour Warrior Survivor"}
                                     <Survivor stats={player.statistics.pkw.survivor} />
-                                {:else if expandedSection === "Rocket Spleef"}
+                                {:else if expandedSection === "Rocket Spleef Rush"}
                                     <RocketSpleef stats={player.statistics.rocket_spleef} />
                                 {/if}
                             </div>
@@ -90,7 +90,7 @@
                         alt="Orange warning icon"
                         class="size-8 self-center"
                     />
-                    <p class="text-lg">Statistics disabled!</p>
+                    <p class="text-lg">Statistics are disabled!</p>
                 </div>
             </div>
         {/if}

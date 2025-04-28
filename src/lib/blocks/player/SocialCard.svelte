@@ -5,30 +5,38 @@
 	import type { Player } from '$lib/types';
 	import { getRankIcon, getStatusIcon, getStatusString } from '$lib/utils';
     import { Tooltip } from "flowbite-svelte";
-	import { fade } from 'svelte/transition';
+	import FriendsList from './FriendsList.svelte';
 
     let { player }: { player: Player | undefined } = $props();
 
 	let activeTab = $state('Friends');
 
-	let currentIndex = $state(0);
-	function selectPage(index: number) {
-		if (index < 0) index = Math.ceil(player?.social?.friends.length! / 15) - 1;
-		if (index >= Math.ceil(player?.social?.friends.length! / 15)) index = 0;
-		currentIndex = index;
-	}
+    const friendPageSizes = {
+        0: 8,
+        768: 10,
+        1536: 15,
+    };
+    function getFriendPageSize() {
+        const width = screen.width;
+        for (const [breakpoint, size] of Object.entries(friendPageSizes)) {
+            if (width < parseInt(breakpoint)) {
+                return size;
+            }
+        }
+        return friendPageSizes[1536];
+    }
 </script>
 
-<div class="flex h-full flex-col divide-y divide-neutral-800 rounded-lg border border-neutral-800 shadow-lg">
+<div class="flex h-full flex-col rounded-lg border border-neutral-800 shadow-lg">
 	{#if player?.social}
-        <div class="flex flex-row gap-x-8 px-4 *:duration-75">
+        <div class="flex flex-row gap-x-8 px-4 *:duration-75 border-b border-neutral-800">
             {#each [
                 { label: "Friends", icon: "friend" },
                 { label: "Party", icon: "party" },
             ] as { label: string, icon: string }[] as tab}
                 <button onclick={() => activeTab = tab.label} class={`cursor-pointer border-b-3 px-3 pt-3 pb-2 text-md font-medium ${activeTab === tab.label ? "border-neutral-50 text-neutral-50" : "border-transparent text-neutral-400 hover:border-neutral-100 hover:text-neutral-100"}`}>
                     <span class="flex flex-row gap-x-2">
-                        <img src={`https://cdn.islandstats.xyz/icons/social/${tab.icon}.png`} alt={`${tab.label} Icon`} class="size-6" />
+                        <img src="https://cdn.islandstats.xyz/icons/social/{tab.icon}.png" alt="{tab.label} Icon" class="size-6" />
                         <span>{tab.label}</span>
                     </span>
                 </button>
@@ -37,87 +45,9 @@
 
         <!-- FRIENDS -->  
 		{#if activeTab === 'Friends'}
-			<div class="grid grow grid-cols-2 lg:grid-cols-3 grid-rows-5 gap-2 p-4">
-				{#each player.social.friends.slice(currentIndex * 15, currentIndex * 15 + 15) as friend}
-					<a
-						href={`/player/${friend.username}/games`}
-						class="flex cursor-pointer flex-row justify-between rounded-md border border-neutral-800 p-3 duration-100 hover:bg-neutral-800/50"
-					>
-						<div class="flex flex-row gap-x-2 self-center">
-							<span class="relative">
-								<img
-									src="https://crafatar.com/avatars/{friend.uuid}?overlay"
-									alt={`${friend.username}'s Skin'`}
-									class="size-7 2xl:size-8 rounded-sm"
-								/>
-                                {#if friend.status}
-                                    <span class="absolute right-0 bottom-0 block translate-x-1/2 translate-y-1/2 transform rounded-full border-3 border-neutral-950">
-                                        <span class={`block size-2 rounded-full ${friend.status.online ? 'bg-green-400' : 'bg-red-400'}`}></span>
-                                    </span>
-                                {/if}
-							</span>
-							<img
-								src={`https://cdn.islandstats.xyz/ranks/${getRankIcon(friend.ranks)}.png`}
-								alt={`${getRankIcon(friend.ranks)} Rank Icon`}
-								class="hidden 2xl:flex size-7 2xl:size-8 rounded-sm bg-neutral-700"
-							/>
-							<p class="self-center text-base 2xl:text-lg">{friend.username}</p>
-						</div>
-						{#if friend.status}
-							{#if friend.status.online}
-								{#if friend.status.server.category === 'GAME'}
-                                    <img
-                                        src={`https://cdn.islandstats.xyz/games/${getStatusIcon(friend.status.server.associatedGame === "PARKOUR_WARRIOR" ? friend.status.server.subType : friend.status.server.associatedGame)}/icon.png`}
-                                        alt={`${friend.status.server.associatedGame} Icon`}
-                                        class="hidden lg:flex size-6 self-center"
-                                    />
-                                    <Tooltip arrow={false} type="custom" class="text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md duration-75">
-                                        {getStatusString(friend.status.server.associatedGame === "PARKOUR_WARRIOR" ? friend.status.server.subType : friend.status.server.associatedGame)}
-                                    </Tooltip>
-								{:else if friend.status.server.category === 'LOBBY'}
-									<div class="flex flex-row gap-x-2">
-										{#if friend.status.server.subType === 'fishing'}
-                                            <img
-                                                src={`https://cdn.islandstats.xyz/games/fishing/icon.png`}
-                                                alt="Fishing Rod Icon"
-                                                class="hidden lg:flex size-6 self-center"
-                                            />
-                                            <Tooltip transition={fade} params={{ duration: 100 }} arrow={false} type="custom" placement="top" class="text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md duration-75">
-                                                Fishing
-                                            </Tooltip>
-										{:else}
-                                            <img
-                                                src="https://cdn.islandstats.xyz/games/lobby/icon.png"
-                                                alt="Main Island Icon"
-                                                class="hidden lg:flex size-6 self-center"
-                                            />
-                                            <Tooltip transition={fade} params={{ duration: 100 }} arrow={false} type="custom" placement="top" class="text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md duration-75">
-                                                Main Island
-                                            </Tooltip>
-										{/if}
-                                    </div>
-								{/if}
-							{/if}
-						{/if}
-					</a>
-				{/each}
-			</div>
-			<div class="flex h-12 flex-row justify-center gap-x-6">
-				<button
-					onclick={() => selectPage(currentIndex - 1)}
-					class="size-6 cursor-pointer self-center rounded-md border border-neutral-800 p-1 hover:border-transparent hover:bg-neutral-800"
-					><ChevronLeft /></button
-				>
-				<p class="self-center tabular-nums">
-					{currentIndex + 1} / {Math.ceil(player.social.friends.length / 15)}
-				</p>
-				<button
-					onclick={() => selectPage(currentIndex + 1)}
-					class="size-6 cursor-pointer self-center rounded-md border border-neutral-800 p-1 hover:border-transparent hover:bg-neutral-800"
-					><ChevronRight /></button
-				>
-			</div>
-
+            <FriendsList {player} sectionSize={8} />
+            <FriendsList {player} sectionSize={10} />
+            <FriendsList {player} sectionSize={15} />
 
         <!-- PARTY -->    
 		{:else if activeTab === 'Party'}
@@ -136,8 +66,8 @@
 										class="size-8 rounded-sm"
 									/>
                                     {#if member.status}
-                                        <span class="absolute right-0.5 bottom-0.5 block translate-x-1/2 translate-y-1/2 transform rounded-full border-3 border-neutral-950">
-											<span class={`block size-2.5 rounded-full ${member.status.online ? 'bg-green-400' : 'bg-red-400'}`}></span>
+                                        <span class="absolute right-0 bottom-0 block translate-x-1/2 translate-y-1/2 transform rounded-full border-3 border-neutral-950">
+                                            <span class={`block size-2 rounded-full ${member.status.online ? 'bg-green-400' : 'bg-red-400'}`}></span>
                                         </span>
                                     {/if}
 								</span>
