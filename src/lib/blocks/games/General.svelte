@@ -14,7 +14,7 @@
         player.statistics!.rocket_spleef.first_place;
 </script>
 
-<div class="flex flex-col border-t border-neutral-800 px-4 divide-y divide-neutral-800 text-lg">
+<div class="flex flex-col border-t border-neutral-800 px-4 divide-y divide-neutral-800 text-base md:text-lg">
     <div class="flex flex-col lg:flex-row gap-y-4 gap-x-20 py-4">
         <div>
             <p>Total XP: <span class="tabular-nums font-semibold">{player.statistics?.total_xp.toLocaleString()}</span></p>
@@ -48,18 +48,18 @@
             ] as game}
                 <div class="flex gap-x-4 border border-neutral-800 rounded-md p-2">
                     <span 
-                        class={`flex justify-center items-center size-18 bg-neutral-100 rounded-full ${getCrownColour(player.crownLevel.levelData.level)}`}  
+                        class={`flex justify-center items-center size-14 md:size-18 bg-neutral-100 rounded-full ${getCrownColour(player.crownLevel.levelData.level)}`}  
                         style={`background: conic-gradient(${getCrownColourHex(player.crownLevel.levelData.level)} ${Math.floor((calculateTotalTrophies(game.stats!, game.badges, game.tieredBadges) / calculateMaxTrophies(game.badges, game.tieredBadges)) * 360)}deg, oklch(0.269 0 0) 0deg)`}
                     >
-                        <span class="flex justify-center items-center size-14 bg-neutral-900 rounded-full">
-                            <img src={`https://cdn.islandstats.xyz/games/${game.icon}/icon.png`} alt={``} class="size-8" />
+                        <span class="flex justify-center items-center size-11 md:size-14 bg-neutral-900 rounded-full">
+                            <img src={`https://cdn.islandstats.xyz/games/${game.icon}/icon.png`} alt={``} class="size-6 md:size-8" />
                         </span>
                     </span>
                     <div class="self-center">
-                        <p class="text-lg font-semibold">{game.label}</p>
-                        <div class="flex gap-x-2 tabular-nums">
+                        <p class="text-base md:text-lg font-semibold">{game.label}</p>
+                        <div class="flex gap-x-1 tabular-nums">
                             <img src="https://cdn.islandstats.xyz/icons/trophies/red.png" alt="Skill Trophy Icon" class="size-6" />
-                            <p>
+                            <p class="text-base self-center">
                                 <span>{calculateTotalTrophies(game.stats!, game.badges, game.tieredBadges).toLocaleString()}</span>
                                 <span> / </span>
                                 <span>{calculateMaxTrophies(game.badges, game.tieredBadges).toLocaleString()}</span>

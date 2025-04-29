@@ -24,7 +24,7 @@
         <div class="flex flex-col gap-y-4 justify-between">
             <div>
                 <p>Kills: <span class="tabular-nums font-semibold">{stats.kills.toLocaleString()}</span></p>
-                <p>Deaths: <span class="tabular-nums font-semibold">{(stats.games_played - stats.losses).toLocaleString()}</span></p>
+                <p>Deaths: <span class="tabular-nums font-semibold">{(stats.games_played - stats.wins).toLocaleString()}</span></p>
                 <p>KDR: <span class="tabular-nums font-semibold">{stats.kdr.toLocaleString()}</span></p>
                 <p>Players Stuck: <span class="tabular-nums font-semibold">{stats.players_stuck.toLocaleString()}</span></p>
             </div>

@@ -17,24 +17,24 @@
     }
 </script>
 
-<div class="rounded-lg border border-neutral-800 bg-neutral-900 p-4 shadow-lg">
-	<div class="flex flex-row gap-x-4">
+<div class="rounded-lg border border-neutral-800 bg-neutral-900 p-2 md:p-4 shadow-lg">
+	<div class="flex flex-row gap-x-2 md:gap-x-4">
 		<span class="relative inline-block">
 			<img
-				class="size-16 rounded-md"
+				class="size-12 md:size-16 rounded-md"
 				src="https://crafatar.com/avatars/{player.uuid}?overlay"
 				alt={`${player.username}'s Skin`}
 			/>
             {#if player.status}
-                <span class="absolute right-1 bottom-1 block translate-x-1/2 translate-y-1/2 transform rounded-full border-4 border-neutral-950">
-                        <span class={`block size-3 rounded-full ${player.status.online ? "bg-green-400" : "bg-red-400"}`}></span>
+                <span class="absolute right-0 md:right-1 bottom-2 md:bottom-1 block translate-x-1/2 translate-y-1/2 transform rounded-full border-4 border-neutral-950">
+                        <span class={`block size-2 md:size-3 rounded-full ${player.status.online ? "bg-green-400" : "bg-red-400"}`}></span>
                 </span>
             {/if}
 		</span>
-		<div class="self-center flex flex-col gap-y-1">
+		<div class="self-center flex flex-col gap-y-1 text-sm md:text-base">
 			<div class="flex flex-row gap-x-2">
-                <img class="size-8 bg-neutral-700 rounded-sm" src={`https://cdn.islandstats.xyz/ranks/${getRankIcon(player?.ranks || [])}.png`} alt={`${getRankIcon(player.ranks || [])} Rank Icon`} />
-                <span class="text-2xl font-semibold">{player.username}</span>
+                <img class="size-7 md:size-8 bg-neutral-700 rounded-sm" src={`https://cdn.islandstats.xyz/ranks/${getRankIcon(player?.ranks || [])}.png`} alt={`${getRankIcon(player.ranks || [])} Rank Icon`} />
+                <span class="text-lg md:text-2xl font-semibold">{player.username}</span>
             </div>
             {#if player.status}
                 {#if player.status.online}

@@ -49,9 +49,9 @@
     </div>
 
     <!-- trophies and wallet -->
-    <div class="flex flex-row divide-x divide-neutral-800">
-        <div class="w-1/2 p-4">
-            <p class="text-md lg:text-lg font-semibold mb-2">Trophies</p>
+    <div class="flex flex-col md:flex-row divide-y md:divide-x divide-neutral-800">
+        <div class="w-full md:w-1/2 p-3">
+            <p class="text-md lg:text-lg font-semibold pb-2">Trophies</p>
             <div class="flex flex-col gap-y-1">
                 {#each [
                     { label: "Total Trophies", icon: "yellow", stats: [player.trophies.total, player.trophies.max] },
@@ -60,8 +60,8 @@
                     { label: "Angler Trophies", icon: "blue", stats: [player.trophies.angler.total, player.trophies.angler.max] },
                     { label: "Bonus Trophies", icon: "silver", stats: [player.trophies.bonus] },
                 ] as { label: string, icon: string, stats: number[] }[] as trophy}
-                    <p class="flex flex-row gap-x-2 text-sm lg:text-base">
-                        <img src={`https://cdn.islandstats.xyz/icons/trophies/${trophy.icon}.png`} alt={`${trophy.label} Icon`} class="size-7 2xl:size-8 cursor-pointer" />
+                    <p class="flex gap-x-2 text-base">
+                        <img src={`https://cdn.islandstats.xyz/icons/trophies/${trophy.icon}.png`} alt={`${trophy.label} Icon`} class="size-7 2xl:size-8 self-center cursor-pointer" />
                         <Tooltip arrow={false} type="custom" placement="top" class="text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md duration-75">
                             {trophy.label}
                         </Tooltip>
@@ -71,7 +71,7 @@
                 {/each}
             </div>
         </div>
-        <div class="w-1/2 p-4">
+        <div class="w-1/2 p-3">
             <p class="text-md lg:text-lg font-semibold mb-2">Wallet</p>
             <div class="flex flex-col gap-y-1">
                 {#each [
@@ -81,7 +81,7 @@
                     { label: "A.N.G.L.R Tokens", icon: "angler_token", stat: player.collections?.currency.anglrTokens },
                     { label: "Royal Reputation", icon: "royal_reputation", stat: player.collections?.currency.royalReputation },
                 ] as { label: string, icon: string, stat: number }[] as currency}
-                    <p class="flex flex-row gap-x-2 text-sm lg:text-base">
+                    <p class="flex flex-row gap-x-2 text-base">
                         <img src={`https://cdn.islandstats.xyz/icons/currency/${currency.icon}.png`} alt={`${currency.label} Icon`} class="size-6 lg:size-8 cursor-pointer" />
                         <Tooltip arrow={false} type="custom" placement="top" class="text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md duration-75">
                             {currency.label}

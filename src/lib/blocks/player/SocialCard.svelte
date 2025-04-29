@@ -5,26 +5,28 @@
 	import type { Player } from '$lib/types';
 	import { getRankIcon, getStatusIcon, getStatusString } from '$lib/utils';
     import { Tooltip } from "flowbite-svelte";
-	import FriendsList from './FriendsList.svelte';
 
     let { player }: { player: Player | undefined } = $props();
 
 	let activeTab = $state('Friends');
 
-    const friendPageSizes = {
+    const sizes = {
         0: 8,
         768: 10,
-        1536: 15,
-    };
-    function getFriendPageSize() {
-        const width = screen.width;
-        for (const [breakpoint, size] of Object.entries(friendPageSizes)) {
-            if (width < parseInt(breakpoint)) {
-                return size;
-            }
-        }
-        return friendPageSizes[1536];
+        1536: 15
     }
+    function getSizeFromWidth(width: number) {
+        if (width < 768) return sizes[0];
+        else if (width < 1536) return sizes[768];
+        else return sizes[1536];
+    }
+
+    let currentIndex = $state(0);
+	function selectPage(index: number) {
+		if (index < 0) index = Math.ceil(player?.social?.friends.length! / getSizeFromWidth(screen.width)) - 1;
+		if (index >= Math.ceil(player?.social?.friends.length! / getSizeFromWidth(screen.width))) index = 0;
+		currentIndex = index;
+	}
 </script>
 
 <div class="flex h-full flex-col rounded-lg border border-neutral-800 shadow-lg">
@@ -45,9 +47,86 @@
 
         <!-- FRIENDS -->  
 		{#if activeTab === 'Friends'}
-            <FriendsList {player} sectionSize={8} />
-            <FriendsList {player} sectionSize={10} />
-            <FriendsList {player} sectionSize={15} />
+        <div class="grid grow grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 grid-rows-5 gap-2 p-4 border-b border-neutral-800">
+            {#each player!.social!.friends.slice(currentIndex * getSizeFromWidth(screen.width), currentIndex * getSizeFromWidth(screen.width) + getSizeFromWidth(screen.width)) as friend}
+                <a
+                    href="/player/{friend.username}/games"
+                    class="flex cursor-pointer flex-row justify-between rounded-md border border-neutral-800 p-3 duration-100 hover:bg-neutral-800/50"
+                >
+                    <div class="flex flex-row gap-x-2 self-center">
+                        <span class="relative">
+                            <img
+                                src="https://crafatar.com/avatars/{friend.uuid}?overlay"
+                                alt="{friend.username}'s Skin"
+                                class="size-7 2xl:size-8 rounded-sm"
+                            />
+                            {#if friend.status}
+                                <span class="absolute right-0 bottom-0 block translate-x-1/2 translate-y-1/2 transform rounded-full border-3 border-neutral-950">
+                                    <span class="block size-2 rounded-full {friend.status.online ? "bg-green-400" : "bg-red-400"}"></span>
+                                </span>
+                            {/if}
+                        </span>
+                        <img
+                            src="https://cdn.islandstats.xyz/ranks/{getRankIcon(friend.ranks)}.png"
+                            alt="{getRankIcon(friend.ranks)} Rank Icon"
+                            class="size-7 2xl:size-8 rounded-sm bg-neutral-700"
+                        />
+                        <p class="self-center text-base 2xl:text-lg">{friend.username}</p>
+                    </div>
+                    {#if friend.status}
+                        {#if friend.status.online}
+                            {#if friend.status.server.category === 'GAME'}
+                                <img
+                                    src="https://cdn.islandstats.xyz/games/{getStatusIcon(friend.status.server.associatedGame === "PARKOUR_WARRIOR" ? friend.status.server.subType : friend.status.server.associatedGame)}/icon.png"
+                                    alt="{friend.status.server.associatedGame} Icon"
+                                    class="flex size-6 self-center"
+                                />
+                                <Tooltip arrow={false} type="custom" class="text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md duration-75">
+                                    {getStatusString(friend.status.server.associatedGame === "PARKOUR_WARRIOR" ? friend.status.server.subType : friend.status.server.associatedGame)}
+                                </Tooltip>
+                            {:else if friend.status.server.category === 'LOBBY'}
+                                <div class="flex flex-row gap-x-2">
+                                    {#if friend.status.server.subType === 'fishing'}
+                                        <img
+                                            src={`https://cdn.islandstats.xyz/games/fishing/icon.png`}
+                                            alt="Fishing Rod Icon"
+                                            class="flex size-6 self-center"
+                                        />
+                                        <Tooltip arrow={false} type="custom" placement="top" class="text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md duration-75">
+                                            Fishing
+                                        </Tooltip>
+                                    {:else}
+                                        <img
+                                            src="https://cdn.islandstats.xyz/games/lobby/icon.png"
+                                            alt="Main Island Icon"
+                                            class="flex size-6 self-center"
+                                        />
+                                        <Tooltip arrow={false} type="custom" placement="top" class="text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md duration-75">
+                                            Main Island
+                                        </Tooltip>
+                                    {/if}
+                                </div>
+                            {/if}
+                        {/if}
+                    {/if}
+                </a>
+            {/each}
+        </div>
+        <div class="flex grow min-h-12 justify-center gap-x-6">
+            <button
+                onclick={() => selectPage(currentIndex - 1)}
+                class="size-6 cursor-pointer self-center rounded-md border border-neutral-800 p-1 hover:border-transparent hover:bg-neutral-800"
+                ><ChevronLeft /></button
+            >
+            <p class="self-center tabular-nums">
+                {currentIndex + 1} / {Math.ceil(player!.social!.friends.length / getSizeFromWidth(screen.width))}
+            </p>
+            <button
+                onclick={() => selectPage(currentIndex + 1)}
+                class="size-6 cursor-pointer self-center rounded-md border border-neutral-800 p-1 hover:border-transparent hover:bg-neutral-800"
+                ><ChevronRight /></button
+            >
+        </div>
 
         <!-- PARTY -->    
 		{:else if activeTab === 'Party'}
