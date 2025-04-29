@@ -49,7 +49,7 @@
     </div>
 
     <!-- trophies and wallet -->
-    <div class="flex flex-col md:flex-row divide-y md:divide-x divide-neutral-800">
+    <div class="flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x divide-neutral-800">
         <div class="w-full md:w-1/2 p-3">
             <p class="text-md lg:text-lg font-semibold pb-2">Trophies</p>
             <div class="flex flex-col gap-y-1">

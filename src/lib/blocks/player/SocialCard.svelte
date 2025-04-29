@@ -47,7 +47,7 @@
 
         <!-- FRIENDS -->  
 		{#if activeTab === 'Friends'}
-        <div class="grid grow grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 grid-rows-5 gap-2 p-4 border-b border-neutral-800">
+        <div class="grid grow grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 grid-rows-5 gap-2 p-3 border-b border-neutral-800">
             {#each player!.social!.friends.slice(currentIndex * getSizeFromWidth(screen.width), currentIndex * getSizeFromWidth(screen.width) + getSizeFromWidth(screen.width)) as friend}
                 <a
                     href="/player/{friend.username}/games"
@@ -112,7 +112,7 @@
                 </a>
             {/each}
         </div>
-        <div class="flex grow min-h-12 justify-center gap-x-6">
+        <div class="flex h-12 justify-center gap-x-6">
             <button
                 onclick={() => selectPage(currentIndex - 1)}
                 class="size-6 cursor-pointer self-center rounded-md border border-neutral-800 p-1 hover:border-transparent hover:bg-neutral-800"
