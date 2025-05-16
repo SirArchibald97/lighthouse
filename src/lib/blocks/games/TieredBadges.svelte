@@ -20,13 +20,13 @@
                         <p class="text-sm lg:text-base text-neutral-500">{badge.description.replaceAll("%%", " ")}</p>
                     </div>
                 </div>
-                <div class={`flex shrink-0 gap-x-1 rounded-full px-2 py-0.5 self-start ${stats[badge.stat] > badge.tiers[badge.tiers.length - 1].amount ? "bg-green-800" : "bg-neutral-700/50"}`}>
+                <div class={`flex shrink-0 gap-x-1 rounded-full px-2 py-0.5 self-start ${stats[badge.stat] >= badge.tiers[badge.tiers.length - 1].amount ? "bg-green-800" : "bg-neutral-700/50"}`}>
                     <img src="https://cdn.islandstats.xyz/icons/trophies/red.png" alt="Trophies Icon" class="size-6 self-center" />
                     <p class="text-sm lg:text-base flex self-center">{calculateTotalTrophies(stats, [], [badge])}</p>
                 </div>
             </div>
         </div>
-        <p class={`px-3 py-2 rounded-b-md tabular-nums text-sm lg:text-base ${stats[badge.stat]! > badge.tiers[badge.tiers.length - 1].amount ? "bg-green-800/50" : "bg-neutral-800"}`}>
+        <p class={`px-3 py-2 rounded-b-md tabular-nums text-sm lg:text-base ${stats[badge.stat]! >= badge.tiers[badge.tiers.length - 1].amount ? "bg-green-800/50" : "bg-neutral-800"}`}>
             {#each badge.tiers as tier}
                 {#if stats[badge.stat] >= tier.amount}
                     <span class="text-green-600">{shortenNumber(tier.amount).toLocaleString()}</span>
