@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ChevronUpDown from '$lib/icons/ChevronUpDown.svelte';
-	import { calculatePercentage, calculateTrophiesToNextEvolution, earnedTrophiesForIsland, getCrownColour, getCrownColourHex, getRarityColour, totalTrophiesForIsland } from '$lib/utils';
+	import { calculatePercentage, calculateTrophiesToNextEvolution, earnedTrophiesForIsland, getCrownColour, getRarityColour, totalTrophiesForIsland } from '$lib/utils';
 	import { slide } from 'svelte/transition';
 	import FishingIslandStats from '$lib/blocks/fishing/FishingIslandStats.svelte';
     import type { PageProps } from './$types';
@@ -72,7 +72,7 @@
     function formatCaughtDate(date: string) {
         const dateObj = new Date(date);
         const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'short', year: 'numeric' };
-        const formattedDate = dateObj.toLocaleDateString('en-GB', options).replace(/(\d+)(st|nd|rd|th)/, '$1$2').replace(/(\w+) (\d+)/, '$1 $2').replace(/(\d{4})/, '$1');
+        const formattedDate = dateObj.toLocaleDateString("UTC", options).replace(/(\d+)(st|nd|rd|th)/, '$1$2').replace(/(\w+) (\d+)/, '$1 $2').replace(/(\d{4})/, '$1');
         return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
     }
 </script>
@@ -284,6 +284,99 @@
                         {/if}
                     </div>
                 {/each}
+
+                <div class="mt-2 flex flex-col border border-neutral-800 rounded-md">
+                    <button onclick={() => { if (expandedSection === "stats") expandedSection = ""; else expandedSection = "stats"; }} class="w-full cursor-pointer flex flex-row justify-between hover:bg-neutral-800/50 duration-100">
+                        <div class="flex flex-row gap-x-2 p-3">
+                            <img 
+                                src="https://cdn.islandstats.xyz/games/fishing/icon.png"
+                                alt="Fishing Game Icon" 
+                                class="size-8"
+                            />
+                            <p class="text-lg lg:text-xl font-semibold self-center">Other Fishing Stats</p>
+                        </div>
+                        <span class="size-6 lg:size-8 text-neutral-500 self-center mr-2"><ChevronUpDown /></span>
+                    </button>
+                    {#if expandedSection === "stats"}
+                        <div transition:slide={{ duration: 400 }} class="flex justify-between text-base md:text-lg p-4 border-t border-neutral-800">
+                            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2 w-full justify-between">
+                                {#each [
+                                    { total: player.statistics?.fishing.fish_caught.total, hasResearch: true, stats: [
+                                        { label: "Fish Caught", value: player.statistics?.fishing.fish_caught.total, total: true },
+                                        { label: "Average", value: player.statistics?.fishing.fish_caught.average, icon: "https://cdn.islandstats.xyz/fishing/stars/average.png" },
+                                        { label: "Large", value: player.statistics?.fishing.fish_caught.large, icon: "https://cdn.islandstats.xyz/fishing/stars/large.png" },
+                                        { label: "Massive", value: player.statistics?.fishing.fish_caught.massive, icon: "https://cdn.islandstats.xyz/fishing/stars/massive.png" },
+                                        { label: "Gargantuan", value: player.statistics?.fishing.fish_caught.gargantuan, icon: "https://cdn.islandstats.xyz/fishing/stars/gargantuan.png" },
+                                    ] },
+                                    { total: player.statistics?.fishing.fish_caught.total, hasResearch: true, stats: [
+                                        { label: "Fish Caught", value: player.statistics?.fishing.fish_caught.total, total: true },
+                                        { label: "Common", value: player.statistics?.fishing.fish_caught.common, icon: "" },
+                                        { label: "Uncommon", value: player.statistics?.fishing.fish_caught.uncommon, icon: "" },
+                                        { label: "Rare", value: player.statistics?.fishing.fish_caught.rare, icon: "" },
+                                        { label: "Epic", value: player.statistics?.fishing.fish_caught.epic, icon: "" },
+                                        { label: "Legendary", value: player.statistics?.fishing.fish_caught.legendary, icon: "" },
+                                        { label: "Mythic", value: player.statistics?.fishing.fish_caught.mythic, icon: "" }
+                                    ] },
+                                    { total: player.statistics?.fishing.trash_caught.total, stats: [
+                                        { label: "Trash Caught", value: player.statistics?.fishing.trash_caught.total, total: true },
+                                        { label: "Rusted Can", value: player.statistics?.fishing.trash_caught.common, icon: "/icons/trash_common.png" },
+                                        { label: "Tangled Kelp", value: player.statistics?.fishing.trash_caught.uncommon, icon: "/icons/trash_uncommon.png" },
+                                        { label: "Lost Shoe", value: player.statistics?.fishing.trash_caught.rare, icon: "/icons/trash_rare.png" },
+                                        { label: "Royal Residue", value: player.statistics?.fishing.trash_caught.epic, icon: "/icons/trash_epic.png" },
+                                        { label: "Forgotten Crown", value: player.statistics?.fishing.trash_caught.legendary, icon: "/icons/trash_legendary.png" },
+                                    ] },
+                                    { total: player.statistics?.fishing.treasure_caught.total, hasResearch: true, stats: [
+                                        { label: "Treasure Caught", value: player.statistics?.fishing.treasure_caught.total, total: true },
+                                        { label: "Common", value: player.statistics?.fishing.treasure_caught.common, icon: "/icons/common_treasure.png" },
+                                        { label: "Uncommon", value: player.statistics?.fishing.treasure_caught.uncommon, icon: "/icons/uncommon_treasure.png" },
+                                        { label: "Rare", value: player.statistics?.fishing.treasure_caught.rare, icon: "/icons/rare_treasure.png" },
+                                        { label: "Epic", value: player.statistics?.fishing.treasure_caught.epic, icon: "/icons/epic_treasure.png" },
+                                        { label: "Legendary", value: player.statistics?.fishing.treasure_caught.legendary, icon: "/icons/legendary_treasure.png" },
+                                        { label: "Mythic", value: player.statistics?.fishing.treasure_caught.mythic, icon: "/icons/mythic_treasure.png" }
+                                    ] },
+                                    { total: player.statistics?.fishing.pearls_caught.total, hasResearch: true, stats: [
+                                        { label: "Pearls Caught", value: player.statistics?.fishing.pearls_caught.total, total: true },
+                                        { label: "Rough", value: player.statistics?.fishing.pearls_caught.rough, icon: "https://cdn.discordapp.com/emojis/1315385898468376596.webp" },
+                                        { label: "Polished", value: player.statistics?.fishing.pearls_caught.polished, icon: "https://cdn.discordapp.com/emojis/1315385899839783112.webp" },
+                                        { label: "Pristine", value: player.statistics?.fishing.pearls_caught.pristine, icon: "https://cdn.discordapp.com/emojis/1315386591182848082.webp?animated=true" }
+                                    ] },
+                                    { total: player.statistics?.fishing.spirits_caught.total, hasResearch: true, stats: [
+                                        { label: "Spirits Caught", value: player.statistics?.fishing.spirits_caught.total, total: true },
+                                        { label: "Spirit", value: player.statistics?.fishing.spirits_caught.spirit, icon: "https://cdn.discordapp.com/emojis/1317151653165797488.webp" },
+                                        { label: "Refined", value: player.statistics?.fishing.spirits_caught.refined, icon: "https://cdn.discordapp.com/emojis/1317151651697655808.webp" },
+                                        { label: "Pure", value: player.statistics?.fishing.spirits_caught.pure, icon: "https://cdn.discordapp.com/emojis/1315372015305232414.webp?animated=true" }
+                                    ] },
+                                    { total: Object.values(player.statistics?.fishing.wayfinder!).reduce((a, b) => b += a, 0), stats: [
+                                        { label: "Total Wayfinder Data", value: Object.values(player.statistics?.fishing.wayfinder!).reduce((a, b) => b += a, 0), total: true },
+                                        { label: "Temperate", value: player.statistics?.fishing.wayfinder.temperate, icon: "https://cdn.islandstats.xyz/fishing/islands/grotto_temperate.png" },
+                                        { label: "Tropical", value: player.statistics?.fishing.wayfinder.tropical, icon: "https://cdn.islandstats.xyz/fishing/islands/grotto_tropical.png" },
+                                        { label: "Barren", value: player.statistics?.fishing.wayfinder.barren, icon: "https://cdn.islandstats.xyz/fishing/islands/grotto_barren.png" }
+                                    ] }
+                                ] as { total: number, hasResearch: boolean | undefined, stats: { label: string, value: number, icon: string, total: boolean | undefined }[] }[] as category}
+                                    <div class="flex justify-between bg-neutral-800/50 rounded-md w-full px-3 py-2">
+                                        <div class="flex flex-col">
+                                            {#each category.stats as stat}
+                                                <div class="flex gap-x-2">
+                                                    {#if stat.icon}<img src={stat.icon} alt={``} class="size-5 self-center" />{/if}
+                                                    <p>{stat.label}: 
+                                                        <span class="tabular-nums font-semibold">{stat.value?.toLocaleString()}</span> 
+                                                        {#if !stat.total}<span class="tabular-nums text-neutral-500">({calculatePercentage(stat.value, category.total)}%)</span>{/if}
+                                                    </p>
+                                                </div>
+                                            {/each}
+                                        </div>
+                                        {#if category.hasResearch}
+                                            <img src="https://cdn.islandstats.xyz/icons/warnings/yellow.png" alt="Yellow Warning Icon" class="size-8 p-1 cursor-pointer" />
+                                            <Tooltip arrow={false} type="custom" class="max-w-1/6 z-10 flex flex-col items-center text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-1 rounded-md">
+                                                <span>These values are counted twice whenever Glitched Rod triggers and so are not 100% accurate!</span>
+                                            </Tooltip>
+                                        {/if}
+                                    </div>
+                                {/each}
+                            </div>
+                        </div>
+                    {/if}
+                </div>
             </div>
         {:else}
             <div class="flex flex-row items-center justify-center py-16 rounded-lg bg-neutral-950/40 text-neutral-400">
