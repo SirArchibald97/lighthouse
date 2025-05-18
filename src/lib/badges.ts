@@ -139,16 +139,16 @@ export const badges = {
     ] as IslandTieredBadge[],
     tgttos: [
         { name: "Got the Worm", description: "Place 1st with the Early Birds modifier active", icon: "tgttos/got_the_worm", stat: "got_the_worm", trophies: 30 },
-        { name: "Jackpot", description: "Place 7th in every round of a TGTTOS game", icon: "tgttos/jackpot", stat: "jackpot", trophies: 50, secret: true },
+        { name: "Jackpot", description: "Place 7th in every round of a To Get To The Other Side game", icon: "tgttos/jackpot", stat: "jackpot", trophies: 50, secret: true },
         { name: "Pave the Way", description: "Place 1st without placing blocks on a map where you can place blocks", icon: "tgttos/pave_the_way", stat: "pave_the_way", trophies: 50 },
         { name: "Slapdown", description: "Punch a chicken with a slapstick", icon: "tgttos/slapdown", stat: "slapdown", trophies: 10 },
-        { name: "Triple Champion", description: "Place 1st in every round of TGTTOS game", icon: "tgttos/triple_champion", stat: "triple_champion", trophies: 100 },
+        { name: "Triple Champion", description: "Place 1st in every round of To Get To The Other Side game", icon: "tgttos/triple_champion", stat: "triple_champion", trophies: 100 },
         { name: "Ultimate Comeback", description: "Place 1st after getting knocked into the void", icon: "tgttos/ultimate_comeback", stat: "ultimate_comeback", trophies: 70 },
         { name: "Untouchable Speedster", description: "Place 1st without being hit with the Double Time modifier is active", icon: "tgttos/untouchable_speedster", stat: "untouchable_speedster", trophies: 100 },
         { name: "Victorious Pacifist", description: "Place 1st without punching anyone", icon: "tgttos/victorious_pacifist", stat: "victorious_pacifist", trophies: 50 },
     ] as IslandBadge[],
     tgttos_tiered: [
-        { name: "Chicken Puncher", description: "Punch%%chickens in games of TGTTOS", icon: "tgttos/chicken_puncher", stat: "chickens_punched", game: "tgttos", tiers: [
+        { name: "Chicken Puncher", description: "Punch%%chickens in games of To Get To The Other Side", icon: "tgttos/chicken_puncher", stat: "chickens_punched", game: "tgttos", tiers: [
             { name: "I", amount: 50, trophies: 10 },
             { name: "II", amount: 150, trophies: 20 },
             { name: "III", amount: 325, trophies: 30 },
@@ -157,7 +157,7 @@ export const badges = {
             { name: "VI", amount: 2250, trophies: 100 },
             { name: "VII", amount: 3750, trophies: 125 },
         ]},
-        { name: "Round Champion", description: "Finish%%rounds of TGTTOS in 1st place", icon: "tgttos/tgttos_round_champion", stat: "round_first_place", game: "tgttos", tiers: [
+        { name: "Round Champion", description: "Finish%%rounds of To Get To The Other Side in 1st place", icon: "tgttos/tgttos_round_champion", stat: "round_first_place", game: "tgttos", tiers: [
             { name: "I", amount: 2, trophies: 10 },
             { name: "II", amount: 7, trophies: 20 },
             { name: "III", amount: 15, trophies: 30 },
@@ -166,7 +166,7 @@ export const badges = {
             { name: "VI", amount: 110, trophies: 100 },
             { name: "VII", amount: 180, trophies: 125 },    
         ]},
-        { name: "Round Expert", description: "Finish%%rounds of TGTTOS in 5th place or better", icon: "tgttos/tgttos_round_expert", stat: "round_top_five", game: "tgttos", tiers: [
+        { name: "Round Expert", description: "Finish%%rounds of To Get To The Other Side in 5th place or better", icon: "tgttos/tgttos_round_expert", stat: "round_top_five", game: "tgttos", tiers: [
             { name: "I", amount: 15, trophies: 10 },
             { name: "II", amount: 50, trophies: 20 },
             { name: "III", amount: 110, trophies: 30 },
@@ -175,7 +175,7 @@ export const badges = {
             { name: "VI", amount: 750, trophies: 100 },
             { name: "VII", amount: 1250, trophies: 125 },    
         ]},
-        { name: "TGTTOS Champion", description: "Finish%%games of TGTTOS in 1st place", icon: "tgttos/tgttos_champion", stat: "first_place", game: "tgttos", tiers: [
+        { name: "To Get To The Other Side Champion", description: "Finish%%games of To Get To The Other Side in 1st place", icon: "tgttos/tgttos_champion", stat: "first_place", game: "tgttos", tiers: [
             { name: "I", amount: 1, trophies: 10 },
             { name: "II", amount: 2, trophies: 20 },
             { name: "III", amount: 5, trophies: 30 },
@@ -184,7 +184,7 @@ export const badges = {
             { name: "VI", amount: 40, trophies: 100 },
             { name: "VII", amount: 60, trophies: 125 },    
         ]},
-        { name: "TGTTOS Expert", description: "Finish%%games of TGTTOS in 5th place or better", icon: "tgttos/tgttos_expert", stat: "top_five", game: "tgttos", tiers: [
+        { name: "To Get To The Other Side Expert", description: "Finish%%games of To Get To The Other Side in 5th place or better", icon: "tgttos/tgttos_expert", stat: "top_five", game: "tgttos", tiers: [
             { name: "I", amount: 5, trophies: 10 },
             { name: "II", amount: 15, trophies: 20 },
             { name: "III", amount: 35, trophies: 30 },
@@ -197,13 +197,13 @@ export const badges = {
     hitw: [
         { name: "Blaze of Glory", description: "Finish 3rd or higher in a game where you punched a blaze", icon: "hitw/blaze_of_glory", stat: "blaze_of_glory", trophies: 50 },
         { name: "Bullet Time", description: "Survive being hit by the matrix trap", icon: "hitw/bullet_time", stat: "bullet_time", trophies: 30 },
-        { name: "Something in the Waves", description: "Catch a fish during a game of HITW", icon: "hitw/something_in_the_waves", stat: "fish_catcher", trophies: 70, secret: true },
+        { name: "Something in the Waves", description: "Catch a fish during a game of Hole in the Wall", icon: "hitw/something_in_the_waves", stat: "fish_catcher", trophies: 70, secret: true },
         { name: "Barely Broiled", description: "Survive being launched by a hot potato", icon: "hitw/barely_broiled", stat: "hot_potato_survivor", trophies: 50 },
         { name: "Monster Catch", description: "Hook a guardian with a fishing rod", icon: "hitw/monster_catch", stat: "monster_catcher", trophies: 100, secret: true },
-        { name: "Slimey Rivalry", description: "Survival until the end of a game of HITW", icon: "hitw/slimey_rivalry", stat: "slimey_rivalry", trophies: 70 },
+        { name: "Slimey Rivalry", description: "Survival until the end of a game of Hole in the Wall", icon: "hitw/slimey_rivalry", stat: "slimey_rivalry", trophies: 70 },
     ] as IslandBadge[],
     hitw_tiered: [
-        { name: "HITW Champion", description: "Finish%%games of HITW in 1st place or survive till the end", icon: "hitw/hitw_champion", stat: "first_place", game: "hitw", tiers: [
+        { name: "Hole in the Wall Champion", description: "Finish%%games of Hole in the Wall in 1st place or survive till the end", icon: "hitw/hitw_champion", stat: "first_place", game: "hitw", tiers: [
             { name: "I", amount: 2, trophies: 10 },
             { name: "II", amount: 5, trophies: 20 },
             { name: "III", amount: 10, trophies: 30 },
@@ -212,7 +212,7 @@ export const badges = {
             { name: "VI", amount: 70, trophies: 100 },
             { name: "VII", amount: 125, trophies: 125 },
         ]},
-        { name: "HITW Expert", description: "Finish%%games of HITW in 5th place or better", icon: "hitw/hitw_expert", stat: "top_five", game: "hitw", tiers: [
+        { name: "Hole in the Wall Expert", description: "Finish%%games of Hole in the Wall in 5th place or better", icon: "hitw/hitw_expert", stat: "top_five", game: "hitw", tiers: [
             { name: "I", amount: 10, trophies: 10 },
             { name: "II", amount: 25, trophies: 20 },
             { name: "III", amount: 75, trophies: 30 },
@@ -221,7 +221,7 @@ export const badges = {
             { name: "VI", amount: 425, trophies: 100 },
             { name: "VII", amount: 700, trophies: 125 },
         ]},
-        { name: "Bring on the Wall", description: "Dodge%%walls in games of HITW", icon: "hitw/bring_on_the_wall", stat: "walls_dodged", game: "hitw", tiers: [
+        { name: "Bring on the Wall", description: "Dodge%%walls in games of Hole in the Wall", icon: "hitw/bring_on_the_wall", stat: "walls_dodged", game: "hitw", tiers: [
             { name: "I", amount: 350, trophies: 10 },
             { name: "II", amount: 1100, trophies: 20 },
             { name: "III", amount: 2500, trophies: 30 },
