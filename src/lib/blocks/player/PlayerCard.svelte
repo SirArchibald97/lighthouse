@@ -37,7 +37,7 @@
                 <img class="size-7 md:size-8 bg-neutral-700 rounded-sm" src={`https://cdn.islandstats.xyz/ranks/${getRankIcon(player?.ranks || [])}.png`} alt={`${getRankIcon(player.ranks || [])} Rank Icon`} />
                 <span class="text-lg md:text-2xl font-semibold">{player.username}</span>
                 {#if player.mccPlusStatus}
-                    <img src="/icons/plus_{player.mccPlusStatus.evolution}.png" alt="MCC Plus Icon" class="size-6 self-center cursor-pointer" />
+                    <img src="https://cdn.islandstats.xyz/ranks/plus_{player.mccPlusStatus.evolution}_simple.png" alt="MCC Plus Icon" class="size-6 self-center cursor-pointer" />
                     <Tooltip arrow={false} type="custom" placement="top" class="flex flex-col items-center text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md duration-75">
                         <p>
                             <span class="font-semibold"><span class="tabular-nums">{daysSince(player.mccPlusStatus.streakStart)}</span> day streak</span>
