@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ChevronUpDown from '$lib/icons/ChevronUpDown.svelte';
-	import { calculatePercentage, calculateTrophiesToNextEvolution, earnedTrophiesForIsland, getCrownColour, getRarityColour, totalTrophiesForIsland } from '$lib/utils';
+	import { calculatePercentage, calculateTrophiesToNextEvolution, earnedTrophiesForIsland, formatCaughtDate, getCrownColour, getRarityColour, totalTrophiesForIsland } from '$lib/utils';
 	import { slide } from 'svelte/transition';
 	import FishingIslandStats from '$lib/blocks/fishing/FishingIslandStats.svelte';
     import type { PageProps } from './$types';
@@ -67,13 +67,6 @@
             }
         }
         return islands.find(i => i.name === recommendedIsland[0]);
-    }
-
-    function formatCaughtDate(date: string) {
-        const dateObj = new Date(date);
-        const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'short', year: 'numeric' };
-        const formattedDate = dateObj.toLocaleDateString("UTC", options).replace(/(\d+)(st|nd|rd|th)/, '$1$2').replace(/(\w+) (\d+)/, '$1 $2').replace(/(\d{4})/, '$1');
-        return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
     }
 </script>
 

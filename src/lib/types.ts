@@ -420,6 +420,11 @@ export interface Player {
     uuid: string
     username: string
     ranks: string[]
+    mccPlusStatus: {
+        totalDays: number
+        streakStart: string
+        evolution: number
+    }
     trophies: {
         total: number
         max: number

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Player } from '$lib/types';
-	import { getRankIcon, getStatusIcon, getStatusString } from '$lib/utils';
+	import { daysSince, formatCaughtDate, getRankIcon, getStatusIcon, getStatusString } from '$lib/utils';
+	import { Tooltip } from 'flowbite-svelte';
     import { DateTime } from "luxon";
 
 	export let player: Player;
@@ -27,7 +28,7 @@
 			/>
             {#if player.status}
                 <span class="absolute right-0 md:right-1 bottom-2 md:bottom-1 block translate-x-1/2 translate-y-1/2 transform rounded-full border-4 border-neutral-950">
-                        <span class={`block size-2 md:size-3 rounded-full ${player.status.online ? "bg-green-400" : "bg-red-400"}`}></span>
+                    <span class={`block size-2 md:size-3 rounded-full ${player.status.online ? "bg-green-400" : "bg-red-400"}`}></span>
                 </span>
             {/if}
 		</span>
@@ -35,6 +36,16 @@
 			<div class="flex flex-row gap-x-2">
                 <img class="size-7 md:size-8 bg-neutral-700 rounded-sm" src={`https://cdn.islandstats.xyz/ranks/${getRankIcon(player?.ranks || [])}.png`} alt={`${getRankIcon(player.ranks || [])} Rank Icon`} />
                 <span class="text-lg md:text-2xl font-semibold">{player.username}</span>
+                {#if player.mccPlusStatus}
+                    <img src="/icons/plus_{player.mccPlusStatus.evolution}.png" alt="MCC Plus Icon" class="size-6 self-center cursor-pointer" />
+                    <Tooltip arrow={false} type="custom" placement="top" class="flex flex-col items-center text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md duration-75">
+                        <p>
+                            <span class="font-semibold"><span class="tabular-nums">{daysSince(player.mccPlusStatus.streakStart)}</span> day streak</span>
+                            (<span class="tabular-nums">{player.mccPlusStatus.totalDays}</span> days total)
+                        </p>
+                        <p>Subscribed since <span class="font-semibold">{formatCaughtDate(player.mccPlusStatus.streakStart)}</span></p>
+                    </Tooltip>
+                {/if}
             </div>
             {#if player.status}
                 {#if player.status.online}

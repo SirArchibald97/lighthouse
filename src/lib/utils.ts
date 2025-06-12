@@ -212,3 +212,18 @@ export function caughtWeightsForIsland(allFish: { fish: IslandFish, weights: Isl
     }
     return runningTotal;
 }
+
+export function formatCaughtDate(date: string) {
+    const dateObj = new Date(date);
+    const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'short', year: 'numeric' };
+    const formattedDate = dateObj.toLocaleDateString("UTC", options).replace(/(\d+)(st|nd|rd|th)/, '$1$2').replace(/(\w+) (\d+)/, '$1 $2').replace(/(\d{4})/, '$1');
+    return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+}
+
+export function daysSince(date: string) {
+    const dateObj = new Date(date);
+    const today = new Date();
+    const diffTime = Math.abs(today.getTime() - dateObj.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+}
