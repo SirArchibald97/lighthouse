@@ -75,14 +75,12 @@
             <p class="text-md lg:text-lg font-semibold mb-2">Wallet</p>
             <div class="flex flex-col gap-y-1">
                 {#each [
-                    { label: "Coins", icon: "coin", stat: player.collections?.currency.coins },
-                    { label: "Silver", icon: "silver", stat: player.collections?.currency.silver },
-                    { label: "Material Dust", icon: "material_dust", stat: player.collections?.currency.materialDust },
-                    { label: "A.N.G.L.R Tokens", icon: "angler_token", stat: player.collections?.currency.anglrTokens },
-                    { label: "Royal Reputation", icon: "royal_reputation", stat: player.collections?.currency.royalReputation },
+                    { label: "Coins", icon: "currency/coin.png", stat: player.collections?.currency.coins },
+                    { label: "A.N.G.L.R Tokens", icon: "currency/angler_token.png", stat: player.collections?.currency.anglrTokens },
+                    { label: "Royal Reputation", icon: "currency/royal_reputation.png", stat: player.collections?.currency.royalReputation },
                 ] as { label: string, icon: string, stat: number }[] as currency}
                     <p class="flex flex-row gap-x-2 text-base">
-                        <img src={`https://cdn.islandstats.xyz/icons/currency/${currency.icon}.png`} alt={`${currency.label} Icon`} class="size-6 lg:size-8 cursor-pointer" />
+                        <img src={`https://cdn.islandstats.xyz/icons/${currency.icon}`} alt={`${currency.label} Icon`} class="size-6 lg:size-8 cursor-pointer" />
                         <Tooltip arrow={false} type="custom" placement="top" class="text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md duration-75">
                             {currency.label}
                         </Tooltip>

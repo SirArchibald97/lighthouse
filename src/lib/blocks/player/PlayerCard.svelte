@@ -49,15 +49,15 @@
             </div>
             {#if player.status}
                 {#if player.status.online}
-                    {#if player.status.server.category === "GAME"}
+                    {#if player.status.server?.category === "GAME"}
                         <p class="flex flex-row gap-x-2">
                             <span>Playing</span>
-                            <img class="size-6 self-center" src={`https://cdn.islandstats.xyz/games/${getStatusIcon(player.status.server.associatedGame === "PARKOUR_WARRIOR" ? player.status.server.subType : player.status.server.associatedGame)}/icon.png`} alt={`${player.status.server?.associatedGame} Icon`} />
-                            <span class="font-semibold">{getStatusString(player.status.server.associatedGame === "PARKOUR_WARRIOR" ? player.status.server.subType : player.status.server.associatedGame)}</span>
+                            <img class="size-6 self-center" src={`https://cdn.islandstats.xyz/games/${getStatusIcon(player.status.server?.associatedGame === "PARKOUR_WARRIOR" ? player.status.server?.subType : player.status.server?.associatedGame)}/icon.png`} alt={`${player.status.server?.associatedGame} Icon`} />
+                            <span class="font-semibold">{getStatusString(player.status.server?.associatedGame === "PARKOUR_WARRIOR" ? player.status.server?.subType : player.status.server?.associatedGame)}</span>
                         </p>
                     {:else if player.status.server?.category === "LOBBY"}
                         <p class="flex flex-row gap-x-2">
-                            {#if player.status.server.subType === "fishing"}
+                            {#if player.status.server?.subType === "fishing"}
                                 <span>On a</span>
                                 <img class="size-6 self-center" src="https://cdn.islandstats.xyz/games/fishing/icon.png" alt="Fishing Game Icon" />
                                 <span class="font-semibold">Fishing Island</span>

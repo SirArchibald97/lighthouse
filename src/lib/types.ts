@@ -90,8 +90,7 @@ export interface IslandFishWeight {
 export interface PlayerCollections {
     currency: {
         coins: number
-        silver: number
-        materialDust: number
+        goop: number
         royalReputation: number
         anglrTokens: number
     }
@@ -121,12 +120,12 @@ export interface BattleBoxStatistics {
     blocks_placed: number
     blocks_broken: number
     total_score: number
+    ace: number
     badges: {
         [key: string]: number
         blind_brawl: number
         aerial_assault: number
         stealthy_takedown: number
-        ace: number
         ace_from_afar: number
         ultimate_ace: number
         leave_it_to_me: number

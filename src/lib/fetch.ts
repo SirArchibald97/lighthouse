@@ -1,5 +1,5 @@
 import { browser } from "$app/environment";
-import { API_KEY, DEV } from "$env/static/private";
+import { DEV } from "$env/static/private";
 import type { IslandApiResponse } from "./types";
 import { formatUUID } from "./utils";
 
@@ -22,8 +22,7 @@ export async function getPlayer(username: string) {
             method: "GET",
             headers: { 
                 "Content-Type": "application/json", 
-                "Accept": "application/json", 
-                "auth": `${API_KEY}`
+                "Accept": "application/json",
             }
         }
     );

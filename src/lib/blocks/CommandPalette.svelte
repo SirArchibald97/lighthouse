@@ -19,24 +19,35 @@
         }
     }
 
+    function onClick(event: MouseEvent) {
+        if ((event.target! as Element).id === "open-palette") {
+            if (!showCommandPalette) {
+                showCommandPalette = true
+                recentSearches = localStorage.getItem("searches")?.split(",") || []; 
+            }
+        } else if ((event.target! as Element).id === "command-palette") {
+            showCommandPalette = false
+        }
+    }
+
     let os = $state("PC");
     onMount(async () => {
         os = getOS(navigator.userAgent);
     });
 </script>
 
-<svelte:window onkeydown={onKeyPress} />
+<svelte:window onkeydown={onKeyPress} onclick={onClick} />
 <div>
-    <button type="button" onclick={() => { recentSearches = localStorage.getItem("searches")?.split(",") || []; showCommandPalette = true }} class="flex flex-row gap-x-2 border-2 border-neutral-800 rounded-full px-4 py-1 text-sm font-semibold text-neutral-50 shadow-xs hover:bg-neutral-700 hover:cursor-pointer duration-100">
-        <span class="w-4 h-4 self-center"><MagnifyingGlass /></span>
-        <span class="self-center">{os === "macOS" ? "⌘ K" : (os === "mobile" ? "Tap" : "Ctrl K")}</span>
+    <button id="open-palette" type="button" class="flex flex-row gap-x-2 border-2 border-neutral-800 rounded-full px-4 py-1 text-sm font-semibold text-neutral-50 shadow-xs hover:bg-neutral-700 hover:cursor-pointer duration-100">
+        <span id="open-palette" class="w-4 h-4 self-center"><MagnifyingGlass /></span>
+        <span id="open-palette" class="self-center">{os === "macOS" ? "⌘ K" : (os === "mobile" ? "Tap" : "Ctrl K")}</span>
     </button>
 
     {#if showCommandPalette}
         <div class="relative z-10">
             <div class="fixed inset-0 bg-gray-500/15 transition-opacity"></div>
 
-            <div class="fixed inset-0 z-10 w-screen overflow-y-auto p-4 sm:p-6 md:p-20 text-neutral-100 animate-pallette-in">
+            <div id="command-palette" class="fixed inset-0 z-10 w-screen overflow-y-auto p-4 sm:p-6 md:p-20 text-neutral-100 animate-pallette-in">
                 <div class="mx-auto max-w-xl transform bg-neutral-950 divide-y divide-neutral-800 overflow-hidden rounded-xl shadow-2xl ring-1 ring-black/5 transition-all">
                     <div class="grid grid-cols-1">
                         <form method="POST" action="?/getPlayer" class="col-start-1 row-start-1">

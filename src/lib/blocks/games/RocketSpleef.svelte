@@ -52,12 +52,12 @@
     </div>
 
     <!-- BADGES -->
-    <div class="py-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 *:rounded-lg text-md">
+    <div class="py-4 grid grid-cols-1 md:grid-cols-2 gap-4 *:rounded-lg text-md">
         <Badges stats={stats} badges={badges.rocket_spleef} />
     </div>
 
     <!-- TIERED BADGES -->
-    <div class="py-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 *:rounded-lg text-md">
+    <div class="py-4 grid grid-cols-1 md:grid-cols-2 gap-4 *:rounded-lg text-md">
         <TieredBadges stats={stats} badges={badges.rocket_spleef_tiered} />
     </div>  
 </div>

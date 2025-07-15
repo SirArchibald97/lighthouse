@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { badges  } from "$lib/badges";
-	import type { BattleBoxStatistics, Player } from "$lib/types";
+	import type { BattleBoxStatistics } from "$lib/types";
 	import { calculatePercentage, roundNumber } from "$lib/utils";
 	import Badges from "./Badges.svelte";
 	import TieredBadges from "./TieredBadges.svelte";
 
     let { stats }: { stats: BattleBoxStatistics } = $props();
+    console.log(stats)
 </script>
 
 <div class="flex flex-col border-t border-neutral-800 px-4 divide-y divide-neutral-800 text-base lg:text-lg">
@@ -95,6 +96,7 @@
                 </p>
             </div>
             <div>
+                <p>Aces: <span class="tabular-nums font-semibold">{stats.ace.toLocaleString()}</span></p>
                 <p>Total Score: <span class="tabular-nums font-semibold">{stats.total_score.toLocaleString()}</span></p>
             </div>
         </div>
@@ -102,12 +104,12 @@
 
 
     <!-- BADGES -->
-    <div class="py-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 *:rounded-lg text-md">
+    <div class="py-4 grid grid-cols-1 md:grid-cols-2 gap-4 *:rounded-lg text-md">
         <Badges stats={stats!} badges={badges.battle_box} />
     </div>
 
     <!-- TIERED BADGES -->
-    <div class="py-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 *:rounded-lg text-md">
+    <div class="py-4 grid grid-cols-1 md:grid-cols-2 gap-4 *:rounded-lg text-md">
         <TieredBadges stats={stats!} badges={badges.battle_box_tiered} />
     </div>  
 </div>

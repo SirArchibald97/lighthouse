@@ -90,7 +90,7 @@
                     </div>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {#if gameFilter.label === "All Games"}
                         <AllHuntingBadges player={player} {forNextTier} sortedBy={order} all={true} 
                             badges={

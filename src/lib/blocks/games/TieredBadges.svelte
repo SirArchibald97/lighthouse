@@ -32,7 +32,7 @@
                     <span class="text-green-600">{shortenNumber(tier.amount).toLocaleString()}</span>
                 {:else}
                     {#if calculateBadgeTier(stats[badge.stat], badge.tiers).next.name === tier.name}
-                        <span class="text-orange-400">{stats[badge.stat].toLocaleString()}</span>
+                        <span class="text-orange-400">{stats[badge.stat]?.toLocaleString() || "0"}</span>
                         <span class="text-neutral-500">
                             <span> / </span>
                             <span>{shortenNumber(tier.amount).toLocaleString()}</span>

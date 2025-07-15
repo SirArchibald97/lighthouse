@@ -14,7 +14,7 @@
 		{ label: 'Games', href: 'games', icon: 'emojis/crown', alt: 'Crown' },
 		{ label: 'Trophy Hunting', href: 'hunting', icon: 'icons/trophies/yellow', alt: 'Trophy' },
 		{ label: 'Fishing', href: 'fishing', icon: 'games/fishing/icon', alt: 'Fishing Rod' },
-		{ label: 'Wardrobe', href: 'wardrobe', icon: 'icons/wardrobe/icon', alt: 'Wardrobe' }
+		{ label: 'Wardrobe', href: 'wardrobe', icon: 'icons/style_level/9', alt: 'Wardrobe' }
 	];
 
     let selectMenuOpen = $state(false);

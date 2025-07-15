@@ -75,18 +75,18 @@
                     </div>
                     {#if friend.status}
                         {#if friend.status.online}
-                            {#if friend.status.server.category === 'GAME'}
+                            {#if friend.status.server?.category === 'GAME'}
                                 <img
-                                    src="https://cdn.islandstats.xyz/games/{getStatusIcon(friend.status.server.associatedGame === "PARKOUR_WARRIOR" ? friend.status.server.subType : friend.status.server.associatedGame)}/icon.png"
-                                    alt="{friend.status.server.associatedGame} Icon"
+                                    src="https://cdn.islandstats.xyz/games/{getStatusIcon(friend.status.server?.associatedGame === "PARKOUR_WARRIOR" ? friend.status.server?.subType : friend.status.server?.associatedGame)}/icon.png"
+                                    alt="{friend.status.server?.associatedGame} Icon"
                                     class="flex size-6 self-center"
                                 />
                                 <Tooltip arrow={false} type="custom" class="text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md duration-75">
-                                    {getStatusString(friend.status.server.associatedGame === "PARKOUR_WARRIOR" ? friend.status.server.subType : friend.status.server.associatedGame)}
+                                    {getStatusString(friend.status.server?.associatedGame === "PARKOUR_WARRIOR" ? friend.status.server?.subType : friend.status.server?.associatedGame)}
                                 </Tooltip>
-                            {:else if friend.status.server.category === 'LOBBY'}
+                            {:else if friend.status.server?.category === 'LOBBY'}
                                 <div class="flex flex-row gap-x-2">
-                                    {#if friend.status.server.subType === 'fishing'}
+                                    {#if friend.status.server?.subType === 'fishing'}
                                         <img
                                             src={`https://cdn.islandstats.xyz/games/fishing/icon.png`}
                                             alt="Fishing Rod Icon"
@@ -162,20 +162,20 @@
 							</div>
 							{#if member.status}
 								{#if member.status.online}
-									{#if member.status.server.category === 'GAME'}
+									{#if member.status.server?.category === 'GAME'}
 										<div class="flex flex-col">
                                             <img
                                                 class="size-8 self-center"
-                                                src={`https://cdn.islandstats.xyz/games/${getStatusIcon(member.status.server.associatedGame === "PARKOUR_WARRIOR" ? member.status.server.subType : member.status.server.associatedGame)}/icon.png`}
+                                                src={`https://cdn.islandstats.xyz/games/${getStatusIcon(member.status.server?.associatedGame === "PARKOUR_WARRIOR" ? member.status.server?.subType : member.status.server?.associatedGame)}/icon.png`}
                                                 alt={`${member.status.server?.associatedGame} Icon`}
                                             />
                                             <Tooltip arrow={false} type="custom" class="text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md duration-75">
-                                                {getStatusString(member.status.server.associatedGame === "PARKOUR_WARRIOR" ? member.status.server.subType : member.status.server.associatedGame)}
+                                                {getStatusString(member.status.server?.associatedGame === "PARKOUR_WARRIOR" ? member.status.server?.subType : member.status.server?.associatedGame)}
                                             </Tooltip>
                                         </div>
 									{:else if member.status.server?.category === 'LOBBY'}
 										<p class="flex flex-row gap-x-2">
-											{#if member.status.server.subType === 'fishing'}
+											{#if member.status.server?.subType === 'fishing'}
 												<img
 													class="size-8 self-center"
 													src={`https://cdn.islandstats.xyz/games/fishing/icon.png`}
@@ -187,11 +187,11 @@
 											{:else}
 												<img
 													class="size-8 self-center"
-													src={`https://cdn.islandstats.xyz/games/${getStatusIcon(member.status.server.associatedGame) || 'lobby'}/icon.png`}
+													src={`https://cdn.islandstats.xyz/games/${getStatusIcon(member.status.server?.associatedGame) || 'lobby'}/icon.png`}
 													alt="Main Lobby Icon"
 												/>
                                                 <Tooltip arrow={false} type="custom" class="text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md duration-75">
-                                                    {getStatusString(member.status.server.associatedGame) || "Main"} Lobby
+                                                    {getStatusString(member.status.server?.associatedGame) || "Main"} Lobby
                                                 </Tooltip>
 											{/if}
 										</p>
