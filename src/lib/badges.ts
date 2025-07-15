@@ -220,7 +220,7 @@ export const badges = {
             { name: "VII", amount: 375, trophies: 100 },
             { name: "VIII", amount: 500, trophies: 100 },
             { name: "IX", amount: 750, trophies: 150 },
-            { name: "X", amount: 7000, trophies: 150 },
+            { name: "X", amount: 1000, trophies: 150 },
         ]}
     ] as IslandTieredBadge[],
     hitw: [
