@@ -123,7 +123,7 @@ export function getCrownColourHex(level: number) {
 
 export function getRarityColour(rarity: string) {
     const rarities = {
-        "COMMON": "text-neutral-400",
+        "COMMON": "text-neutral-200",
         "UNCOMMON": "text-green-500",
         "RARE": "text-blue-500",
         "EPIC": "text-purple-500",
@@ -182,7 +182,7 @@ export const fishingLevels = [
 export function calculateTrophiesToNextEvolution(levelType: string, totalTrophies: number, nextEvolution: number) {
     let runningTotalForNextEvolution = 0;
     for (let level = 0; level < nextEvolution; level++) {
-        runningTotalForNextEvolution += (levelType === "crown" ? levels : fishingLevels).find(l => level >= l.range[0] && level <= l.range[1])?.trophies || 0;
+        runningTotalForNextEvolution += (levelType === "crown" ? levels : (levelType === "style" ? styleLevels : fishingLevels)).find(l => level >= l.range[0] && level <= l.range[1])?.trophies || 0;
     }
     return runningTotalForNextEvolution - totalTrophies;
 }
@@ -226,4 +226,49 @@ export function daysSince(date: string) {
     const diffTime = Math.abs(today.getTime() - dateObj.getTime());
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays;
+}
+
+const styleLevels = [
+    { range: [0, 9], trophies: 500 },
+    { range: [10, 19], trophies: 500 },
+    { range: [20, 29], trophies: 500 },
+    { range: [30, 39], trophies: 1000 },
+    { range: [40, 49], trophies: 1000 },
+    { range: [50, 59], trophies: 1000 },
+    { range: [60, 69], trophies: 1000 },
+    { range: [70, 79], trophies: 1500 },
+    { range: [80, 89], trophies: 1500 },
+    { range: [90, 99], trophies: 1500 },
+];
+
+export function calculateStyleLevel(trophies: number) {
+    let runningTotal = 0;
+    for (const tier of styleLevels) {
+        if (trophies > runningTotal + (tier.trophies * 10)) {
+            runningTotal += tier.trophies * 10;
+        } else {
+            for (let level = tier.range[0]; level <= tier.range[1]; level++) {
+                if (trophies > runningTotal + tier.trophies) {
+                    runningTotal += tier.trophies;
+                } else {
+                    return { level, progressThroughLevel: trophies - runningTotal, totalForLevel: tier.trophies };
+                }
+            }
+        }
+    }
+    return { level: 0, progressThroughLevel: 0, totalForLevel: 0 };
+}
+
+export function trophiesForStyleLevel(styleLevel: number) {
+    let runningTotal = 0;
+    for (const tier of styleLevels) {
+        for (let level = tier.range[0]; level <= tier.range[1]; level++) {
+            if (level < styleLevel) {
+                runningTotal += tier.trophies;
+            } else {
+                return runningTotal;
+            }
+        }
+    }
+    return runningTotal;
 }
