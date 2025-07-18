@@ -95,6 +95,33 @@ export interface PlayerCollections {
         anglrTokens: number
     }
     fish: { fish: IslandFish, weights: IslandFishWeight[] }[]
+    equippedCosmetics: {
+        name: string
+        rarity: string
+        category: string
+        collection: string
+        trophies: number
+        isBonusTrophies: boolean
+        canBeDonated: boolean
+        colorable: boolean
+        globalNumberOwned: string
+    }[]
+    cosmetics: {
+        cosmetic: {
+            name: string
+            rarity: string
+            category: string
+            collection: string
+            trophies: number
+            isBonusTrophies: boolean
+            canBeDonated: boolean
+            colorable: boolean
+            globalNumberOwned: string
+        }
+        owned: boolean
+        donationsMade: number
+        chromaPacks: string[]
+    }[]
 }
 
 export interface BattleBoxStatistics {

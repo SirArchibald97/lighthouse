@@ -51,7 +51,6 @@
                 <div class="mx-auto max-w-xl transform bg-neutral-950 divide-y divide-neutral-800 overflow-hidden rounded-xl shadow-2xl ring-1 ring-black/5 transition-all">
                     <div class="grid grid-cols-1">
                         <form method="POST" action="?/getPlayer" class="col-start-1 row-start-1">
-                            <!-- svelte-ignore a11y_autofocus -->
                             <input
                                 name="username"
                                 type="text"
@@ -61,11 +60,10 @@
                                 aria-expanded="false"
                                 aria-controls="options"
                                 bind:value={username}
-                                autofocus
                                 autocomplete="off"
                             />
                         </form>
-                            <svg
+                        <svg
                             class="pointer-events-none col-start-1 row-start-1 ml-4 size-5 self-center text-gray-400"
                             viewBox="0 0 20 20"
                             fill="currentColor"
