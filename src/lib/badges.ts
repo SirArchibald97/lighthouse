@@ -435,9 +435,6 @@ export const badges = {
             { name: "V", amount: 225, trophies: 50 },
             { name: "VI", amount: 375, trophies: 50 },
             { name: "VII", amount: 625, trophies: 100 },
-            { name: "VIII", amount: 125, trophies: 100 },
-            { name: "IX", amount: 200, trophies: 150 },
-            { name: "X", amount: 300, trophies: 150 },
         ]},
         { name: "Parkour Warrior Assassin", description: "Eliminate%%players in games of Parkour Warrior Survivor", icon: "parkour_warrior/parkour_warrior_ninja", stat: "kills", game: "parkour_warrior", tiers: [
             { name: "I", amount: 100, trophies: 50 },
@@ -447,9 +444,6 @@ export const badges = {
             { name: "V", amount: 3000, trophies: 50 },
             { name: "VI", amount: 5000, trophies: 50 },
             { name: "VII", amount: 8000, trophies: 100 },
-            { name: "VIII", amount: 125, trophies: 100 },
-            { name: "IX", amount: 200, trophies: 150 },
-            { name: "X", amount: 300, trophies: 150 },
         ]},
     ] as IslandTieredBadge[],
     rocket_spleef: [
