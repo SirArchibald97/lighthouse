@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { calculatePercentage, calculateStyleLevel, calculateTrophiesToNextEvolution, getCrownColour, getCrownColourHex, getRarityColour, trophiesForStyleLevel } from '$lib/utils';
-	import { MediaPlayers } from 'ua-parser-js/extensions';
+	import { calculatePercentage, calculateStyleLevel, getCrownColour, getRarityColour, trophiesForStyleLevel } from '$lib/utils';
     import type { PageProps } from './$types';
 	import { slide } from 'svelte/transition';
 	import ChevronUpDown from '$lib/icons/ChevronUpDown.svelte';
+	import { Tooltip } from 'flowbite-svelte';
 	let { data }: PageProps = $props();
 
     let cosmeticName = $state("");
@@ -42,7 +42,13 @@
         "Limited Special",
         "Particle"
     ];
-    let openCollection = $state("")
+    let openCollection = $state("");
+
+    const stackedCosmetics = [
+        "Faction Flag - Wooden",
+        "Faction Flag - Solidified"
+    ];
+    let hasBeenStacked: string[] = [];
 </script>
 
 {#await data.streamed.player then player}
@@ -130,28 +136,40 @@
                                 return c.owned
                             }
                         }) as { cosmetic, owned, chromaPacks, donationsMade }}
-                            <div class={`flex flex-col gap-y-2 text-base lg:text-lg rounded-md border ${owned ? "bg-green-800/10 border-green-800/50" : "border-neutral-800"}`}>
+                            <div class={`flex flex-col gap-y-2 text-base lg:text-lg rounded-md border ${owned ? "bg-green-800/30 border-green-800/80" : "border-neutral-800"}`}>
                                 <div class="flex flex-row gap-x-2 p-2">
                                     <div class="flex gap-x-4 min-w-full justify-between">
                                         <div class="flex gap-x-2 text-sm lg:text-base">
-                                            <img class="size-12 lg:size-16 self-center" src="https://mccisland.wiki/Special:Filepath/{cosmetic.name.replaceAll(" ", "_")}.png" alt={cosmetic.name} />
+                                            <img class="size-12 lg:size-16 self-center" src="https://cdn.islandstats.xyz/cosmetics/{cosmetic.category.toLowerCase()}/{cosmetic.collection.toLowerCase().replaceAll(" ", "_")}/{cosmetic.name.replaceAll(" ", "_")}.png" alt={cosmetic.name} />
                                             <div class="flex flex-col">
-                                                <p class="flex gap-x-1">
+                                                <p class="flex gap-x-1 mb-1">
                                                     <span class="font-semibold {getRarityColour(cosmetic.rarity)}">{cosmetic.name}</span>
                                                     <span class="text-neutral-500">•</span>
                                                     <span class="text-neutral-500">{cosmetic.category[0] + cosmetic.category.toLowerCase().slice(1)}</span>
                                                 </p>
                                                 {#if owned}
                                                     {#if cosmetic.canBeDonated}
-                                                        <p>Donations: <span class="tabular-nums">{donationsMade || 0} / 10</span></p>
+                                                        <div class="flex gap-x-1">
+                                                            <img src="https://cdn.islandstats.xyz/icons/misc/scavenging.png" alt="Scavenged" class="size-3 md:size-5 self-center" />
+                                                            <span class="tabular-nums">{donationsMade || 0} / 10</span>
+                                                        </div>
                                                     {:else}
-                                                        <p>Cannot be donated</p>
+                                                        <div class="flex gap-x-1">
+                                                            <img src="https://cdn.islandstats.xyz/icons/misc/scavenging.png" alt="Scavenged" class="size-3 md:size-5 self-center grayscale" />
+                                                            <span class="tabular-nums">Cannot be donated</span>
+                                                        </div>
                                                     {/if}
                                                 {:else}
-                                                    <p>Locked</p>
+                                                    <div class="flex gap-x-1">
+                                                        <img src="https://cdn.discordapp.com/emojis/1042056408423739492.webp" alt="Scavenged" class="size-3 md:size-5 self-center" />
+                                                        <span class="tabular-nums">Not owned</span>
+                                                    </div>
                                                 {/if}
                                                 {#if cosmetic.globalNumberOwned}
-                                                    <p><span class="tabular-nums">{cosmetic.globalNumberOwned?.toLocaleString()} owned</span></p>
+                                                    <div class="flex gap-x-1">
+                                                        <img src="https://cdn.islandstats.xyz/icons/social/friend.png" alt="Scavenged" class="size-3 md:size-5 self-center" />
+                                                        <span class="tabular-nums">{cosmetic.globalNumberOwned.toLocaleString()} owned</span>
+                                                    </div>
                                                 {/if}
                                             </div>
                                         </div>
@@ -225,28 +243,40 @@
                                                     return c.owned
                                                 }
                                             }) as { cosmetic, owned, chromaPacks, donationsMade }}
-                                                <div class={`flex flex-col gap-y-2 text-base lg:text-lg rounded-md border ${owned ? "bg-green-800/10 border-green-800/50" : "border-neutral-800"}`}>
+                                                <div class={`flex flex-col gap-y-2 text-base lg:text-lg rounded-md border ${owned ? "bg-green-800/30 border-green-800/80" : "border-neutral-800"}`}>
                                                     <div class="flex flex-row gap-x-2 p-2">
                                                         <div class="flex gap-x-4 min-w-full justify-between">
                                                             <div class="flex gap-x-2 text-sm lg:text-base">
-                                                                <img class="size-12 lg:size-16 self-center" src="https://mccisland.wiki/Special:Filepath/{cosmetic.name.replaceAll(" ", "_")}.png" alt={cosmetic.name} />
+                                                                <img class="size-12 lg:size-16 self-center" src="https://cdn.islandstats.xyz/cosmetics/{cosmetic.category.toLowerCase()}/{cosmetic.collection.toLowerCase().replaceAll(" ", "_")}/{cosmetic.name.replaceAll(" ", "_")}.png" alt={cosmetic.name} />
                                                                 <div class="flex flex-col">
-                                                                    <p class="flex gap-x-1">
+                                                                    <p class="flex gap-x-1 mb-1">
                                                                         <span class="font-semibold {getRarityColour(cosmetic.rarity)}">{cosmetic.name}</span>
                                                                         <span class="text-neutral-500">•</span>
                                                                         <span class="text-neutral-500">{cosmetic.category[0] + cosmetic.category.toLowerCase().slice(1)}</span>
                                                                     </p>
                                                                     {#if owned}
                                                                         {#if cosmetic.canBeDonated}
-                                                                            <p>Donations: <span class="tabular-nums">{donationsMade || 0} / 10</span></p>
+                                                                            <div class="flex gap-x-1">
+                                                                                <img src="https://cdn.islandstats.xyz/icons/misc/scavenging.png" alt="Scavenged" class="size-3 md:size-5 self-center" />
+                                                                                <span class="tabular-nums">{donationsMade || 0} / 10</span>
+                                                                            </div>
                                                                         {:else}
-                                                                            <p>Cannot be donated</p>
+                                                                            <div class="flex gap-x-1">
+                                                                                <img src="https://cdn.islandstats.xyz/icons/misc/scavenging.png" alt="Scavenged" class="size-3 md:size-5 self-center grayscale" />
+                                                                                <span class="tabular-nums">Cannot be donated</span>
+                                                                            </div>
                                                                         {/if}
                                                                     {:else}
-                                                                        <p>Locked</p>
+                                                                        <div class="flex gap-x-1">
+                                                                            <img src="https://cdn.discordapp.com/emojis/1042056408423739492.webp" alt="Scavenged" class="size-3 md:size-5 self-center" />
+                                                                            <span class="tabular-nums">Not owned</span>
+                                                                        </div>
                                                                     {/if}
                                                                     {#if cosmetic.globalNumberOwned}
-                                                                        <p><span class="tabular-nums">{cosmetic.globalNumberOwned?.toLocaleString()} owned globally</span></p>
+                                                                        <div class="flex gap-x-1">
+                                                                            <img src="https://cdn.islandstats.xyz/icons/social/friend.png" alt="Scavenged" class="size-3 md:size-5 self-center" />
+                                                                            <span class="tabular-nums">{cosmetic.globalNumberOwned.toLocaleString()} owned</span>
+                                                                        </div>
                                                                     {/if}
                                                                 </div>
                                                             </div>
@@ -258,7 +288,10 @@
 
                                                                 <div class="grid grid-cols-2 gap-1 self-center">
                                                                     {#each ["thermal", "verdant", "oceanic", "regal"] as pack}
-                                                                        <img src="https://cdn.islandstats.xyz/icons/chroma_pack/{pack}.png" alt="{pack} Chroma Pack" class="size-3 lg:size-5 {chromaPacks?.includes(pack) ? "visible" : "invisible"}" />
+                                                                        <img src="https://cdn.islandstats.xyz/icons/chroma_pack/{pack}.png" alt="{pack} Chroma Pack" class="size-3 lg:size-5 cursor-pointer {chromaPacks?.includes(pack) ? "" : "grayscale"}" />
+                                                                        <Tooltip arrow={false} type="custom" placement="top" class="text-sm border {chromaPacks?.includes(pack) ? "text-green-600 border-green-800" : "!border-neutral-700"} !bg-neutral-900 px-2 py-0.5 rounded-md">
+                                                                            {pack[0].toUpperCase() + pack.slice(1) + " Chroma"}
+                                                                        </Tooltip>
                                                                     {/each}
                                                                 </div>
                                                             </div>
