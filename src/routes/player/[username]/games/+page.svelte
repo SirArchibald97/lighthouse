@@ -48,8 +48,8 @@
                     { label: "Parkour Warrior Survivor", icon: "games/parkour_warrior/icon" },
                     { label: "Rocket Spleef Rush", icon: "games/rocket_spleef/icon" }
                 ] as { label: string, icon: string, component: any }[] as game}
-                    <div class="border border-neutral-800 rounded-md">
-                        <button onclick={() => { if (expandedSection === game.label) expandedSection = null; else expandedSection = game.label; }} class="w-full cursor-pointer flex flex-row justify-between hover:bg-neutral-800/50 duration-100">
+                    <div class="bg-neutral-800/50 duration-100 rounded-md">
+                        <button onclick={() => { if (expandedSection === game.label) expandedSection = null; else expandedSection = game.label; }} class="w-full cursor-pointer flex flex-row justify-between hover:bg-neutral-800 duration-100 {expandedSection === game.label ? "rounded-t-md" : "rounded-md"}">
                             <div class="flex flex-row gap-x-2 p-3">
                                 <img src={`https://cdn.islandstats.xyz/${game.icon}.png`} alt={``} class="size-6 lg:size-8"/>
                                 <p class="text-base lg:text-xl font-semibold self-center">{game.label}</p>

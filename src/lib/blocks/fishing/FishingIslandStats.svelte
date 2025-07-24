@@ -7,7 +7,7 @@
 
 <div class="w-full flex flex-col lg:grid lg:grid-cols-3 gap-2">
     <!-- TROPHIES -->
-    <div class="flex gap-x-4 border border-neutral-800 rounded-md p-2">
+    <div class="flex gap-x-4 bg-neutral-900 rounded-md p-2">
         <span 
             class={`flex justify-center items-center size-14 lg:size-18 bg-neutral-100 rounded-full ${getCrownColour(player.crownLevel.fishingLevelData.level)}`}  
             style={`background: conic-gradient(${getCrownColourHex(player.crownLevel.fishingLevelData.level)} ${Math.floor((earnedTrophiesForIsland(player.collections!.fish, collection.name) / totalTrophiesForIsland(player.collections!.fish, collection.name)) * 360)}deg, oklch(0.269 0 0) 0deg)`}
@@ -34,7 +34,7 @@
     </div>
 
     <!-- FISH CAUGHT -->
-    <div class="flex gap-x-4 border border-neutral-800 rounded-md p-2">
+    <div class="flex gap-x-4 bg-neutral-900 rounded-md p-2">
         <span 
             class={`flex justify-center items-center size-14 lg:size-18 bg-neutral-100 rounded-full ${getCrownColour(player.crownLevel.fishingLevelData.level)}`}  
             style={`background: conic-gradient(${getCrownColourHex(player.crownLevel.fishingLevelData.level)} ${Math.floor((player.collections!.fish.filter(f => f.fish.collection === collection.name && f.weights.length > 0).length / player.collections!.fish.filter(f => f.fish.collection === collection.name).length) * 360)}deg, oklch(0.269 0 0) 0deg)`}
@@ -60,7 +60,7 @@
     </div>
 
     <!-- WEIGHTS CAUGHT -->
-    <div class="flex gap-x-4 border border-neutral-800 rounded-md p-2">
+    <div class="flex gap-x-4 bg-neutral-900 rounded-md p-2">
         <span 
             class={`flex justify-center items-center size-14 lg:size-18 bg-neutral-100 rounded-full ${getCrownColour(player.crownLevel.fishingLevelData.level)}`}  
             style={`background: conic-gradient(${getCrownColourHex(player.crownLevel.fishingLevelData.level)} ${Math.round(caughtWeightsForIsland(player.collections!.fish, collection.name) / (player.collections!.fish.filter(f => f.fish.collection === collection.name).length * (collection.type === "crab" ? 3 : 4)) * 360)}deg, oklch(0.269 0 0) 0deg)`}

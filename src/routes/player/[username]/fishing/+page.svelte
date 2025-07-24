@@ -198,9 +198,9 @@
             <!-- fishing collections -->
             <div class="flex flex-col gap-y-2 px-4 pb-4">
                 {#each collections.filter(c => c.level <= player.crownLevel.fishingLevelData.level).concat(collections.filter(c => c.level > player.crownLevel.fishingLevelData.level).sort((a, b) => a.level - b.level)) as collection}
-                    <div class="border border-neutral-800 rounded-md">
+                    <div class="bg-neutral-800/50 rounded-md">
                         {#if player.crownLevel.fishingLevelData.level >= collection.level}
-                            <button onclick={() => { if (expandedSection === collection.name) expandedSection = ""; else expandedSection = collection.name; }} class="w-full cursor-pointer flex flex-row justify-between hover:bg-neutral-800/50 duration-100">
+                            <button onclick={() => { if (expandedSection === collection.name) expandedSection = ""; else expandedSection = collection.name; }} class="w-full cursor-pointer flex flex-row justify-between hover:bg-neutral-800 duration-100 {expandedSection === collection.name ? "rounded-t-md" : "rounded-md"}">
                                 <div class="flex flex-row gap-x-2 p-3">
                                     <img 
                                         src={collection.icon.startsWith("!") ? collection.icon : `https://cdn.islandstats.xyz/fishing/islands/${collection.icon}.png`} 
@@ -215,7 +215,7 @@
                                 </div>
                             </button>
                         {:else}
-                            <div class="w-full flex flex-row justify-between bg-neutral-800/80">
+                            <div class="w-full flex flex-row justify-between bg-neutral-900/60">
                                 <div class="flex flex-row gap-x-2 p-3">
                                     <img src={collection.icon.startsWith("/") ? collection.icon : `https://cdn.islandstats.xyz/fishing/islands/${collection.icon}.png`} alt={``} class="size-8"/>
                                     <p class="text-lg lg:text-xl font-semibold self-center">{collection.name}</p>
@@ -242,7 +242,7 @@
                                                     player.collections.fish.filter(fish => fish.fish.collection === collection.name && fish.fish.rarity === rarity) : 
                                                     player.collections.fish.filter(fish => fish.fish.climate.toUpperCase() === collection.climate && fish.fish.name.includes(" Crab") && fish.fish.rarity === rarity)
                                                 ) as fish}
-                                                    <div class="flex flex-row gap-x-2 p-2 border border-neutral-800 rounded-md">
+                                                    <div class="flex flex-row gap-x-2 p-2 bg-neutral-900 rounded-md">
                                                         <img class="size-12 self-center" src="https://cdn.islandstats.xyz/fishing/fish/{collection.type === "crab" ? "crab_collection" : fish.fish.collection.toLowerCase().replaceAll(" ", "_")}/{fish.fish.name.toLowerCase().replaceAll(" ", "_")}.png" alt={fish.fish.name} />
                                                         <div class="flex flex-col w-full">
                                                             <div class="flex gap-x-4">
@@ -278,8 +278,8 @@
                     </div>
                 {/each}
 
-                <div class="mt-2 flex flex-col border border-neutral-800 rounded-md">
-                    <button onclick={() => { if (expandedSection === "stats") expandedSection = ""; else expandedSection = "stats"; }} class="w-full cursor-pointer flex flex-row justify-between hover:bg-neutral-800/50 duration-100">
+                <div class="mt-2 flex flex-col bg-neutral-800/50 rounded-md">
+                    <button onclick={() => { if (expandedSection === "stats") expandedSection = ""; else expandedSection = "stats"; }} class="w-full cursor-pointer flex flex-row justify-between hover:bg-neutral-800/50 duration-10 {expandedSection === "stats" ? "rounded-t-md" : "rounded-md"}">
                         <div class="flex flex-row gap-x-2 p-3">
                             <img 
                                 src="https://cdn.islandstats.xyz/games/fishing/icon.png"
@@ -346,7 +346,7 @@
                                         { label: "Barren", value: player.statistics?.fishing.wayfinder.barren, icon: "https://cdn.islandstats.xyz/fishing/islands/grotto_barren.png" }
                                     ] }
                                 ] as { total: number, hasResearch: boolean | undefined, stats: { label: string, value: number, icon: string, total: boolean | undefined }[] }[] as category}
-                                    <div class="flex justify-between bg-neutral-800/50 rounded-md w-full px-3 py-2">
+                                    <div class="flex justify-between bg-neutral-900 rounded-md w-full px-3 py-2">
                                         <div class="flex flex-col">
                                             {#each category.stats as stat}
                                                 <div class="flex gap-x-2">

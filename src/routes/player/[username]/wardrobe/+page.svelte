@@ -4,13 +4,11 @@
 	import { slide } from 'svelte/transition';
 	import ChevronUpDown from '$lib/icons/ChevronUpDown.svelte';
 	import { Tooltip } from 'flowbite-svelte';
+	import WardrobeCollectionStats from '$lib/blocks/wardrobe/WardrobeCollectionStats.svelte';
 	let { data }: PageProps = $props();
 
     let cosmeticName = $state("");
-    
-    const sorts = ["Name", "Rarity", "Trophies"];
-    let sortBy = $state(sorts[0]);
-    let includeLocked = $state(true)
+    let includeLocked = $state(true);
 
     function toggleLocked() { includeLocked = !includeLocked }
 
@@ -40,15 +38,331 @@
         "Flex",
         "Special",
         "Limited Special",
+        "Limited Event",
         "Particle"
     ];
     let openCollection = $state("");
 
-    const stackedCosmetics = [
-        "Faction Flag - Wooden",
-        "Faction Flag - Solidified"
-    ];
-    let hasBeenStacked: string[] = [];
+    const cosmeticTypes = {
+        ["Goggles (Tinted Over-Eye)"]: "Exclusive",
+        ["Goggles (Tinted)"]: "Exclusive",
+        ["Popsicle (Friend-Shaped)"]: "Exclusive",
+        ["Popsicle (Giga)"]: "Exclusive",
+        ["Competitor's Helmet (Slimed)"]: "Exclusive",
+        ["Head in the Wall (Toxic)"]: "Exclusive",
+        ["Competitor's Safety Pad (Slimed)"]: "Exclusive",
+        ["Slime Fist (Toxic)"]: "Exclusive",
+        ["Slimeling (Kawaii)"]: "Exclusive",
+        ["Slimeling (Loot)"]: "Exclusive",
+        ["Slimeling (King Slime)"]: "Exclusive",
+        ["Slimeling (Magma)"]: "Exclusive",
+        ["Egg Yolk (Fried)"]: "Exclusive",
+        ["Claim Flag (Feathers)"]: "Exclusive",
+        ["Road Sign (Go)"]: "Exclusive",
+        ["Road Sign (Warning)"]: "Exclusive",
+        ["Chicken-Copter (McSquawk)"]: "Exclusive",
+        ["Traffic Cone (Roadworks)"]: "Exclusive",
+        ["Chicken Wing (Hot!)"]: "Exclusive",
+        ["Traffic Light (Junction)"]: "Exclusive",
+        ["Chicken Head (Cyborg)"]: "Exclusive",
+        ["Chicken Head (Golden)"]: "Exclusive",
+        ["Chicken Head (Clucktoons)"]: "Exclusive",
+        ["Chicken Head (Zombie)"]: "Exclusive",
+        ["Crusader (Sunlord)"]: "Exclusive",
+        ["Viking Helmet (Horned)"]: "Exclusive",
+        ["Knight Shield (Ornamental)"]: "Exclusive",
+        ["Viking Shield (Battleworn)"]: "Exclusive",
+        ["Crusader (Black Knight)"]: "Exclusive",
+        ["Viking Helmet (Prestiged)"]: "Exclusive",
+        ["Knight Shield (Goldshire)"]: "Exclusive",
+        ["Viking Shield (Dragon)"]: "Exclusive",
+        ["Fenrir (Steelwulf)"]: "Exclusive",
+        ["Knight Helmet (Goldshire)"]: "Exclusive",
+        ["Fenrir (Fire)"]: "Exclusive",
+        ["Knight Helmet (Darklands)"]: "Exclusive",
+        ["Winged Helmet (Gold Trim)"]: "Exclusive",
+        ["Winged Helmet (Thunder)"]: "Exclusive",
+        ["Zeus Bolt (Catch!)"]: "Exclusive",
+        ["Zeus Bolt (Lightning)"]: "Exclusive",
+        ["Cloud Fist (Lightning)"]: "Exclusive",
+        ["Cloud Fist (Stormy)"]: "Exclusive",
+        ["Mjölnir (Charged)"]: "Exclusive",
+        ["Mjölnir (Thunder)"]: "Exclusive",
+        ["Zeus (Athens)"]: "Exclusive",
+        ["Zeus (Golden)"]: "Exclusive",
+        ["Zeus (Lightning)"]: "Exclusive",
+        ["Zeus (Stormy)"]: "Exclusive",
+        ["Bandana (Blindfold)"]: "Exclusive",
+        ["Parkour Staff (Bamboo)"]: "Exclusive",
+        ["Shuriken (Deadaim)"]: "Exclusive",
+        ["Parkour Cowl (Ninja Frog)"]: "Exclusive",
+        ["Master Frog (Statue)"]: "Exclusive",
+        ["Master Frog (Golden)"]: "Exclusive",
+        ["Sai (Ignited)"]: "Exclusive",
+        ["Sensei (Stripe)"]: "Exclusive",
+        ["Katana (Cherry Blossoms)"]: "Exclusive",
+        ["Kitsune Mask (Black)"]: "Exclusive",
+        ["Paper Umbrella (Sakura)"]: "Exclusive",
+        ["Paper Umbrella (Blossoms)"]: "Exclusive",
+        ["Dynamite Stick (Bundled)"]: "Exclusive",
+        ["Motorcycle Helmet (Daredevil)"]: "Exclusive",
+        ["Hothead (Cheri)"]: "Exclusive",
+        ["Box o' Explosives"]: "Exclusive",
+        ["Krate"]: "Exclusive",
+        ["Arm Cannon (Chicken Ballistics)"]: "Exclusive",
+        ["Dynamite Stick (Nuclear)"]: "Exclusive",
+        ["Atomic Armor"]: "Exclusive",
+        ["Atomic Adventurer"]: "Exclusive",
+        ["Box o' Explosives (Nuclear Meltdown)"]: "Exclusive",
+        ["Krate (Atomic Menace)"]: "Exclusive",
+        ["Rocky Rocket (Radioactive)"]: "Exclusive",
+        ["Sun Visor (Lifeguard)"]: "Limited",
+        ["Rescue Paddle"]: "Limited",
+        ["Lifebuoy"]: "Limited",
+        ["Bunny Rod"]: "Limited",
+        ["Crane Rod"]: "Limited",
+        ["Cyber Rod"]: "Limited",
+        ["Harpoon Rod"]: "Limited",
+        ["Candy Cane"]: "Limited",
+        ["Winter Rod"]: "Limited",
+        ["Franken-Fist"]: "Limited",
+        ["Oni Armor (Cursed)"]: "Limited",
+        ["Sea Shell"]: "Limited",
+        ["Tropical"]: "Limited",
+        ["Clown Mallet (Spiral)"]: "Limited",
+        ["Anemonelly"]: "Limited",
+        ["Jolly Gifts"]: "Limited",
+        ["Sun Hat (Coastal)"]: "Limited",
+        ["Witch Hat (Wicked)"]: "Limited",
+        ["Mega Whip (Sundae)"]: "Limited",
+        ["Candy Cat"]: "Limited",
+        ["Sunny"]: "Limited",
+        ["Squidtek Agent"]: "Limited",
+        ["Snorkel (Bubbles)"]: "Limited",
+        ["Scythe (Wraith)"]: "Limited",
+        ["Ski Helmet"]: "Limited",
+        ["Shroud (Wraith)"]: "Limited",
+        ["Winter Scarf"]: "Limited",
+        ["Sandcastle Crown"]: "Limited",
+        ["Milkshake (Summer Lemon)"]: "Limited",
+        ["Witch's Broom (Wicked)"]: "Limited",
+        ["Oni Mask (Cursed)"]: "Limited",
+        ["Mega Whip"]: "Limited",
+        ["Ski Pole"]: "Limited",
+        ["Anemone"]: "Limited",
+        ["Ice Cream (Cherry-Chocolate-Whip)"]: "Limited",
+        ["Hydroblaster (Squidtek)"]: "Limited",
+        ["Hayseed (Haunted)"]: "Limited",
+        ["Frank Jr."]: "Limited",
+        ["Popsicle (Triple Blast)"]: "Limited",
+        ["Twisted"]: "Limited",
+        ["Elf's Hat"]: "Limited",
+        ["Coral Crown"]: "Limited",
+        ["Aquatank"]: "Limited",
+        ["Kanabō (Cursed)"]: "Limited",
+        ["Snowtube"]: "Limited",
+        ["Crow's Perch"]: "Limited",
+        ["Pumpkin Bucket"]: "Limited",
+        ["Popsicle (Mascot)"]: "Limited",
+        ["Coral Fist"]: "Limited",
+        ["Cybercat Tail"]: "Limited",
+        ["Singularity Core"]: "Limited",
+        ["Candy Contraption"]: "Limited",
+        ["Oni Mask (Holographic)"]: "Limited",
+        ["Toxin Mask"]: "Limited",
+        ["Munchflower Arm"]: "Limited",
+        ["Scuba Watch"]: "Limited",
+        ["Spider Bud"]: "Limited",
+        ["Mixing Claw"]: "Limited",
+        ["Robo-Ducky"]: "Limited",
+        ["Gauntlet (Toxin)"]: "Limited",
+        ["Shroud (Voyager)"]: "Limited",
+        ["Scuba Headgear"]: "Limited",
+        ["Cybercat Head"]: "Limited",
+        ["Paper Umbrella (Holographic)"]: "Limited",
+        ["Toilet Jet"]: "Limited",
+        ["Munchflower Sprout"]: "Limited",
+        ["Scuba Tank"]: "Limited",
+        ["Munchflower Leaf"]: "Limited",
+        ["Cybercat Paw"]: "Limited",
+        ["Spider Claws"]: "Limited",
+        ["Candy Bot"]: "Limited",
+        ["Oni Cloak (Holographic)"]: "Limited",
+        ["Caution Sword"]: "Limited",
+        ["Scepter of Singularity"]: "Limited",
+        ["Spider Goggles"]: "Limited",
+        ["Toxin Tank"]: "Limited",
+        ["Beetle Crown"]: "Collector",
+        ["Leviathan Frills"]: "Collector",
+        ["Style Shard Crown"]: "Collector",
+        ["Witch Hat of Anomalies"]: "Collector",
+        ["Beetle Staff"]: "Collector",
+        ["Book of Anomalies"]: "Collector",
+        ["Leviathan Tentacle"]: "Collector",
+        ["Style Shard Staff"]: "Collector",
+        ["Beetle Wings"]: "Collector",
+        ["Leviathan Tentacles"]: "Collector",
+        ["Style Shard Cape"]: "Collector",
+        ["Totem of Anomalies"]: "Collector",
+        ["Octopus"]: "Exclusive",
+        ["Harpoon (Sunken)"]: "Exclusive",
+        ["Headphones (Squidtek)"]: "Exclusive",
+        ["Jellyfish"]: "Exclusive",
+        ["Umbrella (Beach)"]: "Exclusive",
+        ["Diving Helmet (Sunken)"]: "Exclusive",
+        ["Poseidon's Trident"]: "Exclusive",
+        ["Blubberfish"]: "Exclusive",
+        ["Squidtek Visor"]: "Exclusive",
+        ["Hydroblaster"]: "Exclusive",
+        ["Bubble Fist"]: "Exclusive",
+        ["Sea Shell (H.E.R.M.I.T)"]: "Exclusive",
+        ["Poseidon's Crown"]: "Exclusive",
+        ["Jellyfist"]: "Exclusive",
+        ["Arm Cannon (B.W.B 8000)"]: "Exclusive",
+        ["Poseidon's Cloak"]: "Exclusive",
+        ["Surfboard (Squidtek)"]: "Exclusive",
+        ["Quackshot"]: "Exclusive",
+        ["Jellyfish Tendrils"]: "Exclusive",
+        ["Starfish Staff"]: "Exclusive",
+        ["Surfboard (Palms)"]: "Exclusive",
+        ["Space Slug"]: "Exclusive",
+        ["Star Sailor's Staff (Crescent)"]: "Exclusive",
+        ["Cosmic Visor (Solar Navigator)"]: "Exclusive",
+        ["Comet Fist"]: "Exclusive",
+        ["LARR-E"]: "Exclusive",
+        ["Void Head"]: "Exclusive",
+        ["Cosmic Sword"]: "Exclusive",
+        ["Star Sailor's Tiara"]: "Exclusive",
+        ["Star Sailor"]: "Exclusive",
+        ["Ray Blaster (Alien)"]: "Exclusive",
+        ["Alien Visor"]: "Exclusive",
+        ["Comet Head"]: "Exclusive",
+        ["Believer"]: "Exclusive",
+        ["Cosmic Wings"]: "Exclusive",
+        ["Space Slime"]: "Exclusive",
+        ["Gauntlet (Starforged)"]: "Exclusive",
+        ["Star Sailor's Tutu"]: "Exclusive",
+        ["Star Sailor's Staff"]: "Exclusive",
+        ["Lunar Claw"]: "Exclusive",
+        ["Alien Antennae"]: "Exclusive",
+        ["Void Fist"]: "Exclusive",
+        ["Gummi"]: "Exclusive",
+        ["S'more Staff"]: "Exclusive",
+        ["Cupcake Staff"]: "Exclusive",
+        ["S'more Staff (Royalty)"]: "Exclusive",
+        ["Cupcake (Choco)"]: "Exclusive",
+        ["Cupcake Staff (Spearhead)"]: "Exclusive",
+        ["Cupcake"]: "Exclusive",
+        ["Candy Hood"]: "Exclusive",
+        ["Mellowhead (Crackers)"]: "Exclusive",
+        ["Lil' Gummi"]: "Exclusive",
+        ["Cupcake (Knight)"]: "Exclusive",
+        ["Mellowhead (S'more'd)"]: "Exclusive",
+        ["Choco Cloak"]: "Exclusive",
+        ["Lollipop Staff (Chancellor)"]: "Exclusive",
+        ["Mellowhead (Monarch)"]: "Exclusive",
+        ["Choco Chancellor"]: "Exclusive",
+        ["Choccy"]: "Exclusive",
+        ["Gummi Paw"]: "Exclusive",
+        ["Lollipop Staff"]: "Exclusive",
+        ["S'more Staff (Charred)"]: "Exclusive",
+        ["Hot Chocolate"]: "Exclusive",
+        ["Swarm Basket"]: "Exclusive",
+        ["Raptor Skull"]: "Exclusive",
+        ["Beetleface"]: "Exclusive",
+        ["Witch Doctor's Mask"]: "Exclusive",
+        ["Skull Crown (Stone)"]: "Exclusive",
+        ["Volcano Torch"]: "Exclusive",
+        ["Torch Head"]: "Exclusive",
+        ["Stone Dragon Emperor"]: "Exclusive",
+        ["Skull Crown (Golden)"]: "Exclusive",
+        ["Hive Fist"]: "Exclusive",
+        ["Tail of Wisdom"]: "Exclusive",
+        ["Bone Club"]: "Exclusive",
+        ["Sabertooth Cap"]: "Exclusive",
+        ["Rock on Head"]: "Exclusive",
+        ["Voodoo Doll"]: "Exclusive",
+        ["Bone Spear"]: "Exclusive",
+        ["Direwolf Cap"]: "Exclusive",
+        ["Skull Crown (Crystal)"]: "Exclusive",
+        ["Beehive"]: "Exclusive",
+        ["Wheel of Destiny"]: "Exclusive",
+        ["Jawbone Saw"]: "Exclusive",
+        ["Android Axe"]: "Exclusive",
+        ["Hacker Headset"]: "Exclusive",
+        ["Hacker Terminal"]: "Exclusive",
+        ["Cyber Fist"]: "Exclusive",
+        ["Cyber Helmet"]: "Exclusive",
+        ["Watcher Eye"]: "Exclusive",
+        ["Android Helmet"]: "Exclusive",
+        ["Android Brain"]: "Exclusive",
+        ["Hover Pilot Helmet"]: "Exclusive",
+        ["Holographic Crown"]: "Exclusive",
+        ["Server Rack"]: "Exclusive",
+        ["Holographic Axe"]: "Exclusive",
+        ["Mohawk (Cyber)"]: "Exclusive",
+        ["Guitar (Cyber)"]: "Exclusive",
+        ["Watcher Fist"]: "Exclusive",
+        ["Holographic Wings"]: "Exclusive",
+        ["Watcher Pack"]: "Exclusive",
+        ["Microphone (Cyber)"]: "Exclusive",
+        ["Moai Head (Grooving)"]: "Exclusive",
+        ["Waffle Shield"]: "Exclusive",
+        ["Dart Bracer"]: "Exclusive",
+        ["Cosmic Visor"]: "Exclusive",
+        ["Skull Orb (Golden)"]: "Exclusive",
+        ["Starbeam Laser"]: "Exclusive",
+        ["Crab Claw"]: "Exclusive",
+        ["Lollipop Staff (Sticky)"]: "Exclusive",
+        ["Skull Orb (Stone)"]: "Exclusive",
+        ["Pumpkin Scooper"]: "Exclusive",
+        ["Lollipop Staff (Minty)"]: "Exclusive",
+        ["Cyclops"]: "Exclusive",
+        ["Gumball Head"]: "Exclusive",
+        ["Heart Glasses"]: "Exclusive",
+        ["Treat Tracker"]: "Exclusive",
+        ["Haunted Doll"]: "Exclusive",
+        ["Summer Shades"]: "Exclusive",
+        ["Constellation Cartographer"]: "Exclusive",
+        ["Star Scouter"]: "Exclusive",
+        ["Lantern (Haunted)"]: "Exclusive",
+        ["Spirit Orb"]: "Exclusive",
+        ["Candy Flow"]: "Exclusive",
+        ["Shades (Sunset)"]: "Exclusive",
+        ["Spell Shield (Solar)"]: "Exclusive",
+        ["Pumpkin Spirit"]: "Exclusive",
+        ["Feathery Cap"]: "Exclusive",
+        ["Waffle Stack"]: "Exclusive",
+        ["Halo (Candy)"]: "Exclusive",
+        ["Hairbow (Peppermint)"]: "Exclusive",
+        ["Lay-Ka"]: "Exclusive",
+        ["Sewing Needle"]: "Exclusive",
+        ["Potion Frenzy"]: "Exclusive",
+        ["Surfboard (Suns' Out)"]: "Exclusive",
+        ["Exo-Helmet"]: "Exclusive",
+        ["Crab Hat"]: "Exclusive",
+        ["Bone Claw"]: "Exclusive",
+        ["Choco Shield"]: "Exclusive",
+        ["Skull Orb (Crystal)"]: "Exclusive",
+        ["Blowdart"]: "Exclusive",
+        ["Astronaut Helmet (Star-Ranger)"]: "Exclusive",
+        ["Feathery Arm"]: "Exclusive",
+        ["Ancient Potion"]: "Exclusive",
+        ["Exo-Arm"]: "Exclusive",
+        ["Cyclops Fist"]: "Exclusive",
+        ["Peacock Tail"]: "Arcane",
+        ["Wizard Staff (Ember Mage)"]: "Arcane",
+        ["Abomination Staff"]: "Arcane",
+        ["Tidal Lord Cloak"]: "Arcane",
+        ["Tidal Lord Staff"]: "Arcane",
+        ["Abomination Mask"]: "Arcane",
+        ["Tidal Lord Crown"]: "Arcane",
+        ["Wizard Hat (Ember Mage)"]: "Arcane",
+        ["Abomination Robe"]: "Arcane",
+        ["Peacock Crown"]: "Arcane",
+        ["Wizard Cloak (Ember Mage)"]: "Arcane",
+        ["Peacock Staff"]: "Arcane"
+    } as { [name: string]: string };
 </script>
 
 {#await data.streamed.player then player}
@@ -118,16 +432,8 @@
 
                 
                 {#if cosmeticName.length > 0}
-                    <div class="grid grid-col-1 md:grid-cols-2 xl:grid-cols-3 gap-2">
-                        {#each player.collections.cosmetics.sort((a: any, b: any) => {
-                            if (sortBy === "Name") {
-                                return a.cosmetic.name - b.cosmetic.name
-                            } else if (sortBy === "Rarity") {
-                                return 0
-                            } else {
-                                return 0
-                            }
-                        }).filter(c => { 
+                    <div class="grid grid-col-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mt-2">
+                        {#each player.collections.cosmetics.filter(c => { 
                             if (cosmeticName.length > 0) { return c.cosmetic.name.toLowerCase().includes(cosmeticName) } else { return true } 
                         }).filter(c => {
                             if (includeLocked) {
@@ -136,22 +442,26 @@
                                 return c.owned
                             }
                         }) as { cosmetic, owned, chromaPacks, donationsMade }}
-                            <div class={`flex flex-col gap-y-2 text-base lg:text-lg rounded-md border ${owned ? "bg-green-800/30 border-green-800/80" : "border-neutral-800"}`}>
+                            <div class="relative flex flex-col gap-y-2 text-base lg:text-lg rounded-md {donationsMade === 10 ? "bg-purple-700/30" : (owned ? "bg-green-800/30 border-green-800/80" : "bg-neutral-800/50")}">
                                 <div class="flex flex-row gap-x-2 p-2">
                                     <div class="flex gap-x-4 min-w-full justify-between">
                                         <div class="flex gap-x-2 text-sm lg:text-base">
                                             <img class="size-12 lg:size-16 self-center" src="https://cdn.islandstats.xyz/cosmetics/{cosmetic.category.toLowerCase()}/{cosmetic.collection.toLowerCase().replaceAll(" ", "_")}/{cosmetic.name.replaceAll(" ", "_")}.png" alt={cosmetic.name} />
-                                            <div class="flex flex-col">
-                                                <p class="flex gap-x-1 mb-1">
-                                                    <span class="font-semibold {getRarityColour(cosmetic.rarity)}">{cosmetic.name}</span>
-                                                    <span class="text-neutral-500">•</span>
-                                                    <span class="text-neutral-500">{cosmetic.category[0] + cosmetic.category.toLowerCase().slice(1)}</span>
-                                                </p>
+                                            <div class="flex flex-col gap-y-1">
+                                                <p class="font-semibold {getRarityColour(cosmetic.rarity)}">{cosmetic.name}</p>
+
+                                                <!-- owned & donations -->
                                                 {#if owned}
-                                                    {#if cosmetic.canBeDonated}
-                                                        <div class="flex gap-x-1">
-                                                            <img src="https://cdn.islandstats.xyz/icons/misc/scavenging.png" alt="Scavenged" class="size-3 md:size-5 self-center" />
-                                                            <span class="tabular-nums">{donationsMade || 0} / 10</span>
+                                                    {#if cosmetic.royalReputation}
+                                                        <div class="flex gap-x-3">
+                                                            <div class="flex gap-x-1">
+                                                                <img src="https://cdn.islandstats.xyz/icons/misc/scavenging.png" alt="Scavenged" class="size-3 md:size-5 self-center" />
+                                                                <span id="donations" class="tabular-nums">{donationsMade || 0} / {cosmetic.royalReputation?.donationLimit || 10}</span>
+                                                            </div>
+                                                            <div class="flex gap-x-1">
+                                                                <img src="https://cdn.islandstats.xyz/icons/currency/royal_reputation.png" alt="Royal Reputation Icon" class="size-3 md:size-5 self-center" />
+                                                                <span class="tabular-nums">{cosmetic.royalReputation?.reputationAmount * donationsMade} / {cosmetic.royalReputation?.reputationAmount * cosmetic.royalReputation?.donationLimit}</span>
+                                                            </div>
                                                         </div>
                                                     {:else}
                                                         <div class="flex gap-x-1">
@@ -165,39 +475,48 @@
                                                         <span class="tabular-nums">Not owned</span>
                                                     </div>
                                                 {/if}
-                                                {#if cosmetic.globalNumberOwned}
-                                                    <div class="flex gap-x-1">
-                                                        <img src="https://cdn.islandstats.xyz/icons/social/friend.png" alt="Scavenged" class="size-3 md:size-5 self-center" />
-                                                        <span class="tabular-nums">{cosmetic.globalNumberOwned.toLocaleString()} owned</span>
-                                                    </div>
-                                                {/if}
+
+                                                <!-- chroma packs -->
+                                                <div class="flex gap-x-1">
+                                                    {#each ["thermal", "verdant", "oceanic", "regal"] as pack}
+                                                        <img src="https://cdn.islandstats.xyz/icons/chroma_pack/{pack}.png" alt="{pack} Chroma Pack" class="size-3 lg:size-5 cursor-pointer {chromaPacks?.includes(pack) ? "" : "grayscale"}" />
+                                                        <Tooltip arrow={false} type="custom" placement="top" class="text-sm border {chromaPacks?.includes(pack) ? "text-green-600 border-green-800" : "!border-neutral-700"} !bg-neutral-900 px-2 py-0.5 rounded-md">
+                                                            {pack[0].toUpperCase() + pack.slice(1) + " Chroma"}
+                                                        </Tooltip>
+                                                    {/each}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="flex flex-col gap-y-1 shrink-0 gap-x-1 self-start">
-                                            <div class="flex gap-x-1 {owned ? "bg-green-800" : "bg-neutral-700/50"} rounded-full px-2 py-0.5">
+                                            <div class="flex gap-x-1 {donationsMade === 10 ? "bg-purple-800" : (owned ? "bg-green-800" : "bg-neutral-700/50")} rounded-full px-2 py-0.5">
                                                 <img src="https://cdn.islandstats.xyz/icons/trophies/{cosmetic.isBonusTrophies ? "silver" : "purple"}.png" alt="Trophies Icon" class="size-6 self-center" />
                                                 <p class="text-sm lg:text-base flex self-center">{cosmetic.trophies}</p>
-                                            </div>
-
-                                            <div class="grid grid-cols-2 gap-1 self-center">
-                                                {#each ["thermal", "verdant", "oceanic", "regal"] as pack}
-                                                    <img src="https://cdn.islandstats.xyz/icons/chroma_pack/{pack}.png" alt="{pack} Chroma Pack" class="size-3 lg:size-5 {chromaPacks?.includes(pack) ? "visible" : "invisible"}" />
-                                                {/each}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="absolute -top-2 -left-2 p-1 cursor-pointer {donationsMade === 10 ? "bg-purple-800" : (owned ? "bg-green-800" : "bg-neutral-700/50")} rounded-md">
+                                    <img src="https://cdn.islandstats.xyz/icons/wardrobe/{cosmetic.collection.toLowerCase().replaceAll(" ", "_")}.png" alt="" class="size-4 md:size-6 self-center" />
+                                </div>
+                                <Tooltip arrow={false} type="custom" placement="top" class="text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md">
+                                    {cosmetic.collection}
+                                </Tooltip>
                             </div>
                         {/each}
                     </div>
                 {:else}
                     <div class="flex flex-col gap-y-2">
                         {#each collections as collection}
-                            <div class="border {calculatePercentage(
+                            {@const isCollectionComplete = calculatePercentage(
                                 player.collections.cosmetics.filter(c => c.cosmetic.collection === collection && c.owned).reduce((acc, c) => acc + c.cosmetic.trophies, 0),
                                 player.collections.cosmetics.filter(c => c.cosmetic.collection === collection).reduce((acc, c) => acc + c.cosmetic.trophies, 0)
-                            ) === 100 ? "bg-green-800/30 border-green-800/80" : "border-neutral-800"} rounded-md">
-                                <button class="w-full cursor-pointer flex justify-between py-3 hover:bg-neutral-800/50 duration-100" onclick={() => {
+                            ) === 100}
+                            {@const isCollectionMaxed = calculatePercentage(
+                                player.collections.cosmetics.filter(c => c.cosmetic.collection === collection && c.owned && c.cosmetic.royalReputation).reduce((acc, c) => acc + (c.cosmetic.royalReputation.reputationAmount * c.donationsMade), 0),
+                                player.collections.cosmetics.filter(c => c.cosmetic.collection === collection && c.cosmetic.royalReputation).reduce((acc, c) => acc + (c.cosmetic.royalReputation.reputationAmount * c.cosmetic.royalReputation.donationLimit), 0)
+                            ) === 100}
+                            <div class="bg-neutral-800/50 {isCollectionMaxed ? "border border-purple-800/50" : (isCollectionComplete ? "border border-green-800/30" : "")} rounded-md">
+                                <button class="w-full cursor-pointer flex justify-between py-3 {isCollectionMaxed ? "bg-purple-800/50 hover:bg-purple-800/40" : (isCollectionComplete ? "bg-green-800/50 hover:bg-green-800/40" : "hover:bg-neutral-800")} duration-100 {openCollection === collection ? "rounded-t-md" : "rounded-md"}" onclick={() => {
                                     if (openCollection === collection) {
                                         openCollection = "";
                                     } else {
@@ -226,14 +545,15 @@
 
                                 </button>
                                 {#if collection === openCollection}
-                                    <div transition:slide={{ duration: 200 }} class="text-base lg:text-lg rounded-md border-t border-neutral-800 bg-neutral-900 p-4">
+                                    <div transition:slide={{ duration: 200 }} class="flex flex-col gap-y-4 text-base lg:text-lg rounded-b-md border-t {isCollectionMaxed ? "border-purple-800/30" : (isCollectionComplete ? "border-green-800/30" : "border-neutral-800")} p-4">
+                                        <WardrobeCollectionStats {player} {collection} />
                                         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2">
                                             {#each player.collections.cosmetics.filter(c =>
                                                 // filter by collection
                                                 c.cosmetic.collection === collection
                                             ).sort((a, b) => {
                                                 // sort by rarity
-                                                const rarityOrder = ["COMMON", "UNCOMMON", "RARE", "EPIC", "LEGENDARY"];
+                                                const rarityOrder = ["COMMON", "UNCOMMON", "RARE", "EPIC", "LEGENDARY", "MYTHIC"];
                                                 return rarityOrder.indexOf(a.cosmetic.rarity) - rarityOrder.indexOf(b.cosmetic.rarity);
                                             }).filter(c => {
                                                 // filter by owned
@@ -243,22 +563,39 @@
                                                     return c.owned
                                                 }
                                             }) as { cosmetic, owned, chromaPacks, donationsMade }}
-                                                <div class={`flex flex-col gap-y-2 text-base lg:text-lg rounded-md border ${owned ? "bg-green-800/30 border-green-800/80" : "border-neutral-800"}`}>
+                                                <div class="flex flex-col gap-y-2 text-base lg:text-lg rounded-md {donationsMade === 10 ? "bg-purple-700/30" : (owned ? "bg-green-800/30 border-green-800/80" : "bg-neutral-800/50")}">
                                                     <div class="flex flex-row gap-x-2 p-2">
                                                         <div class="flex gap-x-4 min-w-full justify-between">
                                                             <div class="flex gap-x-2 text-sm lg:text-base">
                                                                 <img class="size-12 lg:size-16 self-center" src="https://cdn.islandstats.xyz/cosmetics/{cosmetic.category.toLowerCase()}/{cosmetic.collection.toLowerCase().replaceAll(" ", "_")}/{cosmetic.name.replaceAll(" ", "_")}.png" alt={cosmetic.name} />
-                                                                <div class="flex flex-col">
-                                                                    <p class="flex gap-x-1 mb-1">
-                                                                        <span class="font-semibold {getRarityColour(cosmetic.rarity)}">{cosmetic.name}</span>
-                                                                        <span class="text-neutral-500">•</span>
-                                                                        <span class="text-neutral-500">{cosmetic.category[0] + cosmetic.category.toLowerCase().slice(1)}</span>
-                                                                    </p>
+                                                                <div class="flex flex-col gap-y-1">
+                                                                    <p class="font-semibold {cosmetic.name.length > 30 ? "max-w-4/5 truncate text-ellipsis" : ""} {getRarityColour(cosmetic.rarity)}">{cosmetic.name}</p>
+                                                                    {#if cosmetic.name.length > 30}
+                                                                        <Tooltip arrow={false} type="custom" placement="top" class="text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md">
+                                                                            {cosmetic.name}
+                                                                        </Tooltip>
+                                                                    {/if}
+                                                                    
+                                                                    <div class="flex gap-x-1">
+                                                                        <img src="https://cdn.islandstats.xyz/icons/rarity/{cosmetic.rarity.toLowerCase()}.png" alt="{cosmetic.rarity} Icon" class="h-2 md:h-4 self-center" />
+                                                                        {#if cosmeticTypes[cosmetic.name]}
+                                                                            <img src="https://cdn.islandstats.xyz/icons/rarity/{cosmeticTypes[cosmetic.name].toLowerCase()}.png" alt="{cosmeticTypes[cosmetic.name]} Icon" class="h-2 md:h-4 self-center" />
+                                                                        {/if}
+                                                                    </div>
+
+
+                                                                    <!-- owned & donations -->
                                                                     {#if owned}
-                                                                        {#if cosmetic.canBeDonated}
-                                                                            <div class="flex gap-x-1">
-                                                                                <img src="https://cdn.islandstats.xyz/icons/misc/scavenging.png" alt="Scavenged" class="size-3 md:size-5 self-center" />
-                                                                                <span class="tabular-nums">{donationsMade || 0} / 10</span>
+                                                                        {#if cosmetic.royalReputation}
+                                                                            <div class="flex gap-x-3">
+                                                                                <div class="flex gap-x-1">
+                                                                                    <img src="https://cdn.islandstats.xyz/icons/misc/scavenging.png" alt="Scavenged" class="size-3 md:size-5 self-center" />
+                                                                                    <span id="donations" class="tabular-nums">{donationsMade || 0} / {cosmetic.royalReputation?.donationLimit || 10}</span>
+                                                                                </div>
+                                                                                <div class="flex gap-x-1">
+                                                                                    <img src="https://cdn.islandstats.xyz/icons/currency/royal_reputation.png" alt="Royal Reputation Icon" class="size-3 md:size-5 self-center" />
+                                                                                    <span class="tabular-nums">{cosmetic.royalReputation?.reputationAmount * donationsMade} / {cosmetic.royalReputation?.reputationAmount * cosmetic.royalReputation?.donationLimit}</span>
+                                                                                </div>
                                                                             </div>
                                                                         {:else}
                                                                             <div class="flex gap-x-1">
@@ -272,27 +609,22 @@
                                                                             <span class="tabular-nums">Not owned</span>
                                                                         </div>
                                                                     {/if}
-                                                                    {#if cosmetic.globalNumberOwned}
-                                                                        <div class="flex gap-x-1">
-                                                                            <img src="https://cdn.islandstats.xyz/icons/social/friend.png" alt="Scavenged" class="size-3 md:size-5 self-center" />
-                                                                            <span class="tabular-nums">{cosmetic.globalNumberOwned.toLocaleString()} owned</span>
-                                                                        </div>
-                                                                    {/if}
+
+                                                                    <!-- chroma packs -->
+                                                                    <div class="flex gap-x-1">
+                                                                        {#each ["thermal", "verdant", "oceanic", "regal"] as pack}
+                                                                            <img src="https://cdn.islandstats.xyz/icons/chroma_pack/{pack}.png" alt="{pack} Chroma Pack" class="size-3 lg:size-5 cursor-pointer {chromaPacks?.includes(pack) ? "" : "grayscale"}" />
+                                                                            <Tooltip arrow={false} type="custom" placement="top" class="text-sm border {chromaPacks?.includes(pack) ? "text-green-600 border-green-800" : "!border-neutral-700"} !bg-neutral-900 px-2 py-0.5 rounded-md">
+                                                                                {pack[0].toUpperCase() + pack.slice(1) + " Chroma"}
+                                                                            </Tooltip>
+                                                                        {/each}
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="flex flex-col gap-y-1 shrink-0 gap-x-1 self-start">
-                                                                <div class="flex gap-x-1 {owned ? "bg-green-800" : "bg-neutral-700/50"} rounded-full px-2 py-0.5">
+                                                                <div class="flex gap-x-1 {donationsMade === 10 ? "bg-purple-800" : (owned ? "bg-green-800" : "bg-neutral-700/50")} rounded-full px-2 py-0.5">
                                                                     <img src="https://cdn.islandstats.xyz/icons/trophies/{cosmetic.isBonusTrophies ? "silver" : "purple"}.png" alt="Trophies Icon" class="size-6 self-center" />
                                                                     <p class="text-sm lg:text-base flex self-center">{cosmetic.trophies}</p>
-                                                                </div>
-
-                                                                <div class="grid grid-cols-2 gap-1 self-center">
-                                                                    {#each ["thermal", "verdant", "oceanic", "regal"] as pack}
-                                                                        <img src="https://cdn.islandstats.xyz/icons/chroma_pack/{pack}.png" alt="{pack} Chroma Pack" class="size-3 lg:size-5 cursor-pointer {chromaPacks?.includes(pack) ? "" : "grayscale"}" />
-                                                                        <Tooltip arrow={false} type="custom" placement="top" class="text-sm border {chromaPacks?.includes(pack) ? "text-green-600 border-green-800" : "!border-neutral-700"} !bg-neutral-900 px-2 py-0.5 rounded-md">
-                                                                            {pack[0].toUpperCase() + pack.slice(1) + " Chroma"}
-                                                                        </Tooltip>
-                                                                    {/each}
                                                                 </div>
                                                             </div>
                                                         </div>
