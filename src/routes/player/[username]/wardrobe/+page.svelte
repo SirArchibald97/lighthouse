@@ -372,7 +372,7 @@
 
             <div class="flex flex-col gap-y-2 p-4">
                 <div class="flex justify-center">
-                    <div class="w-7/12 flex flex-col items-center p-4">
+                    <div class="w-full md:w-7/12 flex flex-col items-center p-4">
                         <div class="flex flex-row justify-between w-full">
                             <img src="https://cdn.islandstats.xyz/icons/style_level/{Math.floor(styleLevel.level / 10)}.png" alt={``} class="size-8" />
                             <span class="pl-2 text-xl font-bold self-center">{styleLevel.level}</span>
@@ -386,7 +386,7 @@
                     
                             <span class="text-xl font-bold self-center">{styleLevel.level + 1}</span>
                         </div>
-                        <div class="flex justify-between gap-x-2 text-neutral-500 mt-2 gap-y-1 text-base">
+                        <div class="flex flex-col md:flex-row items-center justify-between gap-x-2 text-neutral-500 mt-2 gap-y-1 text-base">
                             <p class="self-center">
                                 <span class="text-neutral-300 tabular-nums">
                                     {Math.round((styleLevel.progressThroughLevel / styleLevel.totalForLevel * 100) * 10) / 10}%
@@ -395,7 +395,7 @@
                                     ({styleLevel.progressThroughLevel.toLocaleString()}/{styleLevel.totalForLevel.toLocaleString()})
                                 </span>
                             </p>
-                            <p> / </p>
+                            <p class="hidden md:flex"> / </p>
                             <p class="flex flex-row gap-x-1.5 items-center">
                                 <span class="flex flex-row gap-x-1 text-neutral-300">
                                     <img src={`https://cdn.islandstats.xyz/icons/style_level/${Math.floor(styleLevel.level / 10) + 1}.png`} alt={`Style Level ${Math.floor(styleLevel.level / 10) + 1} Icon`} class="size-5 self-center" />
@@ -411,9 +411,9 @@
                     </div>
                 </div>
 
-                <div class="flex flex-col md:flex-row gap-x-2">
+                <div class="flex flex-col md:flex-row gap-2">
                     <!-- search filter -->
-                    <div class="w-1/2 md:w-1/6 flex justify-center gap-x-2 border border-neutral-800 rounded-md hover:bg-neutral-800/60 duration-100 cursor-pointer">
+                    <div class="w-full md:w-1/6 flex justify-center gap-x-2 border border-neutral-800 rounded-md hover:bg-neutral-800/60 duration-100 cursor-pointer">
                         <input
                             name="cosmetic"
                             type="text"
@@ -427,7 +427,7 @@
                         />
                     </div>
 
-                    <button class="w-1/2 md:w-1/8 border border-neutral-800 rounded-md hover:bg-neutral-800/60 duration-100 cursor-pointer" onclick={toggleLocked}>{includeLocked ? "Show All" : "Show Owned"}</button>
+                    <button class="w-full py-1 md:w-1/8 border border-neutral-800 rounded-md hover:bg-neutral-800/60 duration-100 cursor-pointer" onclick={toggleLocked}>{includeLocked ? "Show All" : "Show Owned"}</button>
                 </div>
 
                 
@@ -524,13 +524,13 @@
                                     }
                                 }}>
                                     <div class="flex gap-x-2 px-3">
-                                        <img src="https://cdn.islandstats.xyz/icons/wardrobe/{collection.toLowerCase().replaceAll(" ", "_")}.png" alt="" class="size-8 self-center" />
-                                        <p class="text-lg lg:text-xl font-semibold self-center">{collection}</p>
+                                        <img src="https://cdn.islandstats.xyz/icons/wardrobe/{collection.toLowerCase().replaceAll(" ", "_")}.png" alt="{collection} Icon" class="size-6 md:size-8 self-center" />
+                                        <p class="text-base lg:text-xl font-semibold self-center">{collection}</p>
                                     </div>
                                     <div class="flex gap-x-4 px-3">
                                         <div class="flex gap-x-1 tabular-nums self-center">
-                                            <img src="https://cdn.islandstats.xyz/icons/trophies/{player.collections.cosmetics.filter(c => c.cosmetic.collection === collection)[0].cosmetic.isBonusTrophies ? "silver" : "purple"}.png" alt="Cosmetic Trophy Icon" class="size-6 self-center" />
-                                            <p class="text-base">
+                                            <img src="https://cdn.islandstats.xyz/icons/trophies/{player.collections.cosmetics.filter(c => c.cosmetic.collection === collection)[0].cosmetic.isBonusTrophies ? "silver" : "purple"}.png" alt="Cosmetic Trophy Icon" class="size-6 self-center hidden md:flex" />
+                                            <p class="text-sm md:text-base hidden md:flex">
                                                 <span>{player.collections.cosmetics.filter(c => c.cosmetic.collection === collection && c.owned).reduce((acc, c) => acc + c.cosmetic.trophies, 0).toLocaleString()}</span>
                                                 <span> / </span>
                                                 <span>{player.collections.cosmetics.filter(c => c.cosmetic.collection === collection).reduce((acc, c) => acc + c.cosmetic.trophies, 0).toLocaleString()}</span>
@@ -577,16 +577,16 @@
                                                                     {/if}
                                                                     
                                                                     <div class="flex gap-x-1">
-                                                                        <img src="https://cdn.islandstats.xyz/icons/rarity/{cosmetic.rarity.toLowerCase()}.png" alt="{cosmetic.rarity} Icon" class="h-2 md:h-4 self-center" />
+                                                                        <img src="https://cdn.islandstats.xyz/icons/rarity/{cosmetic.rarity.toLowerCase()}.png" alt="{cosmetic.rarity} Icon" class="h-3 md:h-4 self-center" />
                                                                         {#if cosmeticTypes[cosmetic.name]}
-                                                                            <img src="https://cdn.islandstats.xyz/icons/rarity/{cosmeticTypes[cosmetic.name].toLowerCase()}.png" alt="{cosmeticTypes[cosmetic.name]} Icon" class="h-2 md:h-4 self-center" />
+                                                                            <img src="https://cdn.islandstats.xyz/icons/rarity/{cosmeticTypes[cosmetic.name].toLowerCase()}.png" alt="{cosmeticTypes[cosmetic.name]} Icon" class="h-3 md:h-4 self-center" />
                                                                         {/if}
                                                                     </div>
 
                                                                     <!-- owned & donations -->
                                                                     {#if owned}
                                                                         {#if cosmetic.royalReputation}
-                                                                            <div class="flex gap-x-3">
+                                                                            <div class="flex flex-col md:flex-row gap-x-3">
                                                                                 <div class="flex gap-x-1">
                                                                                     <img src="https://cdn.islandstats.xyz/icons/misc/scavenging.png" alt="Scavenged" class="size-3 md:size-5 self-center" />
                                                                                     <span id="donations" class="tabular-nums">{donationsMade || 0} / {cosmetic.royalReputation?.donationLimit || 10}</span>
@@ -625,7 +625,7 @@
                                                                 <!-- chroma packs -->
                                                                 <div class="grid grid-cols-2 gap-1 self-center mt-1">
                                                                     {#each ["thermal", "verdant", "oceanic", "regal"] as pack}
-                                                                        <img src="https://cdn.islandstats.xyz/icons/chroma_pack/{pack}.png" alt="{pack} Chroma Pack" class="size-3 lg:size-5 cursor-pointer {chromaPacks?.includes(pack) ? "" : "grayscale"}" />
+                                                                        <img src="https://cdn.islandstats.xyz/icons/chroma_pack/{pack}.png" alt="{pack} Chroma Pack" class="size-5 cursor-pointer {chromaPacks?.includes(pack) ? "" : "grayscale"}" />
                                                                         <Tooltip arrow={false} type="custom" placement="top" class="text-sm border {chromaPacks?.includes(pack) ? "text-green-600 border-green-800" : "!border-neutral-700"} !bg-neutral-900 px-2 py-0.5 rounded-md">
                                                                             {pack[0].toUpperCase() + pack.slice(1) + " Chroma"}
                                                                         </Tooltip>
