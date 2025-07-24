@@ -583,7 +583,6 @@
                                                                         {/if}
                                                                     </div>
 
-
                                                                     <!-- owned & donations -->
                                                                     {#if owned}
                                                                         {#if cosmetic.royalReputation}
@@ -610,14 +609,10 @@
                                                                         </div>
                                                                     {/if}
 
-                                                                    <!-- chroma packs -->
+                                                                    <!-- global owned -->
                                                                     <div class="flex gap-x-1">
-                                                                        {#each ["thermal", "verdant", "oceanic", "regal"] as pack}
-                                                                            <img src="https://cdn.islandstats.xyz/icons/chroma_pack/{pack}.png" alt="{pack} Chroma Pack" class="size-3 lg:size-5 cursor-pointer {chromaPacks?.includes(pack) ? "" : "grayscale"}" />
-                                                                            <Tooltip arrow={false} type="custom" placement="top" class="text-sm border {chromaPacks?.includes(pack) ? "text-green-600 border-green-800" : "!border-neutral-700"} !bg-neutral-900 px-2 py-0.5 rounded-md">
-                                                                                {pack[0].toUpperCase() + pack.slice(1) + " Chroma"}
-                                                                            </Tooltip>
-                                                                        {/each}
+                                                                        <img src="https://cdn.islandstats.xyz/icons/social/friend.png" alt="Global Owned" class="size-3 md:size-5 self-center" />
+                                                                        <span class="tabular-nums">{cosmetic.globalNumberOwned} owned</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -625,6 +620,16 @@
                                                                 <div class="flex gap-x-1 {donationsMade === 10 ? "bg-purple-800" : (owned ? "bg-green-800" : "bg-neutral-700/50")} rounded-full px-2 py-0.5">
                                                                     <img src="https://cdn.islandstats.xyz/icons/trophies/{cosmetic.isBonusTrophies ? "silver" : "purple"}.png" alt="Trophies Icon" class="size-6 self-center" />
                                                                     <p class="text-sm lg:text-base flex self-center">{cosmetic.trophies}</p>
+                                                                </div>
+
+                                                                <!-- chroma packs -->
+                                                                <div class="grid grid-cols-2 gap-1 self-center mt-1">
+                                                                    {#each ["thermal", "verdant", "oceanic", "regal"] as pack}
+                                                                        <img src="https://cdn.islandstats.xyz/icons/chroma_pack/{pack}.png" alt="{pack} Chroma Pack" class="size-3 lg:size-5 cursor-pointer {chromaPacks?.includes(pack) ? "" : "grayscale"}" />
+                                                                        <Tooltip arrow={false} type="custom" placement="top" class="text-sm border {chromaPacks?.includes(pack) ? "text-green-600 border-green-800" : "!border-neutral-700"} !bg-neutral-900 px-2 py-0.5 rounded-md">
+                                                                            {pack[0].toUpperCase() + pack.slice(1) + " Chroma"}
+                                                                        </Tooltip>
+                                                                    {/each}
                                                                 </div>
                                                             </div>
                                                         </div>
