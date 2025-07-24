@@ -530,7 +530,7 @@
                                     <div class="flex gap-x-4 px-3">
                                         <div class="flex gap-x-1 tabular-nums self-center">
                                             <img src="https://cdn.islandstats.xyz/icons/trophies/{player.collections.cosmetics.filter(c => c.cosmetic.collection === collection)[0].cosmetic.isBonusTrophies ? "silver" : "purple"}.png" alt="Cosmetic Trophy Icon" class="size-6 self-center hidden md:flex" />
-                                            <p class="text-sm md:text-base hidden md:flex">
+                                            <p class="text-sm md:text-base hidden md:flex gap-x-1">
                                                 <span>{player.collections.cosmetics.filter(c => c.cosmetic.collection === collection && c.owned).reduce((acc, c) => acc + c.cosmetic.trophies, 0).toLocaleString()}</span>
                                                 <span> / </span>
                                                 <span>{player.collections.cosmetics.filter(c => c.cosmetic.collection === collection).reduce((acc, c) => acc + c.cosmetic.trophies, 0).toLocaleString()}</span>
