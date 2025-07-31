@@ -14,7 +14,7 @@
         <div class="flex flex-col gap-x-8 gap-y-4 justify-between">
             <div>
                 <p>Rounds Won: <span class="tabular-nums font-semibold">{stats.rounds_won.toLocaleString()}</span></p>
-                <p>Rounds Lost: <span class="tabular-nums font-semibold">{(stats.games_played! * 3 - stats.rounds_won!)}</span></p>
+                <p>Rounds Lost: <span class="tabular-nums font-semibold">{(stats.games_played! * 3 - stats.rounds_won!).toLocaleString()}</span></p>
                 <p>Round WLR: 
                     <span class="tabular-nums font-semibold">{roundNumber(stats.rounds_won! / (stats.games_played! * 3 - stats.rounds_won!)).toLocaleString()}</span>
                     <span class="tabular-nums text-neutral-500">({calculatePercentage(stats.rounds_won!, stats.games_played! * 3)}%)</span>

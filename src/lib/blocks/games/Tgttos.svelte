@@ -13,7 +13,7 @@
         <div class="flex flex-col gap-x-8 gap-y-4 justify-between">
             <div>
                 <p>Games Won: <span class="tabular-nums font-semibold">{stats.first_place.toLocaleString()}</span></p>
-                <p>Games Lost: <span class="tabular-nums font-semibold">{(stats.games_played - stats.first_place)}</span></p>
+                <p>Games Lost: <span class="tabular-nums font-semibold">{(stats.games_played - stats.first_place).toLocaleString()}</span></p>
                 <p>WLR: 
                     <span class="tabular-nums font-semibold">{roundNumber(stats.first_place / (stats.games_played - stats.first_place))}</span>
                     <span class="tabular-nums text-neutral-500">({calculatePercentage(stats.first_place, stats.games_played)}%)</span>

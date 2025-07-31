@@ -448,12 +448,24 @@
                                         <div class="flex gap-x-2 text-sm lg:text-base">
                                             <img class="size-12 lg:size-16 self-center" src="https://cdn.islandstats.xyz/cosmetics/{cosmetic.category.toLowerCase()}/{cosmetic.collection.toLowerCase().replaceAll(" ", "_")}/{cosmetic.name.replaceAll(" ", "_")}.png" alt={cosmetic.name} />
                                             <div class="flex flex-col gap-y-1">
-                                                <p class="font-semibold {getRarityColour(cosmetic.rarity)}">{cosmetic.name}</p>
+                                                <p class="font-semibold {cosmetic.name.length > 30 ? "max-w-4/5 truncate text-ellipsis" : ""} {getRarityColour(cosmetic.rarity)}">{cosmetic.name}</p>
+                                                {#if cosmetic.name.length > 30}
+                                                    <Tooltip arrow={false} type="custom" placement="top" class="text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md">
+                                                        {cosmetic.name}
+                                                    </Tooltip>
+                                                {/if}
+                                                
+                                                <div class="flex gap-x-1">
+                                                    <img src="https://cdn.islandstats.xyz/icons/rarity/{cosmetic.rarity.toLowerCase()}.png" alt="{cosmetic.rarity} Icon" class="h-3 md:h-4 self-center" />
+                                                    {#if cosmeticTypes[cosmetic.name]}
+                                                        <img src="https://cdn.islandstats.xyz/icons/rarity/{cosmeticTypes[cosmetic.name].toLowerCase()}.png" alt="{cosmeticTypes[cosmetic.name]} Icon" class="h-3 md:h-4 self-center" />
+                                                    {/if}
+                                                </div>
 
                                                 <!-- owned & donations -->
                                                 {#if owned}
                                                     {#if cosmetic.royalReputation}
-                                                        <div class="flex gap-x-3">
+                                                        <div class="flex flex-col md:flex-row gap-x-3">
                                                             <div class="flex gap-x-1">
                                                                 <img src="https://cdn.islandstats.xyz/icons/misc/scavenging.png" alt="Scavenged" class="size-3 md:size-5 self-center" />
                                                                 <span id="donations" class="tabular-nums">{donationsMade || 0} / {cosmetic.royalReputation?.donationLimit || 10}</span>
@@ -476,14 +488,10 @@
                                                     </div>
                                                 {/if}
 
-                                                <!-- chroma packs -->
+                                                <!-- global owned -->
                                                 <div class="flex gap-x-1">
-                                                    {#each ["thermal", "verdant", "oceanic", "regal"] as pack}
-                                                        <img src="https://cdn.islandstats.xyz/icons/chroma_pack/{pack}.png" alt="{pack} Chroma Pack" class="size-3 lg:size-5 cursor-pointer {chromaPacks?.includes(pack) ? "" : "grayscale"}" />
-                                                        <Tooltip arrow={false} type="custom" placement="top" class="text-sm border {chromaPacks?.includes(pack) ? "text-green-600 border-green-800" : "!border-neutral-700"} !bg-neutral-900 px-2 py-0.5 rounded-md">
-                                                            {pack[0].toUpperCase() + pack.slice(1) + " Chroma"}
-                                                        </Tooltip>
-                                                    {/each}
+                                                    <img src="https://cdn.islandstats.xyz/icons/social/friend.png" alt="Global Owned" class="size-3 md:size-5 self-center" />
+                                                    <span class="tabular-nums">{cosmetic.globalNumberOwned} owned</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -492,9 +500,22 @@
                                                 <img src="https://cdn.islandstats.xyz/icons/trophies/{cosmetic.isBonusTrophies ? "silver" : "purple"}.png" alt="Trophies Icon" class="size-6 self-center" />
                                                 <p class="text-sm lg:text-base flex self-center">{cosmetic.trophies}</p>
                                             </div>
+
+                                            {#if cosmetic.colorable}
+                                                <!-- chroma packs -->
+                                                <div class="grid grid-cols-2 gap-1 self-center mt-1">
+                                                    {#each ["thermal", "verdant", "oceanic", "regal"] as pack}
+                                                        <img src="https://cdn.islandstats.xyz/icons/chroma_pack/{pack}.png" alt="{pack} Chroma Pack" class="size-5 cursor-pointer {chromaPacks?.includes(pack) ? "" : "grayscale"}" />
+                                                        <Tooltip arrow={false} type="custom" placement="top" class="text-sm border {chromaPacks?.includes(pack) ? "text-green-600 border-green-800" : "!border-neutral-700"} !bg-neutral-900 px-2 py-0.5 rounded-md">
+                                                            {pack[0].toUpperCase() + pack.slice(1) + " Chroma"}
+                                                        </Tooltip>
+                                                    {/each}
+                                                </div>
+                                            {/if}
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="absolute -top-2 -left-2 p-1 cursor-pointer {donationsMade === 10 ? "bg-purple-800" : (owned ? "bg-green-800" : "bg-neutral-700/50")} rounded-md">
                                     <img src="https://cdn.islandstats.xyz/icons/wardrobe/{cosmetic.collection.toLowerCase().replaceAll(" ", "_")}.png" alt="" class="size-4 md:size-6 self-center" />
                                 </div>
@@ -622,15 +643,17 @@
                                                                     <p class="text-sm lg:text-base flex self-center">{cosmetic.trophies}</p>
                                                                 </div>
 
-                                                                <!-- chroma packs -->
-                                                                <div class="grid grid-cols-2 gap-1 self-center mt-1">
-                                                                    {#each ["thermal", "verdant", "oceanic", "regal"] as pack}
-                                                                        <img src="https://cdn.islandstats.xyz/icons/chroma_pack/{pack}.png" alt="{pack} Chroma Pack" class="size-5 cursor-pointer {chromaPacks?.includes(pack) ? "" : "grayscale"}" />
-                                                                        <Tooltip arrow={false} type="custom" placement="top" class="text-sm border {chromaPacks?.includes(pack) ? "text-green-600 border-green-800" : "!border-neutral-700"} !bg-neutral-900 px-2 py-0.5 rounded-md">
-                                                                            {pack[0].toUpperCase() + pack.slice(1) + " Chroma"}
-                                                                        </Tooltip>
-                                                                    {/each}
-                                                                </div>
+                                                                {#if cosmetic.colorable}
+                                                                    <!-- chroma packs -->
+                                                                    <div class="grid grid-cols-2 gap-1 self-center mt-1">
+                                                                        {#each ["thermal", "verdant", "oceanic", "regal"] as pack}
+                                                                            <img src="https://cdn.islandstats.xyz/icons/chroma_pack/{pack}.png" alt="{pack} Chroma Pack" class="size-5 cursor-pointer {chromaPacks?.includes(pack) ? "" : "grayscale"}" />
+                                                                            <Tooltip arrow={false} type="custom" placement="top" class="text-sm border {chromaPacks?.includes(pack) ? "text-green-600 border-green-800" : "!border-neutral-700"} !bg-neutral-900 px-2 py-0.5 rounded-md">
+                                                                                {pack[0].toUpperCase() + pack.slice(1) + " Chroma"}
+                                                                            </Tooltip>
+                                                                        {/each}
+                                                                    </div>
+                                                                {/if}
                                                             </div>
                                                         </div>
                                                     </div>
