@@ -3,9 +3,9 @@
 	import { calculatePercentage, getCrownColour, getCrownColourHex } from "$lib/utils";
 
     const { player, collection }: { player: Player, collection: string } = $props();
-    const cosmetics = player.collections?.cosmetics.filter(c => c.cosmetic.collection === collection);
-    const earnedRep = cosmetics?.filter(c => c.owned).reduce((acc, c) => acc + ((c.cosmetic.royalReputation?.reputationAmount || 0) * c.donationsMade), 0) || 0;
-    const totalRep = cosmetics?.reduce((acc, c) => acc + ((c.cosmetic.royalReputation?.reputationAmount || 0) * (c.cosmetic.royalReputation?.donationLimit || 10)), 0) || 0;
+    const cosmetics = player.collections!.cosmetics.filter(c => c.cosmetic.collection === collection);
+    const earnedRep = cosmetics!.reduce((acc, c) => acc + ((c.cosmetic.royalReputation?.reputationAmount || 0) * c.donationsMade), 0) || 0;
+    const totalRep = cosmetics!.reduce((acc, c) => acc + ((c.cosmetic.royalReputation?.reputationAmount || 0) * (c.cosmetic.royalReputation?.donationLimit || 10)), 0) || 0;
 </script>
 
 <div class="w-full flex flex-col lg:grid lg:grid-cols-3 gap-2">
@@ -80,7 +80,7 @@
                     <span class="text-neutral-500">({calculatePercentage(
                         cosmetics!.filter(c => c.owned && c.cosmetic.colorable && c.chromaPacks.length === 4).length,
                         cosmetics!.filter(c => c.cosmetic.colorable).length
-                    )}%)</span>
+                    ) || 100}%)</span>
                 </p>
             </div>
         </div>

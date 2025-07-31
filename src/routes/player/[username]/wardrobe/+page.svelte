@@ -462,29 +462,22 @@
                                                     {/if}
                                                 </div>
 
-                                                <!-- owned & donations -->
-                                                {#if owned}
-                                                    {#if cosmetic.royalReputation}
-                                                        <div class="flex flex-col md:flex-row gap-x-3">
-                                                            <div class="flex gap-x-1">
-                                                                <img src="https://cdn.islandstats.xyz/icons/misc/scavenging.png" alt="Scavenged" class="size-3 md:size-5 self-center" />
-                                                                <span id="donations" class="tabular-nums">{donationsMade || 0} / {cosmetic.royalReputation?.donationLimit || 10}</span>
-                                                            </div>
-                                                            <div class="flex gap-x-1">
-                                                                <img src="https://cdn.islandstats.xyz/icons/currency/royal_reputation.png" alt="Royal Reputation Icon" class="size-3 md:size-5 self-center" />
-                                                                <span class="tabular-nums">{cosmetic.royalReputation?.reputationAmount * donationsMade} / {cosmetic.royalReputation?.reputationAmount * cosmetic.royalReputation?.donationLimit}</span>
-                                                            </div>
-                                                        </div>
-                                                    {:else}
+                                                <!-- donations -->
+                                                {#if cosmetic.royalReputation}
+                                                    <div class="flex flex-col md:flex-row gap-x-3">
                                                         <div class="flex gap-x-1">
-                                                            <img src="https://cdn.islandstats.xyz/icons/misc/scavenging.png" alt="Scavenged" class="size-3 md:size-5 self-center grayscale" />
-                                                            <span class="tabular-nums">Cannot be donated</span>
+                                                            <img src="https://cdn.islandstats.xyz/icons/misc/scavenging.png" alt="Scavenged" class="size-3 md:size-5 self-center" />
+                                                            <span id="donations" class="tabular-nums">{donationsMade || 0} / {cosmetic.royalReputation?.donationLimit || 10}</span>
                                                         </div>
-                                                    {/if}
+                                                        <div class="flex gap-x-1">
+                                                            <img src="https://cdn.islandstats.xyz/icons/currency/royal_reputation.png" alt="Royal Reputation Icon" class="size-3 md:size-5 self-center" />
+                                                            <span class="tabular-nums">{cosmetic.royalReputation?.reputationAmount * donationsMade} / {cosmetic.royalReputation?.reputationAmount * cosmetic.royalReputation?.donationLimit}</span>
+                                                        </div>
+                                                    </div>
                                                 {:else}
                                                     <div class="flex gap-x-1">
-                                                        <img src="https://cdn.discordapp.com/emojis/1042056408423739492.webp" alt="Scavenged" class="size-3 md:size-5 self-center" />
-                                                        <span class="tabular-nums">Not owned</span>
+                                                        <img src="https://cdn.islandstats.xyz/icons/misc/scavenging.png" alt="Scavenged" class="size-3 md:size-5 self-center grayscale" />
+                                                        <span class="tabular-nums">Cannot be donated</span>
                                                     </div>
                                                 {/if}
 
@@ -597,36 +590,29 @@
                                                                         </Tooltip>
                                                                     {/if}
                                                                     
-                                                                    <div class="flex gap-x-1">
+                                                                    <div class="flex gap-x-1 mb-0.5">
                                                                         <img src="https://cdn.islandstats.xyz/icons/rarity/{cosmetic.rarity.toLowerCase()}.png" alt="{cosmetic.rarity} Icon" class="h-3 md:h-4 self-center" />
                                                                         {#if cosmeticTypes[cosmetic.name]}
                                                                             <img src="https://cdn.islandstats.xyz/icons/rarity/{cosmeticTypes[cosmetic.name].toLowerCase()}.png" alt="{cosmeticTypes[cosmetic.name]} Icon" class="h-3 md:h-4 self-center" />
                                                                         {/if}
                                                                     </div>
 
-                                                                    <!-- owned & donations -->
-                                                                    {#if owned}
-                                                                        {#if cosmetic.royalReputation}
-                                                                            <div class="flex flex-col md:flex-row gap-x-3">
-                                                                                <div class="flex gap-x-1">
-                                                                                    <img src="https://cdn.islandstats.xyz/icons/misc/scavenging.png" alt="Scavenged" class="size-3 md:size-5 self-center" />
-                                                                                    <span id="donations" class="tabular-nums">{donationsMade || 0} / {cosmetic.royalReputation?.donationLimit || 10}</span>
-                                                                                </div>
-                                                                                <div class="flex gap-x-1">
-                                                                                    <img src="https://cdn.islandstats.xyz/icons/currency/royal_reputation.png" alt="Royal Reputation Icon" class="size-3 md:size-5 self-center" />
-                                                                                    <span class="tabular-nums">{cosmetic.royalReputation?.reputationAmount * donationsMade} / {cosmetic.royalReputation?.reputationAmount * cosmetic.royalReputation?.donationLimit}</span>
-                                                                                </div>
-                                                                            </div>
-                                                                        {:else}
+                                                                    <!-- donations -->
+                                                                    {#if cosmetic.royalReputation}
+                                                                        <div class="flex flex-col md:flex-row gap-x-3">
                                                                             <div class="flex gap-x-1">
-                                                                                <img src="https://cdn.islandstats.xyz/icons/misc/scavenging.png" alt="Scavenged" class="size-3 md:size-5 self-center grayscale" />
-                                                                                <span class="tabular-nums">Cannot be donated</span>
+                                                                                <img src="https://cdn.islandstats.xyz/icons/misc/scavenging.png" alt="Scavenged" class="size-3 md:size-5 self-center" />
+                                                                                <span id="donations" class="tabular-nums">{donationsMade || 0} / {cosmetic.royalReputation?.donationLimit || 10}</span>
                                                                             </div>
-                                                                        {/if}
+                                                                            <div class="flex gap-x-1">
+                                                                                <img src="https://cdn.islandstats.xyz/icons/currency/royal_reputation.png" alt="Royal Reputation Icon" class="size-3 md:size-5 self-center" />
+                                                                                <span class="tabular-nums">{cosmetic.royalReputation?.reputationAmount * donationsMade} / {cosmetic.royalReputation?.reputationAmount * cosmetic.royalReputation?.donationLimit}</span>
+                                                                            </div>
+                                                                        </div>
                                                                     {:else}
                                                                         <div class="flex gap-x-1">
-                                                                            <img src="https://cdn.discordapp.com/emojis/1042056408423739492.webp" alt="Scavenged" class="size-3 md:size-5 self-center" />
-                                                                            <span class="tabular-nums">Not owned</span>
+                                                                            <img src="https://cdn.islandstats.xyz/icons/misc/scavenging.png" alt="Scavenged" class="size-3 md:size-5 self-center grayscale" />
+                                                                            <span class="tabular-nums">Cannot be donated</span>
                                                                         </div>
                                                                     {/if}
 
