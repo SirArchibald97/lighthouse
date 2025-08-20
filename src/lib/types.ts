@@ -117,6 +117,8 @@ export interface PlayerCollections {
             canBeDonated: boolean
             colorable: boolean
             globalNumberOwned: string
+            type: string
+            obtainmentHint: string
             royalReputation: {
                 donationLimit: number
                 reputationAmount: number
