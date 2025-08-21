@@ -169,10 +169,6 @@ export interface BattleBoxStatistics {
     }
 }
 
-export interface BattleBoxBadges {
-    
-}
-
 export interface SkyBattleStatistics {
     [key: string]: number | object
     games_played: number
