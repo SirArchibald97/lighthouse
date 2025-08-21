@@ -38,6 +38,7 @@ export function getRankIcon(ranks: string[]) {
         { id: "MODERATOR", icon: "moderator" },
         { id: "CONTESTANT", icon: "contestant" },
         { id: "CREATOR", icon: "creator" },
+        { id: "GRAND_CHAMP_SUPREME", icon: "grand_champ_supreme" },
         { id: "GRAND_CHAMP_ROYALE", icon: "grand_champ_royale" },
         { id: "GRAND_CHAMP", icon: "grand_champ" },
         { id: "CHAMP", icon: "champ" }

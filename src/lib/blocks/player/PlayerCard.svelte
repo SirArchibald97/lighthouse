@@ -82,7 +82,7 @@
             {@const firstJoin = new Date(player.status.firstJoin)}
             <p class="size-7 self-start border border-neutral-800 rounded-md p-0.5 hover:bg-neutral-800 cursor-pointer duration-100"><Info /></p>
             <Tooltip arrow={false} type="custom" placement="top" class="flex flex-col items-center text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md">
-                <p>First joined: {firstJoin.getHours()}:{firstJoin.getMinutes()} {firstJoin.getDate()}/{firstJoin.getMonth() + 1}/{firstJoin.getFullYear()}</p>
+                <p>First joined: {firstJoin.getHours() < 10 ? `0${firstJoin.getHours()}` : firstJoin.getHours()}:{firstJoin.getMinutes() < 10 ? `0${firstJoin.getMinutes()}` : firstJoin.getMinutes()} {firstJoin.getDate()}/{firstJoin.getMonth() + 1}/{firstJoin.getFullYear()}</p>
             </Tooltip>
         {/if}
 	</div>
