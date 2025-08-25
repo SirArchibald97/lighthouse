@@ -126,7 +126,7 @@
                                 <div class="flex flex-row gap-x-2 p-2">
                                     <div class="flex gap-x-4 min-w-full justify-between">
                                         <div class="flex gap-x-2 text-sm lg:text-base">
-                                            <img class="size-12 lg:size-16 self-center" src="https://cdn.islandstats.xyz/cosmetics/{cosmetic.category.toLowerCase()}/{cosmetic.collection.toLowerCase().replaceAll(" ", "_")}/{cosmetic.name.replaceAll(" ", "_")}.png" alt={cosmetic.name} />
+                                            <img class="size-12 lg:size-16 self-center" src="https://cdn.islandstats.xyz/cosmetics/{cosmetic.category.toLowerCase()}/{cosmetic.collection.toLowerCase().replaceAll(" ", "_")}/{cosmetic.name.replaceAll(" ", "_")}.webp" alt={cosmetic.name} />
                                             <Tooltip arrow={false} type="custom" placement="top" class="text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md">
                                                 {cosmetic.obtainmentHint}
                                             </Tooltip>
@@ -194,7 +194,7 @@
                                 </div>
 
                                 <div class="absolute -top-2 -left-2 p-1 cursor-pointer {donationsMade === 10 ? "bg-purple-800" : (owned ? "bg-green-800" : "bg-neutral-700/50")} rounded-md">
-                                    <img src="https://cdn.islandstats.xyz/icons/wardrobe/{cosmetic.collection.toLowerCase().replaceAll(" ", "_")}.png" alt="" class="size-4 md:size-6 self-center" />
+                                    <img src="https://cdn.islandstats.xyz/icons/wardrobe/{cosmetic.collection.toLowerCase().replaceAll(" ", "_")}.webp" alt="" class="size-4 md:size-6 self-center" />
                                 </div>
                                 <Tooltip arrow={false} type="custom" placement="top" class="text-sm border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 rounded-md">
                                     {cosmetic.collection}
