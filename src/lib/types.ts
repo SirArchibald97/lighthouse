@@ -64,6 +64,15 @@ export interface PlayerTrophies {
             obtainable: number
         }
     }
+    styleLevelData: {
+        level: number
+        evolution: number
+        nextEvolutionLevel: number
+        nextLevelProgress: {
+            obtained: number
+            obtainable: number
+        }
+    }
 }
 
 export interface IslandFish {

@@ -222,7 +222,7 @@
 					alt="Orange warning icon"
 					class="size-8 self-center"
 				/>
-				<p class="text-lg">Socials disabled!</p>
+				<p class="text-lg">Socials are disabled!</p>
 			</div>
 		</div>
 	{/if}

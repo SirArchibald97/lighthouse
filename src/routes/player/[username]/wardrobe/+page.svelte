@@ -46,51 +46,49 @@
 </script>
 
 {#await data.streamed.player then player}
-    <div class="border-b border-x border-neutral-800 rounded-b-md">
-        {#if player?.collections?.cosmetics}
-            {@const styleLevel: { level: number, progressThroughLevel: number, totalForLevel: number } = calculateStyleLevel(player.trophies.style.total) || { level: 0, progressThroughLevel: 0, totalForLevel: 0 }}
-
-            <div class="flex flex-col gap-y-2 p-4">
-                <div class="flex justify-center">
-                    <div class="w-full md:w-7/12 flex flex-col items-center p-4">
-                        <div class="flex flex-row justify-between w-full">
-                            <img src="https://cdn.islandstats.xyz/icons/style_level/{Math.floor(styleLevel.level / 10)}.png" alt={``} class="size-8" />
-                            <span class="pl-2 text-xl font-bold self-center">{styleLevel.level}</span>
-                    
-                            <div class="overflow-hidden rounded-full w-full mx-4 bg-neutral-800 self-center">
-                                <div 
-                                    class={`h-4 rounded-l-full ${getCrownColour(styleLevel.level)}`} 
-                                    style={`width: ${styleLevel.progressThroughLevel / styleLevel.totalForLevel * 100}%`}
-                                ></div>
-                            </div>
-                    
-                            <span class="text-xl font-bold self-center">{styleLevel.level + 1}</span>
-                        </div>
-                        <div class="flex flex-col md:flex-row items-center justify-between gap-x-2 text-neutral-500 mt-2 gap-y-1 text-base">
-                            <p class="self-center">
-                                <span class="text-neutral-300 tabular-nums">
-                                    {Math.round((styleLevel.progressThroughLevel / styleLevel.totalForLevel * 100) * 10) / 10}%
-                                </span>
-                                <span class="text-neutral-300 tabular-nums">
-                                    ({styleLevel.progressThroughLevel.toLocaleString()}/{styleLevel.totalForLevel.toLocaleString()})
-                                </span>
-                            </p>
-                            <p class="hidden md:flex"> / </p>
-                            <p class="flex flex-row gap-x-1.5 items-center">
-                                <span class="flex flex-row gap-x-1 text-neutral-300">
-                                    <img src={`https://cdn.islandstats.xyz/icons/style_level/${Math.floor(styleLevel.level / 10) + 1}.png`} alt={`Style Level ${Math.floor(styleLevel.level / 10) + 1} Icon`} class="size-5 self-center" />
-                                    <span class="font-semibold tabular-nums">{Math.ceil(styleLevel.level / 10) * 10}</span>
-                                </span>
-                                <span>in</span>
-                                <span class="flex flex-row gap-x-1 text-neutral-300">
-                                    <img src={`https://cdn.islandstats.xyz/icons/trophies/purple.png`} alt="Trophy Icon" class="size-5 self-center" />
-                                    <span class="font-semibold tabular-nums">{(trophiesForStyleLevel(Math.ceil(styleLevel.level / 10) * 10) - player.trophies.style.total).toLocaleString()}</span>
-                                </span>
-                            </p>
-                        </div>
+    <div class="flex flex-col border-b border-x border-neutral-800 rounded-b-md">
+        <div class="flex flex-col justify-between max-w-full m-4 bg-neutral-800/50 rounded-md">
+            <div class="w-full flex flex-col items-center p-4">
+                <div class="flex flex-row justify-between w-full">
+                    <img src="https://cdn.islandstats.xyz/icons/style_level/{Math.floor(player!.crownLevel.styleLevelData.level / 10)}.png" alt={``} class="size-8" />
+                    <span class="pl-2 text-xl font-bold self-center">{player!.crownLevel.styleLevelData.level}</span>
+            
+                    <div class="overflow-hidden rounded-full w-full mx-4 bg-neutral-800 self-center">
+                        <div 
+                            class={`h-4 rounded-l-full ${getCrownColour(player!.crownLevel.styleLevelData.level)}`} 
+                            style={`width: ${player!.crownLevel.styleLevelData.nextLevelProgress.obtained / player!.crownLevel.styleLevelData.nextLevelProgress.obtainable * 100}%`}
+                        ></div>
                     </div>
+            
+                    <span class="text-xl font-bold self-center">{player!.crownLevel.styleLevelData.level + 1}</span>
                 </div>
+                <div class="flex flex-col md:flex-row items-center justify-between gap-x-2 text-neutral-500 mt-2 gap-y-1 text-base">
+                    <p class="self-center">
+                        <span class="text-neutral-300 tabular-nums">
+                            {Math.round((player!.crownLevel.styleLevelData.nextLevelProgress.obtained / player!.crownLevel.styleLevelData.nextLevelProgress.obtainable * 100) * 10) / 10}%
+                        </span>
+                        <span class="text-neutral-300 tabular-nums">
+                            ({player!.crownLevel.styleLevelData.nextLevelProgress.obtained.toLocaleString()}/{player!.crownLevel.styleLevelData.nextLevelProgress.obtainable.toLocaleString()})
+                        </span>
+                    </p>
+                    <p class="hidden md:flex"> / </p>
+                    <p class="flex flex-row gap-x-1.5 items-center">
+                        <span class="flex flex-row gap-x-1 text-neutral-300">
+                            <img src={`https://cdn.islandstats.xyz/icons/style_level/${Math.floor(player!.crownLevel.styleLevelData.level / 10) + 1}.png`} alt={`Style Level ${Math.floor(player!.crownLevel.styleLevelData.level / 10) + 1} Icon`} class="size-5 self-center" />
+                            <span class="font-semibold tabular-nums">{Math.ceil(player!.crownLevel.styleLevelData.level / 10) * 10}</span>
+                        </span>
+                        <span>in</span>
+                        <span class="flex flex-row gap-x-1 text-neutral-300">
+                            <img src={`https://cdn.islandstats.xyz/icons/trophies/purple.png`} alt="Trophy Icon" class="size-5 self-center" />
+                            <span class="font-semibold tabular-nums">{(trophiesForStyleLevel(Math.ceil(player!.crownLevel.styleLevelData.level / 10) * 10) - player!.trophies.style.total).toLocaleString()}</span>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
 
+        {#if player?.collections?.cosmetics}
+            <div class="flex flex-col gap-y-2 px-4 pb-4">
                 <div class="flex flex-col md:flex-row gap-2">
                     <!-- search filter -->
                     <div class="w-full md:w-1/6 flex justify-center gap-x-2 border border-neutral-800 rounded-md hover:bg-neutral-800/60 duration-100 cursor-pointer">
@@ -346,7 +344,7 @@
                 {/if}
             </div>
         {:else}
-            <div class="flex flex-row items-center justify-center py-16 rounded-lg bg-neutral-950/40 text-neutral-400">
+            <div class="flex flex-row items-center justify-center mx-4 mb-4 py-16 rounded-lg bg-neutral-950/40 text-neutral-400">
                 <div class="flex flex-col gap-y-1">
                     <img
                         src="https://cdn.islandstats.xyz/icons/warnings/orange.png"
