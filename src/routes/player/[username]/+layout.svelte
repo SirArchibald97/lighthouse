@@ -8,6 +8,7 @@
 	import SocialCard from '$lib/blocks/player/SocialCard.svelte';
 	import ChevronUpDown from '$lib/icons/ChevronUpDown.svelte';
 	import { slide } from 'svelte/transition';
+	import Announcement from '$lib/blocks/Announcement.svelte';
 	let { data, children }: LayoutProps = $props();
 
 	const tabs = [
@@ -17,8 +18,8 @@
 		{ label: 'Wardrobe', href: 'wardrobe', icon: 'icons/style_level/9', alt: 'Wardrobe' }
 	];
 
-    let selectMenuOpen = $state(false);
-    let currentTab = $state(tabs[0]);
+	let selectMenuOpen = $state(false);
+	let currentTab = $state(tabs[0]);
 </script>
 
 <svelte:head>
@@ -39,7 +40,21 @@
 			{#if !player}
 				<p>No player found!</p>
 			{:else}
-				<div class="animate-fade flex w-full flex-col">
+				<div class="animate-fade flex w-full flex-col gap-y-4">
+					<!-- 
+					{#if page.url.hostname === 'lighthouse.gay' || page.url.hostname === 'localhost'}
+						<Announcement>
+							The domain <b>lighthouse.gay</b> will be unsupported after Dec 30th 2025. Please
+							switch back to
+							<b
+								><a class="text-blue-200 underline" href="https://stats.sirarchibald.dev"
+									>stats.sirarchibald.dev</a
+								></b
+							> to continue using Lighthouse. We apologise for the inconvenience.
+						</Announcement>
+					{/if}
+					-->
+
 					<div class="flex flex-col gap-4 xl:flex-row">
 						<div class="flex w-full flex-col gap-y-4 xl:w-1/3">
 							<PlayerCard {player} />
@@ -50,7 +65,9 @@
 						</div>
 					</div>
 
-                    <div class="mt-4 hidden gap-x-8 rounded-t-md border border-neutral-800 *:duration-75 lg:flex lg:px-4">
+					<div
+						class="mt-4 hidden gap-x-8 rounded-t-md border border-neutral-800 *:duration-75 lg:flex lg:px-4"
+					>
 						{#each tabs as tab}
 							<a
 								href={tab.href}
@@ -71,43 +88,56 @@
 					</div>
 
 					<!-- DROP DOWN FOR MOBILE -->
-					<div class="lg:hidden flex flex-col divide-y divide-neutral-800 mt-4 rounded-t-md border border-neutral-800">
-                        <button
-                            type="button"
-                            onclick={() => selectMenuOpen = !selectMenuOpen }
-                            class="cursor-pointer flex justify-between w-full p-4 text-neutral-200"
-                        >
-                            <div>
-                                <p class="flex gap-x-2">    
-                                    <img src={currentTab?.icon.startsWith('/') ? currentTab.icon : `https://cdn.islandstats.xyz/${currentTab?.icon}.png`} alt={`${currentTab?.alt} Icon`} class="size-6" />
-                                    <span class="self-center text-lg">{currentTab?.label}</span>
-                                </p>
-                            </div>
-                            <span class="size-6 text-neutral-500"><ChevronUpDown /></span>
-                        </button>
-                        {#if selectMenuOpen}
-                            <div transition:slide={{ duration: 100 }} class="flex flex-col justify-center gap-y-3 p-4">
-                                {#each tabs as tab}
-                                    <a
-                                        onclick={() => { selectMenuOpen = false; currentTab = tab }} 
-                                        href={tab.href}
-                                        class="text-lg"
-                                        aria-current="page"
-                                    >
-                                        <p class="flex gap-x-2">
-                                            <img
-                                                src={`https://cdn.islandstats.xyz/${tab.icon}.png`}
-                                                alt={`${tab.alt} Icon`}
-                                                class="size-6"
-                                            />
-                                            <span class="self-center">{tab.label}</span>
-                                        </p>
-                                    </a>
-                                {/each}
-                            </div>
-                        {/if}
+					<div
+						class="mt-4 flex flex-col divide-y divide-neutral-800 rounded-t-md border border-neutral-800 lg:hidden"
+					>
+						<button
+							type="button"
+							onclick={() => (selectMenuOpen = !selectMenuOpen)}
+							class="flex w-full cursor-pointer justify-between p-4 text-neutral-200"
+						>
+							<div>
+								<p class="flex gap-x-2">
+									<img
+										src={currentTab?.icon.startsWith('/')
+											? currentTab.icon
+											: `https://cdn.islandstats.xyz/${currentTab?.icon}.png`}
+										alt={`${currentTab?.alt} Icon`}
+										class="size-6"
+									/>
+									<span class="self-center text-lg">{currentTab?.label}</span>
+								</p>
+							</div>
+							<span class="size-6 text-neutral-500"><ChevronUpDown /></span>
+						</button>
+						{#if selectMenuOpen}
+							<div
+								transition:slide={{ duration: 100 }}
+								class="flex flex-col justify-center gap-y-3 p-4"
+							>
+								{#each tabs as tab}
+									<a
+										onclick={() => {
+											selectMenuOpen = false;
+											currentTab = tab;
+										}}
+										href={tab.href}
+										class="text-lg"
+										aria-current="page"
+									>
+										<p class="flex gap-x-2">
+											<img
+												src={`https://cdn.islandstats.xyz/${tab.icon}.png`}
+												alt={`${tab.alt} Icon`}
+												class="size-6"
+											/>
+											<span class="self-center">{tab.label}</span>
+										</p>
+									</a>
+								{/each}
+							</div>
+						{/if}
 					</div>
-                    
 
 					<div>
 						{@render children()}
