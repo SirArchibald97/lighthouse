@@ -16,7 +16,7 @@
 	<Header />
 
 	<div class="flex-1">
-		{#if page.url.hostname === 'lighthouse.gay' || page.url.hostname === 'localhost'}
+		{#if page.url.hostname === 'www.lighthouse.gay' || page.url.hostname === 'localhost'}
 			<Announcement>
 				The domain <b>lighthouse.gay</b> will be unsupported after Dec 30th 2025. Please switch back
 				to
