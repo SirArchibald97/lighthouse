@@ -17,14 +17,9 @@
 
 	<div class="flex-1">
 		{#if page.url.hostname === 'www.lighthouse.gay' || page.url.hostname === 'localhost'}
-			<Announcement>
-				The domain <b>lighthouse.gay</b> will be unsupported after Dec 30th 2025. Please switch back
-				to
-				<b
-					><a class="text-blue-200 underline" href="https://stats.sirarchibald.dev"
-						>stats.sirarchibald.dev</a
-					></b
-				> to continue using Lighthouse. We apologise for the inconvenience.
+			<Announcement colour="green">
+				🎉 Thanks to a generous donation from Kezz the goat, lighthouse.gay is back for another
+				year!
 			</Announcement>
 		{/if}
 
