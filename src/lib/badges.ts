@@ -7,7 +7,7 @@ export function calculateTotalTrophies(
 ) {
     let trophies = 0;
     badges.forEach(badge => {
-        if ((badge.stat.startsWith("!") ? stats[badge.stat.slice(1)] : stats.badges[badge.stat]) > 0) trophies += badge.trophies;
+        if ((badge.stat.startsWith("!") ? stats[badge.stat.slice(1)] : stats.badges[badge.stat as keyof typeof stats.badges]) > 0) trophies += badge.trophies;
     });
     tieredBadges.forEach(badge => {
         badge.tiers.forEach(tier => {
