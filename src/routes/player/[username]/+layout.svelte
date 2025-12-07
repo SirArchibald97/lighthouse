@@ -40,21 +40,7 @@
 			{#if !player}
 				<p>No player found!</p>
 			{:else}
-				<div class="animate-fade flex w-full flex-col gap-y-4">
-					<!-- 
-					{#if page.url.hostname === 'lighthouse.gay' || page.url.hostname === 'localhost'}
-						<Announcement>
-							The domain <b>lighthouse.gay</b> will be unsupported after Dec 30th 2025. Please
-							switch back to
-							<b
-								><a class="text-blue-200 underline" href="https://stats.sirarchibald.dev"
-									>stats.sirarchibald.dev</a
-								></b
-							> to continue using Lighthouse. We apologise for the inconvenience.
-						</Announcement>
-					{/if}
-					-->
-
+				<div class="animate-fade flex w-full flex-col">
 					<div class="flex flex-col gap-4 xl:flex-row">
 						<div class="flex w-full flex-col gap-y-4 xl:w-1/3">
 							<PlayerCard {player} />
