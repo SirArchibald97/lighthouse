@@ -1,38 +1,41 @@
 @import 'tailwindcss';
+@import 'tw-animate-css';
+
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 @plugin 'flowbite/plugin';
 
 @theme {
-    --font-sans: InterVariable, sans-serif;
+	--font-sans: InterVariable, sans-serif;
 
-    --animate-fade-fast: fade 0.1s ease-in-out;
-    --animate-fade: fade 0.5s ease-in-out;
-    --animate-fade-slow: fade 1.5s ease-in-out;
-    --animate-pallette-in: fade 0.3s cubic-bezier(0,0,0,1);
-    @keyframes fade {
-        0% {
-            opacity: 0%;
-            scale: 95%;
-        }
-        100% {
-            opacity: 100%;
-            scale: 100%;
-        }
-    }
+	--animate-fade-fast: fade 0.1s ease-in-out;
+	--animate-fade: fade 0.5s ease-in-out;
+	--animate-fade-slow: fade 1.5s ease-in-out;
+	--animate-pallette-in: fade 0.3s cubic-bezier(0, 0, 0, 1);
+	@keyframes fade {
+		0% {
+			opacity: 0%;
+			scale: 95%;
+		}
+		100% {
+			opacity: 100%;
+			scale: 100%;
+		}
+	}
 }
 
 input {
-    @apply border-transparent focus:ring-0
+	@apply border-transparent focus:ring-0;
 }
 
 @layer base {
-    button, [role="button"] {
-        cursor: pointer;
-    }
+	button,
+	[role='button'] {
+		cursor: pointer;
+	}
 }
 @source "../node_modules/flowbite-svelte/dist";
 
 html {
-    scroll-behavior: smooth;
+	scroll-behavior: smooth;
 }

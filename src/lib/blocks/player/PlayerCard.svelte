@@ -2,34 +2,16 @@
 	import Info from '$lib/icons/Info.svelte';
 	import type { Player } from '$lib/types';
 	import {
-		daysSince,
 		formatCaughtDate,
 		getRankIcon,
+		getRankString,
 		getStatusIcon,
 		getStatusString
 	} from '$lib/utils';
-	import { Tooltip } from 'flowbite-svelte';
+	import Tooltip from '$lib/components/Tooltip.svelte';
 	import { DateTime } from 'luxon';
 
 	export let player: Player;
-
-	function calculateTimeAgo(time: string) {
-		const lastJoinDate = DateTime.fromISO(time);
-		const diff = DateTime.now().diff(lastJoinDate, [
-			'months',
-			'weeks',
-			'days',
-			'hours',
-			'minutes',
-			'seconds'
-		]);
-		if (diff.months > 0) return `${diff.months} month${diff.months === 1 ? '' : 's'} ago`;
-		if (diff.weeks > 0) return `${diff.days} week${diff.days === 1 ? '' : 's'} ago`;
-		if (diff.days > 0) return `${diff.days} day${diff.days === 1 ? '' : 's'} ago`;
-		if (diff.hours > 0) return `${diff.hours} hour${diff.hours === 1 ? '' : 's'} ago`;
-		if (diff.minutes > 0) return `${diff.minutes} minute${diff.minutes === 1 ? '' : 's'} ago`;
-		if (diff.seconds > 0) return `${diff.seconds} second${diff.seconds === 1 ? '' : 's'} ago`;
-	}
 </script>
 
 <div class="rounded-lg border border-neutral-800 bg-neutral-900 p-2 shadow-lg md:p-4">
@@ -39,7 +21,7 @@
 				<img
 					class="size-12 rounded-md md:size-16"
 					src="https://mc-heads.net/avatar/{player.uuid}.png"
-					alt={`${player.username}'s Skin`}
+					alt={player.username}
 				/>
 				{#if player.status}
 					<span
@@ -54,37 +36,41 @@
 			<div class="flex flex-col gap-y-1 self-center text-sm md:text-base">
 				<div class="flex w-full justify-between">
 					<div class="flex gap-x-2">
-						<img
-							class="size-7 rounded-sm bg-neutral-700 md:size-8"
-							src={`https://cdn.islandstats.xyz/ranks/${getRankIcon(player?.ranks || [])}.png`}
-							alt={`${getRankIcon(player.ranks || [])} Rank Icon`}
-						/>
+						<Tooltip>
+							{#snippet trigger()}
+								<img
+									src="https://cdn.islandstats.xyz/ranks/{getRankIcon(player.ranks)}.png"
+									alt="{getRankString(player.ranks)} Rank Icon"
+									class="size-6 cursor-pointer self-center rounded-sm"
+								/>
+							{/snippet}
+							{#snippet content()}
+								{getRankString(player.ranks)}
+							{/snippet}
+						</Tooltip>
+
 						<span class="text-lg font-semibold md:text-2xl">{player.username}</span>
 						{#if player.mccPlusStatus}
-							<img
-								src="https://cdn.islandstats.xyz/ranks/plus_{player.mccPlusStatus.evolution +
-									1}_simple.png"
-								alt="MCC Plus Icon"
-								class="size-6 cursor-pointer self-center"
-							/>
-							<Tooltip
-								arrow={false}
-								type="custom"
-								placement="top"
-								class="flex flex-col items-center rounded-md border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 text-sm duration-75"
-							>
-								<p>
-									<span class="font-semibold"
-										><span class="tabular-nums">{daysSince(player.mccPlusStatus.streakStart)}</span>
-										day streak</span
-									>
-									(<span class="tabular-nums">{player.mccPlusStatus.totalDays}</span> days total)
-								</p>
-								<p>
-									Subscribed since <span class="font-semibold"
-										>{formatCaughtDate(player.mccPlusStatus.streakStart)}</span
-									>
-								</p>
+							<Tooltip>
+								{#snippet trigger()}
+									<img
+										src="https://cdn.islandstats.xyz/ranks/plus_{player.mccPlusStatus.evolution +
+											1}_simple.png"
+										alt="MCC Plus Icon"
+										class="size-6 cursor-pointer self-center"
+									/>
+								{/snippet}
+								{#snippet content()}
+									<div class="flex flex-col gap-y-1 text-center">
+										<span
+											>Subscribed for <b class="tabular-nums">{player.mccPlusStatus.totalDays}</b> days</span
+										>
+										<span
+											>Streak started <b>{formatCaughtDate(player.mccPlusStatus.streakStart)}</b
+											></span
+										>
+									</div>
+								{/snippet}
 							</Tooltip>
 						{/if}
 					</div>
@@ -130,9 +116,19 @@
 						{/if}
 					{:else}
 						<p>
-							Last online: <span class="font-semibold"
-								>{calculateTimeAgo(player.status?.lastJoin || '')}</span
-							>
+							Last online: <span class="font-semibold">
+								<Tooltip>
+									{#snippet trigger()}
+										<!-- calculate how long ago the time was relative, e.g. 3 days, 4 weeks, etc. -->
+										{DateTime.fromJSDate(new Date(player.status?.lastJoin || '')).toRelative()}
+									{/snippet}
+									{#snippet content()}
+										{DateTime.fromJSDate(new Date(player.status?.lastJoin || '')).toLocaleString(
+											DateTime.DATE_FULL
+										)}
+									{/snippet}
+								</Tooltip>
+							</span>
 						</p>
 					{/if}
 				{/if}
@@ -140,25 +136,15 @@
 		</div>
 		{#if player.status}
 			{@const firstJoin = new Date(player.status.firstJoin)}
-			<p
-				class="size-7 cursor-pointer self-start rounded-md border border-neutral-800 p-0.5 duration-100 hover:bg-neutral-800"
-			>
-				<Info />
-			</p>
-			<Tooltip
-				arrow={false}
-				type="custom"
-				placement="top"
-				class="flex flex-col items-center rounded-md border !border-neutral-700 !bg-neutral-900 px-2 py-0.5 text-sm"
-			>
-				<p>
-					First joined: {firstJoin.getHours() < 10
-						? `0${firstJoin.getHours()}`
-						: firstJoin.getHours()}:{firstJoin.getMinutes() < 10
-						? `0${firstJoin.getMinutes()}`
-						: firstJoin.getMinutes()}
-					{firstJoin.getDate()}/{firstJoin.getMonth() + 1}/{firstJoin.getFullYear()}
-				</p>
+			<Tooltip>
+				{#snippet trigger()}
+					<p class="size-6"><Info /></p>
+				{/snippet}
+				{#snippet content()}
+					<p>
+						First Joined: <b>{DateTime.fromJSDate(firstJoin).toLocaleString(DateTime.DATE_FULL)}</b>
+					</p>
+				{/snippet}
 			</Tooltip>
 		{/if}
 	</div>

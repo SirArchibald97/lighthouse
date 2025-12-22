@@ -128,7 +128,7 @@
 					{#if username.length === 0}
 						<div class="flex flex-col gap-y-2 p-2">
 							<div class="max-h-72 scroll-py-2 overflow-y-auto">
-								{#each [{ label: 'View the leaderboards', href: '/leaderboards', icon: 'emojis/crown' }, { label: 'Compare players', href: '/compare', icon: 'icons/trophies/yellow' }, { label: "Let's go gamlbing!", href: '/simulator', icon: 'emojis/sunglasses' }] as { label: string; href: string; icon: string }[] as link}
+								{#each [{ label: 'View the leaderboards', href: '/leaderboards', icon: 'emojis/crown' }, { label: 'Compare players', href: '/compare', icon: 'icons/trophies/yellow' }, { label: "Let's go gambling!", href: '/simulator', icon: 'emojis/sunglasses' }] as { label: string; href: string; icon: string }[] as link}
 									<a
 										onclick={() => (showCommandPalette = false)}
 										class="flex gap-x-2 rounded-md p-2 duration-100 hover:bg-neutral-800/50"
