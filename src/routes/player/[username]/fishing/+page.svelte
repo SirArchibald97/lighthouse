@@ -439,7 +439,7 @@
 									/>
 									<p class="self-center text-lg font-semibold lg:text-xl">{collection.name}</p>
 								</div>
-								<div class="hidden gap-x-4 md:flex">
+								<div class="hidden gap-x-4 self-center md:flex">
 									<span
 										class="self-center rounded-full border px-3 py-0.5 {climateStyles[
 											collection.climate
