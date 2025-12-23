@@ -21,12 +21,26 @@
 			max={100}
 			min={0}
 			colour={getCrownColour(player.crownLevel.levelData.level)}
-			start={{
-				label: player.crownLevel.levelData.level.toString(),
-				icon: `https://cdn.islandstats.xyz/icons/crowns/${player.crownLevel.levelData.evolution}.png`
-			}}
-			end={{ label: (player.crownLevel.levelData.level + 1).toString(), icon: undefined }}
-		/>
+		>
+			{#snippet startElement()}
+				<div class="flex gap-x-2">
+					<img
+						src="https://cdn.islandstats.xyz/icons/crowns/{player.crownLevel.levelData
+							.evolution}.png"
+						alt="Crown Level {player.crownLevel.levelData.evolution} Icon"
+						class="size-6 self-center"
+					/>
+					<p class="self-center font-semibold tabular-nums">
+						{player.crownLevel.levelData.level}
+					</p>
+				</div>
+			{/snippet}
+			{#snippet endElement()}
+				<p class="font-semibold tabular-nums">
+					{player.crownLevel.levelData.level + 1}
+				</p>
+			{/snippet}
+		</ProgressBar>
 
 		<!-- progress stats -->
 		<div

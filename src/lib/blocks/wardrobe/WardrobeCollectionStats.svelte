@@ -17,7 +17,7 @@
 			(acc, c) =>
 				acc +
 				(c.cosmetic.royalReputation?.reputationAmount || 0) *
-					(c.cosmetic.royalReputation?.donationLimit || 10),
+					(c.cosmetic.royalReputation?.donationLimit || 0),
 			0
 		) || 0;
 </script>

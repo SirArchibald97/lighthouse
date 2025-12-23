@@ -87,6 +87,10 @@
 
 					<!-- donations -->
 					{#if cosmetic.royalReputation}
+						{@const earnedRep = cosmetic.royalReputation.reputationAmount * donationsMade}
+						{@const totalRep =
+							cosmetic.royalReputation.reputationAmount * cosmetic.royalReputation.donationLimit}
+
 						<div class="flex flex-col gap-x-3 md:flex-row">
 							<div class="flex gap-x-2">
 								<img
@@ -94,7 +98,9 @@
 									alt="Scavenged"
 									class="size-3 self-center md:size-5"
 								/>
-								<span id="donations" class="tabular-nums"
+								<span
+									id="donations"
+									class="tabular-nums {earnedRep === totalRep ? 'text-green-500' : ''}"
 									>{donationsMade || 0} / {cosmetic.royalReputation?.donationLimit || 10}</span
 								>
 							</div>
@@ -104,10 +110,8 @@
 									alt="Royal Reputation Icon"
 									class="size-3 self-center md:size-5"
 								/>
-								<span class="tabular-nums"
-									>{cosmetic.royalReputation?.reputationAmount * donationsMade} / {cosmetic
-										.royalReputation?.reputationAmount *
-										cosmetic.royalReputation?.donationLimit}</span
+								<span class="tabular-nums {earnedRep === totalRep ? 'text-green-500' : ''}"
+									>{earnedRep} / {totalRep}</span
 								>
 							</div>
 						</div>

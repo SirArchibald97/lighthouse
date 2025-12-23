@@ -126,13 +126,27 @@
 								value={(player.crownLevel.fishingLevelData.nextLevelProgress.obtained /
 									player.crownLevel.fishingLevelData.nextLevelProgress.obtainable) *
 									100}
-								start={{
-									label: player.crownLevel.fishingLevelData.level.toString(),
-									icon: `https://cdn.islandstats.xyz/fishing/level/${player.crownLevel.fishingLevelData.evolution}.png`
-								}}
-								end={{ label: (player.crownLevel.fishingLevelData.level + 1).toString(), icon: '' }}
 								colour={getCrownColour(player.crownLevel.fishingLevelData.level)}
-							/>
+							>
+								{#snippet startElement()}
+									<div class="flex gap-x-2">
+										<img
+											src="https://cdn.islandstats.xyz/fishing/level/{player.crownLevel
+												.fishingLevelData.evolution}.png"
+											alt="Fishing Level Icon"
+											class="size-7 self-center"
+										/>
+										<p class="self-center font-semibold tabular-nums">
+											{player.crownLevel.fishingLevelData.level}
+										</p>
+									</div>
+								{/snippet}
+								{#snippet endElement()}
+									<p class="self-center font-semibold tabular-nums">
+										{player.crownLevel.fishingLevelData.level + 1}
+									</p>
+								{/snippet}
+							</ProgressBar>
 						</div>
 						<div class="mt-2 flex justify-between gap-x-2 gap-y-1 text-base text-neutral-500">
 							<p class="self-center">

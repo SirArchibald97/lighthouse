@@ -10,6 +10,7 @@
 	import ChevronUpDown from '$lib/icons/ChevronUpDown.svelte';
 	import WardrobeCollectionStats from '$lib/blocks/wardrobe/WardrobeCollectionStats.svelte';
 	import Cosmetic from '$lib/blocks/wardrobe/Cosmetic.svelte';
+	import ProgressBar from '$lib/components/ProgressBar.svelte';
 
 	let { data }: PageProps = $props();
 
@@ -56,29 +57,37 @@
 	<div class="flex flex-col rounded-b-md border-x border-b border-neutral-800">
 		<div class="m-4 flex max-w-full flex-col justify-between rounded-md bg-neutral-800/50">
 			<div class="flex w-full flex-col items-center p-4">
-				<div class="flex w-full flex-row justify-between">
-					<img
-						src="https://cdn.islandstats.xyz/icons/style_level/{Math.floor(
-							player!.crownLevel.styleLevelData.level / 10
-						)}.png"
-						alt={``}
-						class="size-8"
-					/>
-					<span class="self-center pl-2 text-xl font-bold"
-						>{player!.crownLevel.styleLevelData.level}</span
-					>
+				<ProgressBar
+					value={Math.round(
+						(player!.crownLevel.styleLevelData.nextLevelProgress.obtained /
+							player!.crownLevel.styleLevelData.nextLevelProgress.obtainable) *
+							100 *
+							10
+					) / 10}
+					max={100}
+					min={0}
+					colour={getCrownColour(player!.crownLevel.styleLevelData.level)}
+				>
+					{#snippet startElement()}
+						<div class="flex gap-x-2">
+							<img
+								src="https://cdn.islandstats.xyz/icons/style_level/{player?.crownLevel
+									.styleLevelData.evolution || 0}.png"
+								alt=""
+								class="size-7 self-center"
+							/>
+							<p class="self-center font-semibold tabular-nums">
+								{player?.crownLevel.styleLevelData.level || 0}
+							</p>
+						</div>
+					{/snippet}
+					{#snippet endElement()}
+						<p class="self-center font-semibold tabular-nums">
+							{(player?.crownLevel.styleLevelData.level || 0) + 1}
+						</p>
+					{/snippet}
+				</ProgressBar>
 
-					<div class="mx-4 w-full self-center overflow-hidden rounded-full bg-neutral-800">
-						<div
-							class={`h-4 rounded-l-full ${getCrownColour(player!.crownLevel.styleLevelData.level)}`}
-							style={`width: ${(player!.crownLevel.styleLevelData.nextLevelProgress.obtained / player!.crownLevel.styleLevelData.nextLevelProgress.obtainable) * 100}%`}
-						></div>
-					</div>
-
-					<span class="self-center text-xl font-bold"
-						>{player!.crownLevel.styleLevelData.level + 1}</span
-					>
-				</div>
 				<div
 					class="mt-2 flex flex-col items-center justify-between gap-x-2 gap-y-1 text-base text-neutral-500 md:flex-row"
 				>
@@ -176,52 +185,42 @@
 				{:else}
 					<div class="flex flex-col gap-y-2">
 						{#each collections as collection}
-							{@const isCollectionComplete =
-								calculatePercentage(
-									player.collections.cosmetics
-										.filter((c) => c.cosmetic.collection === collection && c.owned)
-										.reduce((acc, c) => acc + c.cosmetic.trophies, 0),
-									player.collections.cosmetics
-										.filter((c) => c.cosmetic.collection === collection)
-										.reduce((acc, c) => acc + c.cosmetic.trophies, 0)
-								) === 100}
-							{@const isCollectionMaxed =
-								calculatePercentage(
-									player.collections.cosmetics
-										.filter(
-											(c) =>
-												c.cosmetic.collection === collection &&
-												c.owned &&
-												c.cosmetic.royalReputation
-										)
-										.reduce(
-											(acc, c) =>
-												acc + c.cosmetic.royalReputation.reputationAmount * c.donationsMade,
-											0
-										),
-									player.collections.cosmetics
-										.filter(
-											(c) => c.cosmetic.collection === collection && c.cosmetic.royalReputation
-										)
-										.reduce(
-											(acc, c) =>
-												acc +
-												c.cosmetic.royalReputation.reputationAmount *
-													c.cosmetic.royalReputation.donationLimit,
-											0
-										)
-								) === 100}
+							{@const earnedTrophies = player.collections.cosmetics
+								.filter((c) => c.cosmetic.collection === collection && c.owned)
+								.reduce((acc, c) => acc + c.cosmetic.trophies, 0)}
+							{@const totalTrophies = player.collections.cosmetics
+								.filter((c) => c.cosmetic.collection === collection)
+								.reduce((acc, c) => acc + c.cosmetic.trophies, 0)}
+							{@const earnedReputation =
+								player.collections.cosmetics
+									.filter((c) => c.cosmetic.collection === collection && c.owned)
+									.reduce(
+										(acc, c) =>
+											acc + c.donationsMade * (c.cosmetic.royalReputation?.reputationAmount || 0),
+										0
+									) || 0}
+							{@const totalReputation = player.collections.cosmetics
+								.filter((c) => c.cosmetic.collection === collection)
+								.reduce(
+									(acc, c) =>
+										acc +
+										(c.cosmetic.royalReputation?.donationLimit || 0) *
+											(c.cosmetic.royalReputation?.reputationAmount || 0),
+									0
+								)}
 							<div
-								class="bg-neutral-800/50 {isCollectionMaxed
+								class="bg-neutral-800/50 {earnedReputation === totalReputation &&
+								earnedTrophies === totalTrophies
 									? 'border border-purple-800/50'
-									: isCollectionComplete
+									: earnedTrophies == totalTrophies
 										? 'border border-green-800/30'
 										: ''} rounded-md"
 							>
 								<button
-									class="flex w-full cursor-pointer justify-between py-3 {isCollectionMaxed
+									class="flex w-full cursor-pointer justify-between py-3 {earnedReputation ===
+										totalReputation && earnedTrophies === totalTrophies
 										? 'bg-purple-800/50 hover:bg-purple-800/40'
-										: isCollectionComplete
+										: earnedTrophies == totalTrophies
 											? 'bg-green-800/50 hover:bg-green-800/40'
 											: 'hover:bg-neutral-800'} duration-100 {openCollection === collection
 										? 'rounded-t-md'
@@ -246,40 +245,40 @@
 									</div>
 									<div class="flex gap-x-4 px-3">
 										<div class="flex gap-x-1 self-center tabular-nums">
-											<img
-												src="https://cdn.islandstats.xyz/icons/trophies/{player.collections.cosmetics.filter(
-													(c) => c.cosmetic.collection === collection
-												)[0].cosmetic.isBonusTrophies
-													? 'silver'
-													: 'purple'}.png"
-												alt="Cosmetic Trophy Icon"
-												class="hidden size-6 self-center md:flex"
-											/>
-											<p class="hidden gap-x-1 text-sm md:flex md:text-base">
-												<span
-													>{player.collections.cosmetics
-														.filter((c) => c.cosmetic.collection === collection && c.owned)
-														.reduce((acc, c) => acc + c.cosmetic.trophies, 0)
-														.toLocaleString()}</span
-												>
-												<span> / </span>
-												<span
-													>{player.collections.cosmetics
-														.filter((c) => c.cosmetic.collection === collection)
-														.reduce((acc, c) => acc + c.cosmetic.trophies, 0)
-														.toLocaleString()}</span
-												>
-												<span class="text-neutral-500"
-													>({calculatePercentage(
-														player.collections.cosmetics
-															.filter((c) => c.cosmetic.collection === collection && c.owned)
-															.reduce((acc, c) => acc + c.cosmetic.trophies, 0),
-														player.collections.cosmetics
-															.filter((c) => c.cosmetic.collection === collection)
-															.reduce((acc, c) => acc + c.cosmetic.trophies, 0)
-													)}%)</span
-												>
-											</p>
+											{#if earnedTrophies === totalTrophies && totalReputation > 0}
+												<img
+													src="https://cdn.islandstats.xyz/icons/currency/royal_reputation.png"
+													alt="Royal Reputation Icon"
+													class="hidden size-6 self-center md:flex"
+												/>
+												<p class="hidden gap-x-1 text-sm md:flex md:text-base">
+													<span>{(earnedReputation || 0).toLocaleString()}</span>
+													<span> / </span>
+													<span>{totalReputation.toLocaleString()}</span>
+													<span class="text-neutral-500"
+														>({calculatePercentage(earnedReputation || 0, totalReputation) ||
+															100}%)</span
+													>
+												</p>
+											{:else}
+												<img
+													src="https://cdn.islandstats.xyz/icons/trophies/{player.collections.cosmetics.filter(
+														(c) => c.cosmetic.collection === collection
+													)[0].cosmetic.isBonusTrophies
+														? 'silver'
+														: 'purple'}.png"
+													alt="Cosmetic Trophy Icon"
+													class="hidden size-6 self-center md:flex"
+												/>
+												<p class="hidden gap-x-1 text-sm md:flex md:text-base">
+													<span>{earnedTrophies.toLocaleString()}</span>
+													<span> / </span>
+													<span>{totalTrophies.toLocaleString()}</span>
+													<span class="text-neutral-500"
+														>({calculatePercentage(earnedTrophies, totalTrophies)}%)</span
+													>
+												</p>
+											{/if}
 										</div>
 										<span class="mr-2 size-6 self-center text-neutral-500 lg:size-8"
 											><ChevronUpDown /></span
@@ -289,9 +288,10 @@
 								{#if collection === openCollection}
 									<div
 										transition:slide={{ duration: 200 }}
-										class="flex flex-col gap-y-4 rounded-b-md border-t text-base lg:text-lg {isCollectionMaxed
+										class="flex flex-col gap-y-4 rounded-b-md border-t text-base lg:text-lg {earnedReputation ===
+											totalReputation && totalTrophies === earnedTrophies
 											? 'border-purple-800/30'
-											: isCollectionComplete
+											: earnedTrophies == totalTrophies
 												? 'border-green-800/30'
 												: 'border-neutral-800'} p-4"
 									>
