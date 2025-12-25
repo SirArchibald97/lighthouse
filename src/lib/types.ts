@@ -1,3 +1,18 @@
+export enum Rarity {
+	COMMON = 'COMMON',
+	UNCOMMON = 'UNCOMMON',
+	RARE = 'RARE',
+	EPIC = 'EPIC',
+	LEGENDARY = 'LEGENDARY',
+	MYTHIC = 'MYTHIC'
+}
+
+export enum QuestType {
+	DAILY = 'DAILY',
+	WEEKLY = 'WEEKLY',
+	SCROLL = 'SCROLL'
+}
+
 export interface PlayerStatus {
 	lastJoin: string;
 	firstJoin: string;
@@ -73,6 +88,37 @@ export interface PlayerTrophies {
 			obtainable: number;
 		};
 	};
+}
+
+export interface PlayerFactions {
+	name: string;
+	selected: boolean;
+	totalExperience: number;
+	levelData: {
+		level: number;
+		nextLevelProgress: {
+			obtained: number;
+			obtainable: number;
+		};
+		evolution: number;
+		nextEvolutionLevel: number;
+	};
+}
+
+export interface PlayerQuests {
+	type: QuestType;
+	rarity: Rarity;
+	boost: boolean;
+	completed: boolean;
+	tasks: {
+		statistic: {
+			key: string;
+		};
+		progress: {
+			obtained: number;
+			obtainable: number;
+		};
+	}[];
 }
 
 export interface IslandFish {
@@ -489,6 +535,8 @@ export interface Player {
 	social: PlayerSocials | undefined;
 	collections: PlayerCollections | undefined;
 	statistics: PlayerStatistics | undefined;
+	quests: PlayerQuests[] | undefined;
+	factions: PlayerFactions[] | undefined;
 }
 
 export interface IslandApiResponse {

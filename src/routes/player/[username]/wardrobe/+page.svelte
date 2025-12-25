@@ -1,10 +1,5 @@
 <script lang="ts">
-	import {
-		calculatePercentage,
-		getCrownColour,
-		getRarityColour,
-		trophiesForStyleLevel
-	} from '$lib/utils';
+	import { calculatePercentage, getCrownColour, trophiesForStyleLevel } from '$lib/utils';
 	import type { PageProps } from './$types';
 	import { slide } from 'svelte/transition';
 	import ChevronUpDown from '$lib/icons/ChevronUpDown.svelte';

@@ -36,12 +36,16 @@
 	{min}
 	class="w-full"
 >
-	<div class="flex flex-row justify-between gap-x-2 text-lg">
+	<div class="flex flex-row justify-between gap-x-4 text-lg">
 		{#if startElement}
 			{@render startElement()}
 		{/if}
 
-		<div class="mx-4 w-full self-center overflow-hidden rounded-full bg-neutral-800">
+		<div
+			class="{startElement ? 'ml-2' : ''} {endElement
+				? 'mr-2'
+				: ''} w-full self-center overflow-hidden rounded-full bg-neutral-800"
+		>
 			<div class="h-4 rounded-l-full {colour}" style="width: {Math.round(tween.current)}%"></div>
 		</div>
 
