@@ -8,7 +8,6 @@
 	import SocialCard from '$lib/blocks/player/SocialCard.svelte';
 	import ChevronUpDown from '$lib/icons/ChevronUpDown.svelte';
 	import { slide } from 'svelte/transition';
-	import Announcement from '$lib/blocks/Announcement.svelte';
 	let { data, children }: LayoutProps = $props();
 
 	const tabs = [
@@ -28,7 +27,7 @@
 		<title>Fetching player...</title>
 	{:then player}
 		<title>{player?.username} • Lighthouse</title>
-		<link rel="icon" href="https://crafatar.com/avatars/{player?.uuid}?overlay" />
+		<link rel="icon" href="https://mc-heads.net/avatar/{player?.uuid}.png" />
 	{:catch error}
 		<title>Error!</title>
 	{/await}
