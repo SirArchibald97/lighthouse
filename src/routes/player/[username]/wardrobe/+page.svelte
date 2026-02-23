@@ -57,7 +57,8 @@
 		'Limited Special',
 		'Limited Event',
 		'Premium Event',
-		'Premium Weapon'
+		'Premium Weapon',
+		'Legacy'
 	];
 	let openCollection = $state<string>('');
 </script>
