@@ -1,67 +1,121 @@
 <script lang="ts">
-	import { badges  } from "$lib/badges";
-	import type { DynaballStatistics } from "$lib/types";
-	import { calculatePercentage } from "$lib/utils";
-	import Badges from "./Badges.svelte";
-	import TieredBadges from "./TieredBadges.svelte";
+	import { badges } from '$lib/badges';
+	import { miscStat } from '$lib/components/Snippets.svelte';
+	import StatBarChart from '$lib/components/StatBarChart.svelte';
+	import StatRatioChart from '$lib/components/StatRatioChart.svelte';
+	import type { DynaballStatistics } from '$lib/types';
+	import { calculatePercentage } from '$lib/utils';
+	import Badges from './Badges.svelte';
+	import TieredBadges from './TieredBadges.svelte';
 
-    let { stats }: { stats: DynaballStatistics } = $props();
+	let { stats }: { stats: DynaballStatistics } = $props();
 </script>
 
-<div class="flex flex-col border-t border-neutral-800 px-4 divide-y divide-neutral-800 text-base lg:text-lg">
-    <div class="flex flex-col md:flex-row gap-y-4 gap-x-20 py-4">
-        <div class="flex flex-col gap-x-8 gap-y-4 justify-between">
-            <div>
-                <p>Games Played: <span class="tabular-nums font-semibold">{stats.games_played.toLocaleString()}</span></p>
-                <p>Games Won: <span class="tabular-nums font-semibold">{stats.wins.toLocaleString()}</span></p>
-                <p>Games Lost: <span class="tabular-nums font-semibold">{stats.losses.toLocaleString()}</span></p>
-                <p>WLR: 
-                    <span class="tabular-nums font-semibold">{stats.wlr.toLocaleString()}</span>
-                    <span class="tabular-nums text-neutral-500">({calculatePercentage(stats.wins, stats.games_played)}%)</span>
-                </p>
-            </div>
-        </div>
-        <div class="flex flex-col gap-y-4 justify-between">
-            <div>
-                <p>Kills: <span class="tabular-nums font-semibold">{stats.kills.toLocaleString()}</span></p>
-                <p>Deaths: <span class="tabular-nums font-semibold">{(stats.games_played - stats.wins).toLocaleString()}</span></p>
-                <p>KDR: <span class="tabular-nums font-semibold">{stats.kdr.toLocaleString()}</span></p>
-                <p>Players Stuck: <span class="tabular-nums font-semibold">{stats.players_stuck.toLocaleString()}</span></p>
-            </div>
-        </div>
-        <div class="flex flex-col gap-y-4 justify-between">
-            <div>
-                <p>Survived 1 Minute: 
-                    <span class="tabular-nums font-semibold">{(stats.survive_1m - stats.survive_2m).toLocaleString()}</span>
-                    <span class="text-neutral-500">({calculatePercentage(stats.survive_1m - stats.survive_2m, stats.games_played)}%)</span></p>
-                <p>Survived 2 Minutes: 
-                    <span class="tabular-nums font-semibold">{(stats.survive_2m - stats.survive_3m).toLocaleString()}</span>
-                    <span class="text-neutral-500">({calculatePercentage(stats.survive_2m - stats.survive_3m, stats.games_played)}%)</span></p>
-                <p>Survived 3 Minutes: 
-                    <span class="tabular-nums font-semibold">{(stats.survive_3m - stats.survive_4m).toLocaleString()}</span>
-                    <span class="text-neutral-500">({calculatePercentage(stats.survive_3m - stats.survive_4m, stats.games_played)}%)</span></p>
-                <p>Survived 4 Minutes: 
-                    <span class="tabular-nums font-semibold">{stats.survive_4m.toLocaleString()}</span>
-                    <span class="text-neutral-500">({calculatePercentage(stats.survive_4m, stats.games_played)}%)</span></p>
-            </div>
-        </div>
-        <div class="flex flex-col gap-y-4 justify-between">
-            <div>
-                <p>Spawners Broken: <span class="tabular-nums font-semibold">{stats.spawners_destroyed.toLocaleString()}</span></p>
-                <p>Blocks Destroyed: <span class="tabular-nums font-semibold">{stats.blocks_destroyed.toLocaleString()}</span></p>
-                <p>Blocks Placed: <span class="tabular-nums font-semibold">{stats.blocks_placed.toLocaleString()}</span></p>
-            </div>
-        </div>
-    </div>
+<div
+	class="flex flex-col divide-y divide-neutral-800 border-t border-neutral-800 px-4 text-base lg:text-lg"
+>
+	<!-- STATS -->
+	<div class="grid grid-cols-1 gap-4 py-4 md:grid-cols-2 xl:grid-cols-3">
+		<!-- SURVIVAL TIMES -->
+		<StatBarChart
+			data={[
+				{ label: '1 Minute', amount: stats.survive_1m - stats.survive_2m, color: '#ff8904 ' },
+				{ label: '2 Minutes', amount: stats.survive_2m - stats.survive_3m, color: '#ffaa33 ' },
+				{ label: '3 Minutes', amount: stats.survive_3m - stats.survive_4m, color: '#ffcc66 ' },
+				{ label: '4 Minutes', amount: stats.survive_4m, color: '#ffee99 ' }
+			]}
+			total={stats.games_played}
+			tooltipLabel="Games"
+		>
+			{#snippet title()}
+				<p class="text-lg font-semibold">Survival Times</p>
+			{/snippet}
+			{#snippet subtitle()}
+				<p class="text-sm">
+					Total Games: <span class="font-semibold tabular-nums"
+						>{stats.games_played.toLocaleString()}</span
+					>
+				</p>
+			{/snippet}
+		</StatBarChart>
 
+		<!-- WIN/LOSS RATIO -->
+		<StatRatioChart
+			firstStat={stats.wins}
+			secondStat={stats.losses}
+			colour="#ffe842"
+			usePercentageOption
+		>
+			{#snippet title(useRatio)}
+				<p class="text-lg font-semibold">
+					{useRatio ? 'Win/Loss Ratio' : 'Win Rate Percentage'}
+				</p>
+			{/snippet}
+			{#snippet subtitle()}
+				<p class="text-sm">
+					Total Wins: <span class="font-semibold tabular-nums">{stats.wins.toLocaleString()}</span>
+					/ Total Losses:
+					<span class="font-semibold tabular-nums">{stats.losses.toLocaleString()}</span>
+				</p>
+			{/snippet}
+			{#snippet legend(useRatio, value)}
+				{#if useRatio}
+					<p class="text-center text-base">
+						You've gotten <span class="font-semibold tabular-nums">{value} wins</span> for every loss
+					</p>
+				{:else}
+					<p class="text-center text-base">
+						You've won <span class="font-semibold tabular-nums">{value}</span> of games you've played
+					</p>
+				{/if}
+			{/snippet}
+		</StatRatioChart>
 
-    <!-- BADGES -->
-    <div class="py-4 grid grid-cols-1 md:grid-cols-2 gap-4 *:rounded-lg text-md">
-        <Badges stats={stats} badges={badges.dynaball} />
-    </div>
+		<!-- KILL/DEATH RATIO -->
+		<StatRatioChart firstStat={stats.kills} secondStat={stats.losses} colour="#ffe842" max={3}>
+			{#snippet title(useRatio)}
+				<p class="text-lg font-semibold">Kill/Death Ratio</p>
+			{/snippet}
+			{#snippet subtitle()}
+				<p class="text-sm">
+					Total Kills: <span class="font-semibold tabular-nums">{stats.kills.toLocaleString()}</span
+					>
+					/ Total Deaths:
+					<span class="font-semibold tabular-nums">{stats.losses.toLocaleString()}</span>
+				</p>
+			{/snippet}
+			{#snippet legend(useRatio, value)}
+				{#if useRatio}
+					<p class="text-center text-base">
+						You've gotten <span class="font-semibold tabular-nums">{value} kills</span> for every death
+					</p>
+				{/if}
+			{/snippet}
+		</StatRatioChart>
 
-    <!-- TIERED BADGES -->
-    <div class="py-4 grid grid-cols-1 md:grid-cols-2 gap-4 *:rounded-lg text-md">
-        <TieredBadges stats={stats} badges={badges.dynaball_tiered} />
-    </div>  
+		<!-- MISC STATS -->
+		<div class="rounded-lg bg-neutral-800 p-4">
+			<p class="text-lg font-semibold">Misc Stats</p>
+			<div class="flex flex-col gap-y-3 pt-2">
+				<div>
+					{@render miscStat('Players Stuck', stats.players_stuck)}
+					{@render miscStat('Spawners Broken', stats.spawners_destroyed)}
+				</div>
+				<div>
+					{@render miscStat('Blocks Destroyed', stats.blocks_destroyed)}
+					{@render miscStat('Blocks Placed', stats.blocks_placed)}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- BADGES -->
+	<div class="text-md grid grid-cols-1 gap-4 py-4 *:rounded-lg md:grid-cols-2">
+		<Badges {stats} badges={badges.dynaball} />
+	</div>
+
+	<!-- TIERED BADGES -->
+	<div class="text-md grid grid-cols-1 gap-4 py-4 *:rounded-lg md:grid-cols-2">
+		<TieredBadges {stats} badges={badges.dynaball_tiered} />
+	</div>
 </div>

@@ -6,6 +6,7 @@
 	let username = $state('');
 
 	let showCommandPalette = $state(false);
+	let inputElement = $state<HTMLInputElement | null>(null);
 	let recentSearches: string[] = $state([]);
 
 	function onKeyPress(event: KeyboardEvent) {
@@ -13,6 +14,10 @@
 			event.preventDefault();
 			showCommandPalette = true;
 			recentSearches = localStorage.getItem('searches')?.split(',') || [];
+
+			if (inputElement) {
+				inputElement.focus();
+			}
 		} else if (event.code === 'Escape') {
 			event.preventDefault();
 			showCommandPalette = false;
@@ -51,7 +56,7 @@
 
 	{#if showCommandPalette}
 		<div class="relative z-20">
-			<div class="fixed inset-0 bg-gray-500/15 transition-opacity"></div>
+			<div class="fixed inset-0 bg-neutral-900/75 transition-opacity"></div>
 
 			<div
 				id="command-palette"
@@ -63,6 +68,7 @@
 					<div class="grid grid-cols-1">
 						<form method="POST" action="?/getPlayer" class="col-start-1 row-start-1">
 							<input
+								bind:this={inputElement}
 								name="username"
 								type="text"
 								class="h-12 w-full bg-neutral-950 pr-4 pl-11 outline-none placeholder:text-neutral-400 sm:text-sm"

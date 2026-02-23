@@ -8,8 +8,12 @@
 		owned,
 		donationsMade,
 		chromaPacks
-	}: { cosmetic: Cosmetic; owned: boolean; donationsMade: number; chromaPacks: string[] } =
-		$props();
+	}: {
+		cosmetic: Cosmetic;
+		owned: boolean;
+		donationsMade: number;
+		chromaPacks: string[];
+	} = $props();
 
 	const backgroundStyles = {
 		Locked: 'bg-neutral-800/50 hover:bg-neutral-800/70',

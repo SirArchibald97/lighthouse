@@ -28,8 +28,14 @@
 			gamesPlayed: player.statistics?.battle_box!.games_played
 		},
 		{
+			game: 'Battle Box Arena',
+			colour: '#e33030',
+			trophies: null,
+			gamesPlayed: player.statistics?.arena!.games_played
+		},
+		{
 			game: 'Sky Battle',
-			colour: 'oklch(57.7% 0.245 27.325)',
+			colour: '#4d79ff',
 			trophies: calculateTotalTrophies(
 				player.statistics?.sky_battle.quads!,
 				badges.sky_battle,
@@ -55,7 +61,7 @@
 		},
 		{
 			game: 'Dynaball',
-			colour: 'oklch(75% 0.183 55.934)',
+			colour: '#ff8904',
 			trophies: calculateTotalTrophies(
 				player.statistics?.dynaball!,
 				badges.dynaball,
@@ -65,12 +71,12 @@
 		},
 		{
 			game: 'Dojo',
-			colour: 'oklch(87.9% 0.169 91.605)',
+			colour: '#ffd230',
 			trophies: calculateTotalTrophies(player.statistics?.pkw.dojo!, [], badges.dojo_tiered)
 		},
 		{
 			game: 'Survivor',
-			colour: 'oklch(76.8% 0.233 130.85)',
+			colour: '#a440e3',
 			trophies: calculateTotalTrophies(
 				player.statistics?.pkw.survivor!,
 				[],
@@ -80,7 +86,7 @@
 		},
 		{
 			game: 'Rocket Spleef',
-			colour: 'oklch(60.6% 0.25 292.717)',
+			colour: '#00bc7d',
 			trophies: calculateTotalTrophies(
 				player.statistics?.rocket_spleef!,
 				badges.rocket_spleef,
@@ -93,7 +99,7 @@
 	let previousEnd = 0;
 	const trophyPie = gameTrophies
 		.map((game) => {
-			if (game.trophies === 0) return '';
+			if (!game.trophies || game.trophies === 0) return '';
 			const start = previousEnd;
 			const end = start + Math.round((game.trophies / player.trophies.skill.total) * 100);
 			previousEnd = end;
@@ -194,15 +200,15 @@
 				</span>
 				<div class="flex flex-col items-center gap-y-1 self-center md:items-start">
 					<p class="text-xs font-semibold md:text-lg">Where do your skill trophies come from?</p>
-					<div class="grid grid-cols-1 gap-2 tabular-nums md:grid-cols-2">
-						{#each gameTrophies as game}
+					<div class="grid grid-cols-1 gap-x-4 gap-y-2 tabular-nums md:grid-cols-2">
+						{#each gameTrophies.filter((g) => g.trophies !== null) as game}
 							<p class="flex gap-x-2 text-xs md:text-sm">
 								<span class="size-3 rounded-sm md:size-5" style="background-color: {game.colour}"
 								></span>
 								<span
-									>{game.game}: {game.trophies.toLocaleString()}
+									>{game.game}: {(game.trophies || 0).toLocaleString()}
 									<span class="text-neutral-500"
-										>({calculatePercentage(game.trophies, player.trophies.skill.total)}%)</span
+										>({calculatePercentage(game.trophies || 0, player.trophies.skill.total)}%)</span
 									></span
 								>
 							</p>

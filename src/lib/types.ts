@@ -226,6 +226,41 @@ export interface BattleBoxStatistics {
 	};
 }
 
+export interface BattleBoxArenaStatistics {
+	[key: string]: number | object;
+	games_played: number;
+	rounds_played: number;
+	rounds_won: number;
+	wins: number;
+	losses: number;
+	eliminations: number;
+	kills: number;
+	deaths: number;
+	assists: number;
+	aces: number;
+	total_score: number;
+	first_place: number;
+	top_three: number;
+	blocks_broken: number;
+	blocks_placed: number;
+	melee_kills: number;
+	ranged_kills: number;
+	explosive_kills: number;
+	badges: {
+		[key: string]: number;
+		blind_brawl: number;
+		aerial_assault: number;
+		stealthy_takedown: number;
+		ace_from_afar: number;
+		ultimate_ace: number;
+		leave_it_to_me: number;
+		untouchable_assassin: number;
+		flawless_battle: number;
+		demolitions_expert: number;
+		two_birds: number;
+	};
+}
+
 export interface SkyBattleStatistics {
 	[key: string]: number | object;
 	games_played: number;
@@ -392,6 +427,7 @@ export interface ParkourWarriorSurvivorStatistics {
 	leap_6: number;
 	leap_7: number;
 	obstacles: number;
+	leap_champions: number;
 }
 
 export interface RocketSpleefStatistics {
@@ -487,6 +523,7 @@ export interface PlayerStatistics {
 
 	fishing: FishingStatistics;
 	battle_box: BattleBoxStatistics;
+	arena: BattleBoxArenaStatistics;
 	sky_battle: {
 		quads: SkyBattleStatistics;
 		summer: SkyBattleStatistics;
@@ -499,6 +536,21 @@ export interface PlayerStatistics {
 		survivor: ParkourWarriorSurvivorStatistics;
 	};
 	rocket_spleef: RocketSpleefStatistics;
+}
+
+export interface InventoryItem {
+	asset: {
+		name: string;
+		rarity: Rarity;
+		uniqueIdentifier: string;
+		fishingIsland?: string;
+		cosmetic?: {
+			name: string;
+			collection: string;
+			category: string;
+		};
+	};
+	amount: number;
 }
 
 export interface Player {
@@ -537,6 +589,10 @@ export interface Player {
 	statistics: PlayerStatistics | undefined;
 	quests: PlayerQuests[] | undefined;
 	factions: PlayerFactions[] | undefined;
+	inventory: {
+		bag: InventoryItem[];
+		vault: InventoryItem[];
+	};
 }
 
 export interface IslandApiResponse {

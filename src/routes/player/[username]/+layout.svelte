@@ -4,10 +4,10 @@
 	import Error from '$lib/blocks/Error.svelte';
 	import type { LayoutProps } from './$types';
 	import PlayerCard from '$lib/blocks/player/PlayerCard.svelte';
-	import StatsCard from '$lib/blocks/player/StatsCard.svelte';
-	import SocialCard from '$lib/blocks/player/SocialCard.svelte';
 	import ChevronUpDown from '$lib/icons/ChevronUpDown.svelte';
 	import { slide } from 'svelte/transition';
+	import { onMount } from 'svelte';
+	import OverviewCard from '$lib/blocks/player/OverviewCard.svelte';
 	let { data, children }: LayoutProps = $props();
 
 	const tabs = [
@@ -15,11 +15,27 @@
 		{ label: 'Trophy Hunting', href: 'hunting', icon: 'icons/trophies/yellow', alt: 'Trophy' },
 		{ label: 'Fishing', href: 'fishing', icon: 'games/fishing/icon', alt: 'Fishing Rod' },
 		{ label: 'Wardrobe', href: 'wardrobe', icon: 'icons/style_level/9', alt: 'Wardrobe' },
-		{ label: 'Factions', href: 'factions', icon: 'icons/misc/factions', alt: 'Factions' }
+		{
+			label: 'Infinibag',
+			href: 'infinibag',
+			icon: 'icons/blueprint/cosmetic_common',
+			alt: 'Infinibag'
+		},
+		{ label: 'Factions', href: 'factions', icon: 'icons/misc/factions', alt: 'Factions' },
+		{ label: 'Socials', href: 'social', icon: 'icons/social/friend', alt: 'Socials' }
 	];
 
 	let selectMenuOpen = $state(false);
 	let currentTab = $state(tabs[0]);
+
+	onMount(async () => {
+		const currentUrlUsername = page.url.pathname.split('/')[2];
+		const player = await data.streamed.player;
+
+		if (currentUrlUsername !== player?.username && player) {
+			window.history.replaceState(window.history.state, '', `/player/${player?.username}/games`);
+		}
+	});
 </script>
 
 <svelte:head>
@@ -33,22 +49,17 @@
 	{/await}
 </svelte:head>
 <div>
-	<div class="mx-4 my-4 flex items-center justify-center xl:mx-12 2xl:mx-28">
+	<div class="mx-4 my-4 flex items-center justify-center md:mx-24 xl:mx-44">
 		{#await data.streamed.player}
 			<Loader />
 		{:then player}
 			{#if !player}
 				<p>No player found!</p>
 			{:else}
-				<div class="animate-fade flex w-full flex-col">
-					<div class="flex flex-col gap-4 xl:flex-row">
-						<div class="flex w-full flex-col gap-y-4 xl:w-1/3">
-							<PlayerCard {player} />
-							<StatsCard {player} />
-						</div>
-						<div class="w-full xl:w-2/3">
-							<SocialCard {player} />
-						</div>
+				<div class="flex w-full flex-col">
+					<div class="flex flex-col gap-4">
+						<PlayerCard {player} />
+						<OverviewCard {player} />
 					</div>
 
 					<div

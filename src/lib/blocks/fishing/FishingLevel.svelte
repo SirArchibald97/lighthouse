@@ -1,12 +1,13 @@
 <script lang="ts">
 	import ProgressBar from '$lib/components/ProgressBar.svelte';
+	import { cn } from '$lib/shad-utils';
 	import type { Player } from '$lib/types';
 	import { calculateTrophiesToNextEvolution, getCrownColour } from '$lib/utils';
 
-	const { player }: { player?: Player } = $props();
+	const { player, class: className }: { player?: Player; class?: string } = $props();
 </script>
 
-<div class="flex max-w-full flex-col justify-between rounded-md bg-neutral-800/50">
+<div class={cn(className, 'flex flex-col justify-between rounded-md bg-neutral-800/50')}>
 	<div class="flex w-full flex-col items-center p-4">
 		<ProgressBar
 			max={100}
@@ -15,6 +16,7 @@
 				player!.crownLevel.fishingLevelData.nextLevelProgress.obtainable) *
 				100}
 			colour={getCrownColour(player!.crownLevel.fishingLevelData.level)}
+			class="w-full"
 		>
 			{#snippet startElement()}
 				<div class="flex gap-x-2">
@@ -42,14 +44,14 @@
 			<p class="self-center">
 				<span class="text-neutral-300 tabular-nums">
 					{Math.round(
-						(player!.crownLevel.levelData.nextLevelProgress.obtained /
-							player!.crownLevel.levelData.nextLevelProgress.obtainable) *
+						(player!.crownLevel.fishingLevelData.nextLevelProgress.obtained /
+							player!.crownLevel.fishingLevelData.nextLevelProgress.obtainable) *
 							100 *
 							10
 					) / 10}%
 				</span>
 				<span class="text-neutral-300 tabular-nums">
-					({player!.crownLevel.levelData.nextLevelProgress.obtained.toLocaleString()}/{player!.crownLevel.levelData.nextLevelProgress.obtainable.toLocaleString()})
+					({player!.crownLevel.fishingLevelData.nextLevelProgress.obtained.toLocaleString()}/{player!.crownLevel.fishingLevelData.nextLevelProgress.obtainable.toLocaleString()})
 				</span>
 			</p>
 			<p class="hidden sm:flex">/</p>

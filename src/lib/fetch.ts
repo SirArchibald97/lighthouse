@@ -18,7 +18,7 @@ export async function getPlayer(username: string) {
 	if (browser && data.player)
 		localStorage.setItem(
 			'searches',
-			(localStorage.getItem('searches')?.split(',') || []).concat([data.player.username]).join(',')
+			(localStorage.getItem('searches')?.split(',') || []).concat([data.player.uuid]).join(',')
 		);
 
 	return data.player;
