@@ -2,8 +2,7 @@
 	import {
 		calculatePercentage,
 		calculateTrophiesToNextEvolution,
-		getCrownColour,
-		trophiesForStyleLevel
+		getCrownColour
 	} from '$lib/utils';
 	import type { PageProps } from './$types';
 	import { slide } from 'svelte/transition';

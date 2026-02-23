@@ -78,9 +78,9 @@
 							class="h-3 self-center md:h-4"
 						/>
 						{#if cosmetic.type !== 'STANDARD'}
-							{#if cosmetic.type === 'PREMIUM'}
+							{#if cosmetic.type === 'PREMIUM' || cosmetic.type === 'LEGACY'}
 								<img
-									src="https://cdn.islandstats.xyz/icons/tooltip/premium.png"
+									src="https://cdn.islandstats.xyz/icons/tooltip/{cosmetic.type.toLowerCase()}.png"
 									alt="{cosmetic.type} Icon"
 									class="h-3 self-center md:h-4"
 								/>
