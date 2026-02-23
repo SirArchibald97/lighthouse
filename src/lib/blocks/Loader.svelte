@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
 	import { LoaderCircle } from '@lucide/svelte';
 
 	const tips = [
@@ -9,16 +10,25 @@
 		'Restocking rusted cans...',
 		'Searching for elusive gargs...',
 		'Reloading rocket launchers...',
-		'Spamming the Noxcrew button...'
+		'Spamming the Noxcrew button...',
+		'Refilling reward crates...',
+		'Mining more gems...'
 	];
 	const randomTip = tips[Math.floor(Math.random() * tips.length)];
 </script>
 
-<div class="flex flex-col items-center justify-center text-neutral-50">
+<div class="relative flex w-full flex-1 flex-col gap-4">
+	<Skeleton class="h-36 w-full rounded-xl" />
+	<div class="flex gap-4">
+		<Skeleton class="h-96 w-1/3 rounded-xl" />
+		<Skeleton class="h-96 w-2/3 rounded-xl" />
+	</div>
+	<Skeleton class="h-36 w-full rounded-xl" />
+
 	<div
-		class="grid min-h-35 w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible"
+		class="absolute top-1/2 left-1/2 flex -translate-x-1/2 transform items-center gap-x-2 rounded-full bg-neutral-800/50 px-4 py-2 text-sm text-neutral-400 backdrop-blur-sm"
 	>
-		<LoaderCircle class="animate-spin text-gray-300" />
-		<p>{randomTip}</p>
+		<LoaderCircle class="size-5 animate-spin" />
+		<span>{randomTip}</span>
 	</div>
 </div>

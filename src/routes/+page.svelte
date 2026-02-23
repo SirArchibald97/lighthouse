@@ -30,7 +30,7 @@
 			<input
 				name="username"
 				type="text"
-				class="md:text-md h-8 w-full rounded-lg bg-neutral-950 py-2 text-sm placeholder:text-neutral-400 md:h-12"
+				class="md:text-md h-8 w-full rounded-lg bg-neutral-950 py-2 text-sm ring-0 outline-hidden placeholder:text-neutral-400 md:h-12"
 				placeholder="Search a username..."
 				role="combobox"
 				aria-expanded="false"

@@ -8,12 +8,14 @@ import type {
 	DynaballStatistics,
 	RocketSpleefStatistics,
 	ParkourWarriorDojoStatistics,
-	ParkourWarriorSurvivorStatistics
+	ParkourWarriorSurvivorStatistics,
+	BattleBoxArenaStatistics
 } from './types';
 
 export function calculateTotalTrophies(
 	stats:
 		| BattleBoxStatistics
+		| BattleBoxArenaStatistics
 		| SkyBattleStatistics
 		| TgttosStatistics
 		| HitwStatistics

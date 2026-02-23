@@ -149,6 +149,22 @@ export function getRarityColour(rarity: string) {
 	return rarities[rarity];
 }
 
+export function getFactionColour(faction: string) {
+	const factions = {
+		RED_RABBITS: 'bg-red-500',
+		ORANGE_OCELOTS: 'bg-orange-500',
+		YELLOW_YAKS: 'bg-yellow-500',
+		LIME_LLAMAS: 'bg-lime-500',
+		GREEN_GECKOS: 'bg-green-500',
+		BLUE_BATS: 'bg-blue-500',
+		CYAN_CYOTES: 'bg-cyan-500',
+		AQUA_AXOLOTLS: 'bg-teal-500',
+		PURPLE_PANDAS: 'bg-purple-500',
+		PINK_PARROTS: 'bg-pink-500'
+	} as { [key: string]: string };
+	return factions[faction] || 'text-gray-500';
+}
+
 export function calculateTimeAgo(time: string) {
 	const lastJoinDate = DateTime.fromISO(time);
 	const diff = DateTime.now().diff(lastJoinDate, [

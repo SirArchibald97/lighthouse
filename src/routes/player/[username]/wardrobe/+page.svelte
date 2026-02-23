@@ -1,5 +1,10 @@
 <script lang="ts">
-	import { calculatePercentage, getCrownColour, trophiesForStyleLevel } from '$lib/utils';
+	import {
+		calculatePercentage,
+		calculateTrophiesToNextEvolution,
+		getCrownColour,
+		trophiesForStyleLevel
+	} from '$lib/utils';
 	import type { PageProps } from './$types';
 	import { slide } from 'svelte/transition';
 	import ChevronUpDown from '$lib/icons/ChevronUpDown.svelte';
@@ -11,9 +16,15 @@
 
 	let cosmeticName = $state('');
 
-	let includeLocked = $state(true);
-	function toggleLocked() {
-		includeLocked = !includeLocked;
+	const filterStates = ['All', 'Locked', 'Unlocked'];
+	let filter = $state<string>(filterStates[0]);
+	function changeFilter() {
+		const currentFilterIndex = filterStates.indexOf(filter);
+		if (currentFilterIndex + 1 > filterStates.length - 1) {
+			filter = filterStates[0];
+		} else {
+			filter = filterStates[currentFilterIndex + 1];
+		}
 	}
 
 	const collections = [
@@ -45,7 +56,7 @@
 		'Limited Event',
 		'Particle'
 	];
-	let openCollection = $state('');
+	let openCollection = $state<string>('');
 </script>
 
 {#await data.streamed.player then player}
@@ -62,6 +73,7 @@
 					max={100}
 					min={0}
 					colour={getCrownColour(player!.crownLevel.styleLevelData.level)}
+					class="w-full px-4"
 				>
 					{#snippet startElement()}
 						<div class="flex gap-x-2">
@@ -103,12 +115,13 @@
 					<p class="flex flex-row items-center gap-x-1.5">
 						<span class="flex flex-row gap-x-1 text-neutral-300">
 							<img
-								src={`https://cdn.islandstats.xyz/icons/style_level/${Math.floor(player!.crownLevel.styleLevelData.level / 10) + 1}.png`}
-								alt={`Style Level ${Math.floor(player!.crownLevel.styleLevelData.level / 10) + 1} Icon`}
+								src="https://cdn.islandstats.xyz/icons/style_level/{(player?.crownLevel
+									.styleLevelData.nextEvolutionLevel || 10) / 10}.png"
+								alt="Style Level {player!.crownLevel.styleLevelData.nextEvolutionLevel} Icon"
 								class="size-5 self-center"
 							/>
 							<span class="font-semibold tabular-nums"
-								>{Math.ceil(player!.crownLevel.styleLevelData.level / 10) * 10}</span
+								>{player!.crownLevel.styleLevelData.nextEvolutionLevel}</span
 							>
 						</span>
 						<span>in</span>
@@ -119,10 +132,10 @@
 								class="size-5 self-center"
 							/>
 							<span class="font-semibold tabular-nums"
-								>{(
-									trophiesForStyleLevel(
-										Math.ceil(player!.crownLevel.styleLevelData.level / 10) * 10
-									) - player!.trophies.style.total
+								>{calculateTrophiesToNextEvolution(
+									'style',
+									player?.trophies.style.total || 0,
+									player?.crownLevel.styleLevelData.nextEvolutionLevel || 10
 								).toLocaleString()}</span
 							>
 						</span>
@@ -141,7 +154,7 @@
 						<input
 							name="cosmetic"
 							type="text"
-							class="w-full rounded-md bg-neutral-950 outline-none placeholder:text-neutral-400 sm:text-sm"
+							class="w-full rounded-md bg-neutral-950 px-3 outline-none placeholder:text-neutral-400 sm:text-sm"
 							placeholder="Search a cosmetic..."
 							role="combobox"
 							aria-expanded="false"
@@ -152,9 +165,11 @@
 					</div>
 
 					<button
-						class="w-full cursor-pointer rounded-md border border-neutral-800 py-1 duration-100 hover:bg-neutral-800/60 md:w-1/8"
-						onclick={toggleLocked}>{includeLocked ? 'Show All' : 'Show Owned'}</button
+						onclick={changeFilter}
+						class="flex w-44 cursor-pointer justify-center gap-x-2 rounded-md border border-neutral-800 px-2 py-2 duration-100 hover:bg-neutral-800/60"
 					>
+						<p class="self-center">Show {filter}</p>
+					</button>
 				</div>
 
 				{#if cosmeticName.length > 0}
@@ -168,12 +183,14 @@
 								}
 							})
 							.filter((c) => {
-								if (includeLocked) {
-									return true;
-								} else {
+								if (filter === 'Locked') {
+									return !c.owned;
+								} else if (filter === 'Unlocked') {
 									return c.owned;
+								} else {
+									return true;
 								}
-							}) as { cosmetic, owned, chromaPacks, donationsMade }}
+							}) as { cosmetic, owned, chromaPacks, donationsMade }, i (cosmetic.name)}
 							<Cosmetic {cosmetic} {owned} {chromaPacks} {donationsMade} />
 						{/each}
 					</div>
@@ -281,6 +298,33 @@
 									</div>
 								</button>
 								{#if collection === openCollection}
+									{@const cosmetics = player.collections.cosmetics
+										.filter((c) => c.cosmetic.collection === collection) // filter by collection
+										.sort((a, b) => {
+											// sort by rarity
+											const rarityOrder = [
+												'COMMON',
+												'UNCOMMON',
+												'RARE',
+												'EPIC',
+												'LEGENDARY',
+												'MYTHIC'
+											];
+											return (
+												rarityOrder.indexOf(a.cosmetic.rarity) -
+												rarityOrder.indexOf(b.cosmetic.rarity)
+											);
+										})
+										.filter((c) => {
+											// filter by owned
+											if (filter === 'Locked') {
+												return !c.owned;
+											} else if (filter === 'Unlocked') {
+												return c.owned;
+											} else {
+												return true;
+											}
+										})}
 									<div
 										transition:slide={{ duration: 200 }}
 										class="flex flex-col gap-y-4 rounded-b-md border-t text-base lg:text-lg {earnedReputation ===
@@ -291,25 +335,22 @@
 												: 'border-neutral-800'} p-4"
 									>
 										<WardrobeCollectionStats {player} {collection} />
-										<div class="flex w-full flex-wrap justify-start gap-4">
-											{#each player.collections.cosmetics
-												.filter((c) => c.cosmetic.collection === collection) // filter by collection
-												.sort((a, b) => {
-													// sort by rarity
-													const rarityOrder = ['COMMON', 'UNCOMMON', 'RARE', 'EPIC', 'LEGENDARY', 'MYTHIC'];
-													return rarityOrder.indexOf(a.cosmetic.rarity) - rarityOrder.indexOf(b.cosmetic.rarity);
-												})
-												.filter((c) => {
-													// filter by owned
-													if (includeLocked) {
-														return true;
-													} else {
-														return c.owned;
-													}
-												}) as { cosmetic, owned, chromaPacks, donationsMade }}
-												<Cosmetic {cosmetic} {owned} {chromaPacks} {donationsMade} />
-											{/each}
-										</div>
+										{#if cosmetics.length > 0}
+											<div class="flex w-full flex-wrap justify-start gap-4">
+												{#each cosmetics as { cosmetic, owned, chromaPacks, donationsMade }, i (cosmetic.name)}
+													<Cosmetic {cosmetic} {owned} {chromaPacks} {donationsMade} />
+												{/each}
+											</div>
+										{:else}
+											<p class="flex justify-center gap-x-2 py-4">
+												<img
+													src="https://cdn.discordapp.com/emojis/1042056406997663844.webp"
+													alt="Trophies Icon"
+													class="size-6 self-center"
+												/>
+												All cosmetics unlocked!
+											</p>
+										{/if}
 									</div>
 								{/if}
 							</div>

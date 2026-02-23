@@ -12,6 +12,7 @@
 	import Survivor from '$lib/blocks/games/Survivor.svelte';
 	import RocketSpleef from '$lib/blocks/games/RocketSpleef.svelte';
 	import { onMount } from 'svelte';
+	import BattleBoxArena from '$lib/blocks/games/BattleBoxArena.svelte';
 	let { data }: PageProps = $props();
 
 	let expandedSection: string | null = $state(null);
@@ -37,7 +38,7 @@
 	<div class="rounded-b-md border-x border-b border-neutral-800">
 		{#if player?.statistics}
 			<div class="flex flex-col gap-y-2 p-4">
-				{#each [{ label: 'General', icon: 'games/lobby/icon' }, { label: 'Battle Box', icon: 'games/battle_box/icon' }, { label: 'Sky Battle', icon: 'games/sky_battle/icon' }, { label: 'To Get To The Other Side', icon: 'games/tgttos/icon' }, { label: 'Hole in the Wall', icon: 'games/hitw/icon' }, { label: 'Dynaball', icon: 'games/dynaball/icon' }, { label: 'Parkour Warrior Dojo', icon: 'games/parkour_warrior/solo/icon' }, { label: 'Parkour Warrior Survivor', icon: 'games/parkour_warrior/icon' }, { label: 'Rocket Spleef Rush', icon: 'games/rocket_spleef/icon' }] as { label: string; icon: string; component: any }[] as game}
+				{#each [{ label: 'General', icon: 'games/lobby/icon' }, { label: 'Battle Box', icon: 'games/battle_box/icon' }, { label: 'Battle Box Arena', icon: 'games/battle_box_arena/icon' }, { label: 'Sky Battle', icon: 'games/sky_battle/icon' }, { label: 'To Get To The Other Side', icon: 'games/tgttos/icon' }, { label: 'Hole in the Wall', icon: 'games/hitw/icon' }, { label: 'Dynaball', icon: 'games/dynaball/icon' }, { label: 'Parkour Warrior Dojo', icon: 'games/parkour_warrior/solo/icon' }, { label: 'Parkour Warrior Survivor', icon: 'games/parkour_warrior/icon' }, { label: 'Rocket Spleef Rush', icon: 'games/rocket_spleef/icon' }] as { label: string; icon: string; component: any }[] as game}
 					<div class="rounded-md bg-neutral-800/50 duration-100">
 						<button
 							onclick={() => {
@@ -65,6 +66,8 @@
 									<General {player} />
 								{:else if expandedSection === 'Battle Box'}
 									<BattleBox stats={player.statistics.battle_box} />
+								{:else if expandedSection === 'Battle Box Arena'}
+									<BattleBoxArena stats={player.statistics.arena} />
 								{:else if expandedSection === 'Sky Battle'}
 									<SkyBattle stats={player.statistics.sky_battle.quads} />
 								{:else if expandedSection === 'To Get To The Other Side'}

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { cn } from '$lib/shad-utils';
 	import { Progress, useId } from 'bits-ui';
 	import { onMount, type ComponentProps, type Snippet } from 'svelte';
 	import { cubicInOut } from 'svelte/easing';
@@ -10,11 +11,13 @@
 		min,
 		startElement,
 		endElement,
-		colour
+		colour,
+		class: className
 	}: ComponentProps<typeof Progress.Root> & {
 		startElement?: Snippet;
 		endElement?: Snippet;
 		colour: string;
+		class?: string;
 	} = $props();
 
 	const labelId = useId();
@@ -34,7 +37,7 @@
 	value={Math.round(tween.current)}
 	{max}
 	{min}
-	class="w-full"
+	class={cn(className, '')}
 >
 	<div class="flex flex-row justify-between gap-x-4 text-lg">
 		{#if startElement}
@@ -46,7 +49,10 @@
 				? 'mr-2'
 				: ''} w-full self-center overflow-hidden rounded-full bg-neutral-800"
 		>
-			<div class="h-4 rounded-l-full {colour}" style="width: {Math.round(tween.current)}%"></div>
+			<div
+				class="h-4 rounded-l-full {colour}"
+				style="width: {Math.round((tween.current / (max || 100)) * 100)}%"
+			></div>
 		</div>
 
 		{#if endElement}
