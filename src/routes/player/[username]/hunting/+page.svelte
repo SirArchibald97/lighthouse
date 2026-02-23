@@ -22,10 +22,7 @@
 		{ label: 'Rocket Spleef', icon: 'rocket_spleef' }
 	] as { label: string; icon: string }[];
 
-	let gameFilter = $state<{ label: string; icon: string } | null>(null);
-	const selectedLabel = $derived(
-		gameFilter ? games.find((game) => game.label === gameFilter!.label)?.label : 'Select a game...'
-	);
+	let gameFilter = $state<{ label: string; icon: string }>(games[0]);
 
 	let forNextTier = $state(true);
 
@@ -70,7 +67,7 @@
 										class="mr-2 size-6 self-center"
 									/>
 								{/if}
-								{selectedLabel}
+								{gameFilter!.label}
 								<ChevronsUpDown class="ml-auto size-6" />
 							</Select.Trigger>
 							<Select.Portal>
