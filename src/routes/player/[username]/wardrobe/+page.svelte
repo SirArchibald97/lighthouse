@@ -44,7 +44,6 @@
 		'Hidden',
 		'Arcane Gate',
 		'Seasonal Variety',
-		'Limited Seasonal',
 		'Mystical Aquatic',
 		'Neon Galaxy',
 		'Candy Factory',
@@ -52,9 +51,13 @@
 		'Cyber Surge',
 		'Flex',
 		'Special',
+		'Particle',
+		'Limited Seasonal',
+		'Limited Weapon',
 		'Limited Special',
 		'Limited Event',
-		'Particle'
+		'Premium Event',
+		'Premium Weapon'
 	];
 	let openCollection = $state<string>('');
 </script>
@@ -337,7 +340,7 @@
 										<WardrobeCollectionStats {player} {collection} />
 										{#if cosmetics.length > 0}
 											<div class="flex w-full flex-wrap justify-start gap-4">
-												{#each cosmetics as { cosmetic, owned, chromaPacks, donationsMade }, i (cosmetic.name)}
+												{#each cosmetics as { cosmetic, owned, chromaPacks, donationsMade }}
 													<Cosmetic {cosmetic} {owned} {chromaPacks} {donationsMade} />
 												{/each}
 											</div>

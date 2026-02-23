@@ -2,6 +2,7 @@
 	import type { Cosmetic } from '$lib/types';
 	import { getRarityColour } from '$lib/utils';
 	import { Popover } from 'bits-ui';
+	import { onMount } from 'svelte';
 
 	let {
 		cosmetic,
@@ -20,12 +21,23 @@
 		Owned: 'bg-green-800/30 hover:bg-green-800/50',
 		Maxed: 'bg-purple-700/30 hover:bg-purple-700/50'
 	};
+
+	onMount(() => {
+		const images = document.querySelectorAll('img');
+		images.forEach((image) => {
+			if (image.id === 'cosmetic-image') {
+				image.addEventListener('error', (event) => {
+					image.src = 'https://cdn.islandstats.xyz/icons/misc/legacy.png';
+				});
+			}
+		});
+	});
 </script>
 
 <Popover.Root>
 	<Popover.Trigger>
 		<button
-			class="flex size-20 items-center justify-center gap-y-2 rounded-md p-2 text-base duration-75 md:size-24 lg:text-lg {cosmetic.royalReputation
+			class="flex size-20 cursor-pointer items-center justify-center gap-y-2 rounded-md p-2 text-base duration-75 md:size-24 lg:text-lg {cosmetic.royalReputation
 				? backgroundStyles[
 						donationsMade === cosmetic.royalReputation.donationLimit
 							? 'Maxed'
@@ -36,6 +48,7 @@
 				: backgroundStyles[owned ? 'Owned' : 'Locked']}"
 		>
 			<img
+				id="cosmetic-image"
 				class="size-12 md:size-16"
 				src="https://cdn.islandstats.xyz/cosmetics/{cosmetic.category.toLowerCase()}/{cosmetic.collection
 					.toLowerCase()
@@ -65,17 +78,33 @@
 							class="h-3 self-center md:h-4"
 						/>
 						{#if cosmetic.type !== 'STANDARD'}
+							{#if cosmetic.type === 'PREMIUM'}
+								<img
+									src="https://cdn.islandstats.xyz/icons/tooltip/premium.png"
+									alt="{cosmetic.type} Icon"
+									class="h-3 self-center md:h-4"
+								/>
+							{:else}
+								<img
+									src="https://cdn.islandstats.xyz/icons/rarity/{cosmetic.type.toLowerCase()}.png"
+									alt="{cosmetic.type} Icon"
+									class="h-3 self-center md:h-4"
+								/>
+							{/if}
+						{/if}
+						{#if cosmetic.category === 'SWORD'}
 							<img
-								src="https://cdn.islandstats.xyz/icons/rarity/{cosmetic.type.toLowerCase()}.png"
-								alt="{cosmetic.type} Icon"
+								src="https://cdn.islandstats.xyz/icons/tooltip/melee_weapon.png"
+								alt="{cosmetic.category} Icon"
+								class="h-3 self-center md:h-4"
+							/>
+						{:else}
+							<img
+								src="https://cdn.islandstats.xyz/icons/tooltip/{cosmetic.category.toLowerCase()}.png"
+								alt="{cosmetic.category} Icon"
 								class="h-3 self-center md:h-4"
 							/>
 						{/if}
-						<img
-							src="https://cdn.islandstats.xyz/icons/tooltip/{cosmetic.category.toLowerCase()}.png"
-							alt="{cosmetic.category} Icon"
-							class="h-3 self-center md:h-4"
-						/>
 					</div>
 				</div>
 
