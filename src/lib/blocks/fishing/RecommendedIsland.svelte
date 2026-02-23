@@ -36,7 +36,7 @@
 			}
 		}
 
-		return islandPoints.sort((a, b) => b.points - a.points);
+		return islandPoints.sort((a, b) => a.points - b.points);
 	}
 
 	const recommendIslands = $derived(getRecommendedIslands(player));
