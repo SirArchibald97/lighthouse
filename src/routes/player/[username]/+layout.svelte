@@ -8,6 +8,8 @@
 	import { slide } from 'svelte/transition';
 	import { onMount } from 'svelte';
 	import OverviewCard from '$lib/blocks/player/OverviewCard.svelte';
+	import { getCrownColourHex, getStatusString } from '$lib/utils';
+	import type { PlayerStatus } from '$lib/types';
 	let { data, children }: LayoutProps = $props();
 
 	const tabs = [
@@ -36,6 +38,25 @@
 			window.history.replaceState(window.history.state, '', `/player/${player?.username}/games`);
 		}
 	});
+
+	function getFullStatus(status: PlayerStatus) {
+		if (!status.online) return 'Offline';
+		if (status.server?.category === 'GAME') {
+			return `Playing ${getStatusString(
+				status.server?.associatedGame === 'PARKOUR_WARRIOR'
+					? status.server?.subType
+					: status.server?.associatedGame
+			)}`;
+		}
+		if (status.server?.category === 'LOBBY') {
+			if (status.server?.subType === 'fishing') {
+				return 'On a Fishing Island';
+			} else {
+				return 'On the Main Island';
+			}
+		}
+		return 'Unknown Activity';
+	}
 </script>
 
 <svelte:head>
@@ -44,6 +65,27 @@
 	{:then player}
 		<title>{player?.username} • Lighthouse</title>
 		<link rel="icon" href="https://mc-heads.net/avatar/{player?.uuid}.png" />
+
+		<meta property="og:title" content="{player?.username} • Lighthouse" />
+		{#if player.status}
+			{#if player.status.online}
+				<meta
+					property="og:description"
+					content="Crown Level: {player.crownLevel.levelData
+						.level}&#10;Trophies: {player.trophies.total.toLocaleString()}
+                        &#10;Status: {getFullStatus(player.status)}"
+				/>
+			{:else}
+				<meta
+					property="og:description"
+					content="Crown Level: {player.crownLevel.levelData
+						.level}&#10;Trophies: {player.trophies.total.toLocaleString()}&#10;Status: Offline"
+				/>
+			{/if}
+		{/if}
+		<meta property="og:site_name" content="Lighthouse" />
+		<meta content="https://mc-heads.net/avatar/{player?.uuid}.png" property="og:image" />
+		<meta name="theme-color" content={getCrownColourHex(player.crownLevel.levelData.level)} />
 	{:catch error}
 		<title>Error!</title>
 	{/await}

@@ -1,9 +1,7 @@
 <script lang="ts">
 	import { Pagination } from 'bits-ui';
 	import type { PageProps } from './$types';
-	import { ChevronLeft, ChevronRight, TriangleAlert } from '@lucide/svelte';
-	import { getStatusIcon } from '$lib/utils';
-	import Tooltip from '$lib/components/Tooltip.svelte';
+	import { ChevronLeft, ChevronRight } from '@lucide/svelte';
 	import SocialLink from '$lib/blocks/player/SocialLink.svelte';
 	let { data }: PageProps = $props();
 

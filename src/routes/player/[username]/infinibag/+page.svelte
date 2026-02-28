@@ -19,7 +19,7 @@
 
 {#await data.streamed.player then player}
 	<div class="flex flex-col rounded-b-md border-x border-b border-neutral-800">
-		{#if player?.inventory}
+		{#if player?.inventory.bag}
 			{@const filteredInventory = (
 				inventoryFilter === 'Inifibag'
 					? player.inventory.bag

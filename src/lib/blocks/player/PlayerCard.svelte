@@ -82,8 +82,10 @@
 					</div>
 				</div>
 				{#if player.status}
-					<div class="flex gap-x-2.5 text-sm lg:gap-x-4 lg:text-lg">
+					<div class="mt-2 flex text-sm lg:text-lg">
 						<ActivityStatus {player} />
+
+						<span class="px-4 text-neutral-500">•</span>
 
 						<!-- first joined -->
 						<p class="flex gap-x-1 lg:gap-x-2">
@@ -106,7 +108,7 @@
 						</p>
 					</div>
 				{:else}
-					<p class="flex gap-x-2 text-neutral-400">
+					<p class="mt-2 flex gap-x-2 text-sm text-neutral-400 lg:text-lg">
 						<TriangleAlert class="size-5 self-center" />
 						<span class="self-center">Status Hidden</span>
 					</p>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Tooltip from '$lib/components/Tooltip.svelte';
 	import type { PlayerBasics } from '$lib/types';
-	import { getStatusIcon } from '$lib/utils';
+	import { getStatusIcon, getStatusString } from '$lib/utils';
 	import { TriangleAlert } from '@lucide/svelte';
 
 	const { player }: { player: PlayerBasics } = $props();
@@ -32,29 +32,56 @@
 	</div>
 	{#if player.status && player.status.online}
 		{#if player.status.server?.category === 'GAME'}
-			<img
-				src="https://cdn.islandstats.xyz/games/{getStatusIcon(
-					player.status.server?.associatedGame === 'PARKOUR_WARRIOR'
-						? player.status.server?.subType
-						: player.status.server?.associatedGame
-				)}/icon.png"
-				alt="{player.status.server?.associatedGame} Icon"
-				class="flex size-6 self-center"
-			/>
+			<Tooltip>
+				{#snippet trigger()}
+					<img
+						src="https://cdn.islandstats.xyz/games/{getStatusIcon(
+							player.status!.server?.associatedGame === 'PARKOUR_WARRIOR'
+								? player.status!.server?.subType
+								: player.status!.server?.associatedGame
+						)}/icon.png"
+						alt="{player.status!.server?.associatedGame} Icon"
+						class="flex size-6 self-center"
+					/>
+				{/snippet}
+				{#snippet content()}
+					<p>
+						Playing {getStatusString(
+							player.status!.server?.associatedGame === 'PARKOUR_WARRIOR'
+								? player.status!.server?.subType
+								: player.status!.server?.associatedGame
+						)}
+					</p>
+				{/snippet}
+			</Tooltip>
 		{:else if player.status.server?.category === 'LOBBY'}
 			<div class="flex flex-row gap-x-2">
 				{#if player.status.server?.subType === 'fishing'}
-					<img
-						src={`https://cdn.islandstats.xyz/games/fishing/icon.png`}
-						alt="Fishing Rod Icon"
-						class="flex size-6 self-center"
-					/>
+					<Tooltip>
+						{#snippet trigger()}
+							<img
+								src={`https://cdn.islandstats.xyz/games/fishing/icon.png`}
+								alt="Fishing Rod Icon"
+								class="flex size-6 self-center"
+							/>
+						{/snippet}
+						{#snippet content()}
+							<p>On a Fishing Island</p>
+						{/snippet}
+					</Tooltip>
 				{:else}
-					<img
-						src="https://cdn.islandstats.xyz/games/lobby/icon.png"
-						alt="Main Island Icon"
-						class="flex size-6 self-center"
-					/>
+					<Tooltip>
+						{#snippet trigger()}
+							<img
+								src="https://cdn.islandstats.xyz/games/lobby/icon.png"
+								alt="Main Island Icon"
+								class="flex size-6 self-center"
+							/>
+						{/snippet}
+						{#snippet content()}
+							<p>On the Main Island</p>
+						{/snippet}
+					</Tooltip>
 				{/if}
 			</div>
 		{:else}
