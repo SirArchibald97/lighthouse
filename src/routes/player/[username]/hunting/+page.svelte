@@ -62,7 +62,7 @@
 							>
 								{#if gameFilter}
 									<img
-										src="https://cdn.islandstats.xyz/games/{gameFilter.icon}/icon.png"
+										src="https://islandcdn.themysterys.com/games/{gameFilter.icon}/icon.png"
 										alt="{gameFilter.label} Icon"
 										class="mr-2 size-6 self-center"
 									/>
@@ -88,7 +88,7 @@
 												{#snippet children({ selected })}
 													<div class="flex gap-x-2">
 														<img
-															src="https://cdn.islandstats.xyz/games/{game.icon}/icon.png"
+															src="https://islandcdn.themysterys.com/games/{game.icon}/icon.png"
 															alt="{game.label} Icon"
 															class="size-6 self-center"
 														/>
@@ -134,7 +134,7 @@
 										<ChartBar />
 									{:else if order === 'Trophies'}
 										<img
-											src="https://cdn.islandstats.xyz/icons/trophies/red.png"
+											src="https://islandcdn.themysterys.com/icons/trophies/red.png"
 											alt="Trophies Icon"
 											class="size-5 self-center"
 										/>
@@ -241,7 +241,7 @@
 					>
 						<div class="flex flex-col gap-y-1">
 							<img
-								src="https://cdn.islandstats.xyz/icons/warnings/yellow.png"
+								src="https://islandcdn.themysterys.com/icons/warnings/yellow.png"
 								alt="Orange warning icon"
 								class="size-8 self-center"
 							/>
@@ -256,7 +256,7 @@
 			>
 				<div class="flex flex-col gap-y-1">
 					<img
-						src="https://cdn.islandstats.xyz/icons/warnings/orange.png"
+						src="https://islandcdn.themysterys.com/icons/warnings/orange.png"
 						alt="Orange warning icon"
 						class="size-8 self-center"
 					/>

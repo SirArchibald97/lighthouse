@@ -52,7 +52,7 @@
 		<p class="text-xl font-semibold">Recommended Island</p>
 		<div class="flex items-center gap-x-4">
 			<img
-				src="https://cdn.islandstats.xyz/fishing/islands/{Object.keys(grottos).includes(
+				src="https://islandcdn.themysterys.com/fishing/islands/{Object.keys(grottos).includes(
 					recommendIslands[0].island.name
 				)
 					? `grotto_${grottos[recommendIslands[0].island.name]}`
@@ -65,7 +65,7 @@
 				<p class="flex gap-x-4">
 					<span class="flex gap-x-1 self-center">
 						<img
-							src="https://cdn.islandstats.xyz/icons/trophies/blue.png"
+							src="https://islandcdn.themysterys.com/icons/trophies/blue.png"
 							alt="Angler Trophy Icon"
 							class="size-6 self-center"
 						/>
@@ -78,7 +78,7 @@
 					</span>
 					<span class="flex gap-x-1 self-center">
 						<img
-							src="https://cdn.islandstats.xyz/fishing/stars/gargantuan.png"
+							src="https://islandcdn.themysterys.com/fishing/stars/gargantuan.png"
 							alt="Gargantuan Star Icon"
 							class="size-5 self-center"
 						/>
@@ -98,7 +98,7 @@
 			{#each recommendIslands.slice(1, 4) as island}
 				<div class="flex items-center gap-x-2">
 					<img
-						src="https://cdn.islandstats.xyz/fishing/islands/{Object.keys(grottos).includes(
+						src="https://islandcdn.themysterys.com/fishing/islands/{Object.keys(grottos).includes(
 							island.island.name
 						)
 							? `grotto_${grottos[island.island.name]}`
@@ -113,7 +113,7 @@
 								{#snippet trigger()}
 									<span class="flex gap-x-1 self-center">
 										<img
-											src="https://cdn.islandstats.xyz/icons/trophies/blue.png"
+											src="https://islandcdn.themysterys.com/icons/trophies/blue.png"
 											alt="Angler Trophy Icon"
 											class="size-5 self-center"
 										/>
@@ -133,7 +133,7 @@
 								{#snippet trigger()}
 									<span class="flex gap-x-1 self-center">
 										<img
-											src="https://cdn.islandstats.xyz/fishing/stars/gargantuan.png"
+											src="https://islandcdn.themysterys.com/fishing/stars/gargantuan.png"
 											alt="Gargantuan Star Icon"
 											class="size-4 self-center"
 										/>

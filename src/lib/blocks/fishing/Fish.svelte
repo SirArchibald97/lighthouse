@@ -51,7 +51,7 @@
 		>
 			<img
 				class="size-12 self-center md:size-14 {weights.length === 0 ? 'grayscale' : ''}"
-				src="https://cdn.islandstats.xyz/fishing/fish/{fish.collection.includes('Crab')
+				src="https://islandcdn.themysterys.com/fishing/fish/{fish.collection.includes('Crab')
 					? 'crab_collection'
 					: fish.collection.toLowerCase().replaceAll(' ', '_')}/{fish.name
 					.toLowerCase()
@@ -76,7 +76,7 @@
 				</p>
 				<div class="flex flex-wrap gap-1">
 					<img
-						src="https://cdn.islandstats.xyz/icons/rarity/{fish.rarity.toLowerCase()}.png"
+						src="https://islandcdn.themysterys.com/icons/rarity/{fish.rarity.toLowerCase()}.png"
 						alt="{fish.rarity} Icon"
 						class="h-3 self-center md:h-4"
 					/>
@@ -92,7 +92,7 @@
 				</div>
 				<div class="flex gap-x-2">
 					<img
-						src="https://cdn.islandstats.xyz/icons/trophies/blue.png"
+						src="https://islandcdn.themysterys.com/icons/trophies/blue.png"
 						alt="Angler Trophy Icon"
 						class="size-6 self-center"
 					/>
@@ -105,7 +105,7 @@
 						<Tooltip>
 							{#snippet trigger()}
 								<img
-									src={`https://cdn.islandstats.xyz/fishing/stars/${weights.find((w) => w.weight === weight.toUpperCase()) ? (weight === 'colossal' ? 'gargantuan' : weight) : `${weight === 'colossal' ? 'gargantuan' : weight}_empty`}.png`}
+									src={`https://islandcdn.themysterys.com/fishing/stars/${weights.find((w) => w.weight === weight.toUpperCase()) ? (weight === 'colossal' ? 'gargantuan' : weight) : `${weight === 'colossal' ? 'gargantuan' : weight}_empty`}.png`}
 									alt={``}
 									class="size-6 cursor-pointer"
 								/>

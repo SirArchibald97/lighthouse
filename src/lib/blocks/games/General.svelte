@@ -192,7 +192,7 @@
 						class="flex size-24 items-center justify-center rounded-full bg-neutral-900 md:size-32"
 					>
 						<img
-							src="https://cdn.islandstats.xyz/icons/trophies/red.png"
+							src="https://islandcdn.themysterys.com/icons/trophies/red.png"
 							alt=""
 							class="size-8 md:size-14"
 						/>
@@ -229,7 +229,7 @@
 						class="flex size-24 items-center justify-center rounded-full bg-neutral-900 md:size-32"
 					>
 						<img
-							src="https://cdn.islandstats.xyz/games/lobby/icon.png"
+							src="https://islandcdn.themysterys.com/games/lobby/icon.png"
 							alt=""
 							class="size-8 md:size-14"
 						/>
@@ -280,7 +280,7 @@
 							class="flex size-11 items-center justify-center rounded-full bg-neutral-900 md:size-14"
 						>
 							<img
-								src="https://cdn.islandstats.xyz/games/{game.icon}/icon.png"
+								src="https://islandcdn.themysterys.com/games/{game.icon}/icon.png"
 								alt={game.label}
 								class="size-6 md:size-8"
 							/>
@@ -290,7 +290,7 @@
 						<p class="text-base font-semibold md:text-lg">{game.label}</p>
 						<div class="flex gap-x-1 tabular-nums">
 							<img
-								src="https://cdn.islandstats.xyz/icons/trophies/red.png"
+								src="https://islandcdn.themysterys.com/icons/trophies/red.png"
 								alt="Skill Trophy Icon"
 								class="size-6"
 							/>

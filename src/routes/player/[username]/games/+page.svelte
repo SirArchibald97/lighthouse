@@ -52,7 +52,7 @@
 						>
 							<div class="flex flex-row gap-x-2 p-3">
 								<img
-									src={`https://cdn.islandstats.xyz/${game.icon}.png`}
+									src={`https://islandcdn.themysterys.com/${game.icon}.png`}
 									alt={``}
 									class="size-6 lg:size-8"
 								/>
@@ -94,7 +94,7 @@
 			>
 				<div class="flex flex-col gap-y-1">
 					<img
-						src="https://cdn.islandstats.xyz/icons/warnings/orange.png"
+						src="https://islandcdn.themysterys.com/icons/warnings/orange.png"
 						alt="Orange warning icon"
 						class="size-8 self-center"
 					/>

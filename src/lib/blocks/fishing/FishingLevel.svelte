@@ -21,8 +21,8 @@
 			{#snippet startElement()}
 				<div class="flex gap-x-2">
 					<img
-						src="https://cdn.islandstats.xyz/fishing/level/{player!.crownLevel.fishingLevelData
-							.evolution}.png"
+						src="https://islandcdn.themysterys.com/fishing/level/{player!.crownLevel
+							.fishingLevelData.evolution}.png"
 						alt="Fishing Level Icon"
 						class="size-7 self-center"
 					/>
@@ -58,8 +58,8 @@
 			<p class="flex items-center gap-x-1.5">
 				<span class="flex flex-row gap-x-1 text-neutral-300">
 					<img
-						src="https://cdn.islandstats.xyz/fishing/level/{player!.crownLevel.fishingLevelData
-							.evolution + 1}.png"
+						src="https://islandcdn.themysterys.com/fishing/level/{player!.crownLevel
+							.fishingLevelData.evolution + 1}.png"
 						alt="Fishing Level {player!.crownLevel.fishingLevelData.evolution + 1} Icon"
 						class="size-5 self-center"
 					/>
@@ -70,7 +70,7 @@
 				<span>in</span>
 				<span class="flex flex-row gap-x-1 text-neutral-300">
 					<img
-						src={`https://cdn.islandstats.xyz/icons/trophies/blue.png`}
+						src={`https://islandcdn.themysterys.com/icons/trophies/blue.png`}
 						alt="Trophy Icon"
 						class="size-5 self-center"
 					/>

@@ -35,7 +35,7 @@
 			<Tooltip>
 				{#snippet trigger()}
 					<img
-						src="https://cdn.islandstats.xyz/games/{getStatusIcon(
+						src="https://islandcdn.themysterys.com/games/{getStatusIcon(
 							player.status!.server?.associatedGame === 'PARKOUR_WARRIOR'
 								? player.status!.server?.subType
 								: player.status!.server?.associatedGame
@@ -60,7 +60,7 @@
 					<Tooltip>
 						{#snippet trigger()}
 							<img
-								src={`https://cdn.islandstats.xyz/games/fishing/icon.png`}
+								src={`https://islandcdn.themysterys.com/games/fishing/icon.png`}
 								alt="Fishing Rod Icon"
 								class="flex size-6 self-center"
 							/>
@@ -73,7 +73,7 @@
 					<Tooltip>
 						{#snippet trigger()}
 							<img
-								src="https://cdn.islandstats.xyz/games/lobby/icon.png"
+								src="https://islandcdn.themysterys.com/games/lobby/icon.png"
 								alt="Main Island Icon"
 								class="flex size-6 self-center"
 							/>

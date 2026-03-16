@@ -58,7 +58,7 @@
 									<img
 										src={collection.icon.startsWith('/')
 											? collection.icon
-											: `https://cdn.islandstats.xyz/fishing/islands/${collection.icon}.png`}
+											: `https://islandcdn.themysterys.com/fishing/islands/${collection.icon}.png`}
 										alt={``}
 										class="size-6"
 									/>
@@ -69,7 +69,7 @@
 										<p class="flex gap-x-1 text-base tabular-nums">
 											<span class="flex gap-x-1">
 												<img
-													src="https://cdn.islandstats.xyz/icons/trophies/blue.png"
+													src="https://islandcdn.themysterys.com/icons/trophies/blue.png"
 													alt="Angler Trophy Icon"
 													class="size-4 self-center"
 												/>

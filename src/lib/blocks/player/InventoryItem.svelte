@@ -213,7 +213,7 @@
 		>
 			<img
 				class="size-12 self-center md:size-14"
-				src="https://cdn.islandstats.xyz/{getItemIcon(item)}"
+				src="https://islandcdn.themysterys.com/{getItemIcon(item)}"
 				alt="{item.asset.name} Icon"
 			/>
 			<p
@@ -240,13 +240,13 @@
 					</p>
 					<div class="flex flex-wrap gap-1">
 						<img
-							src="https://cdn.islandstats.xyz/icons/rarity/{item.asset.rarity.toLowerCase()}.png"
+							src="https://islandcdn.themysterys.com/icons/rarity/{item.asset.rarity.toLowerCase()}.png"
 							alt="{item.asset.rarity} Icon"
 							class="h-3 self-center md:h-4"
 						/>
 						{#if getItemTooltipIcon(item)}
 							<img
-								src="https://cdn.islandstats.xyz/icons/tooltip/{getItemTooltipIcon(item)}.png"
+								src="https://islandcdn.themysterys.com/icons/tooltip/{getItemTooltipIcon(item)}.png"
 								alt="{getItemTooltipIcon(item)} Icon"
 								class="h-3 self-center md:h-4"
 							/>

@@ -86,7 +86,11 @@
 					style="background: conic-gradient({createPie(player.factions)})"
 				>
 					<span class="flex size-36 items-center justify-center rounded-full bg-neutral-900">
-						<img src="https://cdn.islandstats.xyz/icons/misc/factions.png" alt="" class="size-16" />
+						<img
+							src="https://islandcdn.themysterys.com/icons/misc/factions.png"
+							alt=""
+							class="size-16"
+						/>
 					</span>
 				</span>
 				<div class="flex flex-col items-center gap-y-3 self-center md:items-start">
@@ -143,7 +147,7 @@
 									{#snippet startElement()}
 										<div class="flex gap-x-2">
 											<img
-												src="https://cdn.islandstats.xyz/factions/{faction.name
+												src="https://islandcdn.themysterys.com/factions/{faction.name
 													.split('_')[0]
 													.toLowerCase()}/{faction.levelData.evolution}.png"
 												alt="{factionNames[faction.name]} Icon"
@@ -177,7 +181,7 @@
 			>
 				<div class="flex flex-col gap-y-1">
 					<img
-						src="https://cdn.islandstats.xyz/icons/warnings/orange.png"
+						src="https://islandcdn.themysterys.com/icons/warnings/orange.png"
 						alt="Orange warning icon"
 						class="size-8 self-center"
 					/>

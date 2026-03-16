@@ -22,7 +22,7 @@
 						<div class="flex flex-col gap-y-4">
 							<p class="flex gap-x-2 text-xl font-semibold">
 								<img
-									src="https://cdn.islandstats.xyz/icons/social/party.png"
+									src="https://islandcdn.themysterys.com/icons/social/party.png"
 									alt="Friends Icon"
 									class="size-7 self-center"
 								/>
@@ -42,7 +42,7 @@
 					{:else}
 						<p class="my-auto flex gap-x-2 self-center">
 							<img
-								src="https://cdn.islandstats.xyz/icons/warnings/yellow.png"
+								src="https://islandcdn.themysterys.com/icons/warnings/yellow.png"
 								alt="Yellow Warning Icon"
 								class="size-6 self-center"
 							/>
@@ -57,7 +57,7 @@
 				>
 					<p class="flex gap-x-2 text-xl font-semibold">
 						<img
-							src="https://cdn.islandstats.xyz/icons/social/friend.png"
+							src="https://islandcdn.themysterys.com/icons/social/friend.png"
 							alt="Friends Icon"
 							class="size-7 self-center"
 						/>
@@ -112,7 +112,7 @@
 			>
 				<div class="flex flex-col gap-y-1">
 					<img
-						src="https://cdn.islandstats.xyz/icons/warnings/orange.png"
+						src="https://islandcdn.themysterys.com/icons/warnings/orange.png"
 						alt="Orange warning icon"
 						class="size-8 self-center"
 					/>

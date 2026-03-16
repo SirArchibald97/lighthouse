@@ -15,7 +15,7 @@
 				<span>Playing</span>
 				<img
 					class="size-6 self-center"
-					src={`https://cdn.islandstats.xyz/games/${getStatusIcon(player.status.server?.associatedGame === 'PARKOUR_WARRIOR' ? player.status.server?.subType : player.status.server?.associatedGame)}/icon.png`}
+					src={`https://islandcdn.themysterys.com/games/${getStatusIcon(player.status.server?.associatedGame === 'PARKOUR_WARRIOR' ? player.status.server?.subType : player.status.server?.associatedGame)}/icon.png`}
 					alt={`${player.status.server?.associatedGame} Icon`}
 				/>
 				<span class="font-semibold"
@@ -32,7 +32,7 @@
 					<span>On a</span>
 					<img
 						class="size-6 self-center"
-						src="https://cdn.islandstats.xyz/games/fishing/icon.png"
+						src="https://islandcdn.themysterys.com/games/fishing/icon.png"
 						alt="Fishing Game Icon"
 					/>
 					<span class="font-semibold">Fishing Island</span>
@@ -40,7 +40,7 @@
 					<span>On the</span>
 					<img
 						class="size-6 self-center"
-						src="https://cdn.islandstats.xyz/games/lobby/icon.png"
+						src="https://islandcdn.themysterys.com/games/lobby/icon.png"
 						alt="Main Island Icon"
 					/>
 					<span class="font-semibold">Main Island</span>

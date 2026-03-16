@@ -141,7 +141,7 @@
 										href={link.href}
 									>
 										<img
-											src={`https://cdn.islandstats.xyz/${link.icon}.png`}
+											src={`https://islandcdn.themysterys.com/${link.icon}.png`}
 											alt={link.icon}
 											class="size-6 self-center"
 										/>

@@ -27,37 +27,25 @@
 	}
 
 	const collections = [
-		'Natural',
-		'Oceanic',
-		'Mechanical',
-		'Magical',
-		'Fishing',
-		'Mythic',
-		'Arena',
-		'Cloudy',
-		'Cuckoo',
-		'Slimy',
-		'Explosive',
-		'Ninja',
-		'Pose',
-		'Hidden',
-		'Arcane Gate',
-		'Seasonal Variety',
-		'Mystical Aquatic',
-		'Neon Galaxy',
-		'Candy Factory',
-		'Ancient Jungle',
-		'Cyber Surge',
-		'Flex',
-		'Special',
-		'Particle',
-		'Limited Seasonal',
-		'Limited Weapon',
-		'Limited Special',
-		'Limited Event',
-		'Premium Event',
-		'Premium Weapon',
-		'Legacy'
+		{ name: 'Elemental', bonus: 1000 },
+		{ name: 'Standard Game', bonus: 500 },
+		{ name: 'Exclusive Game', bonus: 1000 },
+		{ name: 'Exclusive Season', bonus: 1500 },
+		{ name: 'Exclusive Variety', bonus: 500 },
+		{ name: 'Gate', bonus: 500 },
+		{ name: 'Fishing', bonus: 500 },
+		{ name: 'Particle', bonus: 250 },
+		{ name: 'Basic Vendor', bonus: 250 },
+		{ name: 'Advanced Vendor', bonus: 500 },
+		{ name: 'Triumph Vendor', bonus: 1000 },
+		{ name: 'Limited Weapon' },
+		{ name: 'Premium Weapon' },
+		{ name: 'Special' },
+		{ name: 'Legacy' },
+		{ name: 'Collector' },
+		{ name: 'Limited Special' },
+		{ name: 'Limited Event' },
+		{ name: 'Premium Event' }
 	];
 	let openCollection = $state<string>('');
 </script>
@@ -81,7 +69,7 @@
 					{#snippet startElement()}
 						<div class="flex gap-x-2">
 							<img
-								src="https://cdn.islandstats.xyz/icons/style_level/{player?.crownLevel
+								src="https://islandcdn.themysterys.com/icons/style_level/{player?.crownLevel
 									.styleLevelData.evolution || 0}.png"
 								alt=""
 								class="size-7 self-center"
@@ -118,7 +106,7 @@
 					<p class="flex flex-row items-center gap-x-1.5">
 						<span class="flex flex-row gap-x-1 text-neutral-300">
 							<img
-								src="https://cdn.islandstats.xyz/icons/style_level/{(player?.crownLevel
+								src="https://islandcdn.themysterys.com/icons/style_level/{(player?.crownLevel
 									.styleLevelData.nextEvolutionLevel || 10) / 10}.png"
 								alt="Style Level {player!.crownLevel.styleLevelData.nextEvolutionLevel} Icon"
 								class="size-5 self-center"
@@ -130,7 +118,7 @@
 						<span>in</span>
 						<span class="flex flex-row gap-x-1 text-neutral-300">
 							<img
-								src={`https://cdn.islandstats.xyz/icons/trophies/purple.png`}
+								src={`https://islandcdn.themysterys.com/icons/trophies/purple.png`}
 								alt="Trophy Icon"
 								class="size-5 self-center"
 							/>
@@ -199,7 +187,7 @@
 					</div>
 				{:else}
 					<div class="flex flex-col gap-y-2">
-						{#each collections as collection}
+						{#each collections as { name: collection, bonus }}
 							{@const earnedTrophies = player.collections.cosmetics
 								.filter((c) => c.cosmetic.collection === collection && c.owned)
 								.reduce((acc, c) => acc + c.cosmetic.trophies, 0)}
@@ -250,7 +238,7 @@
 								>
 									<div class="flex gap-x-2 px-3">
 										<img
-											src="https://cdn.islandstats.xyz/icons/wardrobe/{collection
+											src="https://islandcdn.themysterys.com/icons/wardrobe/{collection
 												.toLowerCase()
 												.replaceAll(' ', '_')}.png"
 											alt="{collection} Icon"
@@ -262,7 +250,7 @@
 										<div class="flex gap-x-1 self-center tabular-nums">
 											{#if earnedTrophies === totalTrophies && totalReputation > 0}
 												<img
-													src="https://cdn.islandstats.xyz/icons/currency/royal_reputation.png"
+													src="https://islandcdn.themysterys.com/icons/currency/royal_reputation.png"
 													alt="Royal Reputation Icon"
 													class="hidden size-6 self-center md:flex"
 												/>
@@ -277,9 +265,9 @@
 												</p>
 											{:else}
 												<img
-													src="https://cdn.islandstats.xyz/icons/trophies/{player.collections.cosmetics.filter(
+													src="https://islandcdn.themysterys.com/icons/trophies/{player.collections.cosmetics.filter(
 														(c) => c.cosmetic.collection === collection
-													)[0].cosmetic.isBonusTrophies
+													)[0]?.cosmetic.isBonusTrophies
 														? 'silver'
 														: 'purple'}.png"
 													alt="Cosmetic Trophy Icon"
@@ -367,7 +355,7 @@
 			>
 				<div class="flex flex-col gap-y-1">
 					<img
-						src="https://cdn.islandstats.xyz/icons/warnings/orange.png"
+						src="https://islandcdn.themysterys.com/icons/warnings/orange.png"
 						alt="Orange warning icon"
 						class="size-8 self-center"
 					/>

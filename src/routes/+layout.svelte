@@ -7,7 +7,7 @@
 </script>
 
 <svelte:head>
-	<link rel="icon" href="https://cdn.islandstats.xyz/emojis/crown.png" />
+	<link rel="icon" href="https://islandcdn.themysterys.com/emojis/crown.png" />
 	<title>Lighthouse by SirArchibald</title>
 </svelte:head>
 <div class="flex min-h-screen flex-col bg-neutral-900 text-neutral-50">

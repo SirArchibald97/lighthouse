@@ -27,7 +27,7 @@
 		images.forEach((image) => {
 			if (image.id === 'cosmetic-image') {
 				image.addEventListener('error', (event) => {
-					image.src = 'https://cdn.islandstats.xyz/icons/misc/legacy.png';
+					image.src = 'https://islandcdn.themysterys.com/icons/misc/legacy.png';
 				});
 			}
 		});
@@ -50,7 +50,7 @@
 			<img
 				id="cosmetic-image"
 				class="size-12 md:size-16"
-				src="https://cdn.islandstats.xyz/cosmetics/{cosmetic.category.toLowerCase()}/{cosmetic.collection
+				src="https://islandcdn.themysterys.com/cosmetics/{cosmetic.category.toLowerCase()}/{cosmetic.collection
 					.toLowerCase()
 					.replaceAll(' ', '_')}/{cosmetic.name.replaceAll(' ', '_')}.webp"
 				alt={cosmetic.name}
@@ -73,20 +73,20 @@
 					</p>
 					<div class="flex flex-wrap gap-1">
 						<img
-							src="https://cdn.islandstats.xyz/icons/rarity/{cosmetic.rarity.toLowerCase()}.png"
+							src="https://islandcdn.themysterys.com/icons/rarity/{cosmetic.rarity.toLowerCase()}.png"
 							alt="{cosmetic.rarity} Icon"
 							class="h-3 self-center md:h-4"
 						/>
 						{#if cosmetic.type !== 'STANDARD'}
 							{#if cosmetic.type === 'PREMIUM' || cosmetic.type === 'LEGACY'}
 								<img
-									src="https://cdn.islandstats.xyz/icons/tooltip/{cosmetic.type.toLowerCase()}.png"
+									src="https://islandcdn.themysterys.com/icons/tooltip/{cosmetic.type.toLowerCase()}.png"
 									alt="{cosmetic.type} Icon"
 									class="h-3 self-center md:h-4"
 								/>
 							{:else}
 								<img
-									src="https://cdn.islandstats.xyz/icons/rarity/{cosmetic.type.toLowerCase()}.png"
+									src="https://islandcdn.themysterys.com/icons/rarity/{cosmetic.type.toLowerCase()}.png"
 									alt="{cosmetic.type} Icon"
 									class="h-3 self-center md:h-4"
 								/>
@@ -94,13 +94,13 @@
 						{/if}
 						{#if cosmetic.category === 'SWORD'}
 							<img
-								src="https://cdn.islandstats.xyz/icons/tooltip/melee_weapon.png"
+								src="https://islandcdn.themysterys.com/icons/tooltip/melee_weapon.png"
 								alt="{cosmetic.category} Icon"
 								class="h-3 self-center md:h-4"
 							/>
 						{:else}
 							<img
-								src="https://cdn.islandstats.xyz/icons/tooltip/{cosmetic.category.toLowerCase()}.png"
+								src="https://islandcdn.themysterys.com/icons/tooltip/{cosmetic.category.toLowerCase()}.png"
 								alt="{cosmetic.category} Icon"
 								class="h-3 self-center md:h-4"
 							/>
@@ -114,7 +114,7 @@
 					<!-- trophies -->
 					<div class="flex gap-x-2 {owned ? 'text-green-500' : 'text-neutral-500'}">
 						<img
-							src="https://cdn.islandstats.xyz/icons/trophies/{cosmetic.isBonusTrophies
+							src="https://islandcdn.themysterys.com/icons/trophies/{cosmetic.isBonusTrophies
 								? 'silver'
 								: 'purple'}.png"
 							alt="Style Trophy Icon"
@@ -132,7 +132,7 @@
 						<div class="flex flex-col gap-x-3 md:flex-row">
 							<div class="flex gap-x-2">
 								<img
-									src="https://cdn.islandstats.xyz/icons/misc/scavenging.png"
+									src="https://islandcdn.themysterys.com/icons/misc/scavenging.png"
 									alt="Scavenged"
 									class="size-3 self-center md:size-5"
 								/>
@@ -146,7 +146,7 @@
 							</div>
 							<div class="flex gap-x-2">
 								<img
-									src="https://cdn.islandstats.xyz/icons/currency/royal_reputation.png"
+									src="https://islandcdn.themysterys.com/icons/currency/royal_reputation.png"
 									alt="Royal Reputation Icon"
 									class="size-3 self-center md:size-5"
 								/>
@@ -160,7 +160,7 @@
 					{:else}
 						<div class="flex gap-x-2">
 							<img
-								src="https://cdn.islandstats.xyz/icons/misc/scavenging.png"
+								src="https://islandcdn.themysterys.com/icons/misc/scavenging.png"
 								alt="Scavenged"
 								class="size-3 self-center grayscale md:size-5"
 							/>
@@ -171,7 +171,7 @@
 					<!-- global owned -->
 					<div class="flex gap-x-2">
 						<img
-							src="https://cdn.islandstats.xyz/icons/social/friend.png"
+							src="https://islandcdn.themysterys.com/icons/social/friend.png"
 							alt="Global Owned"
 							class="size-3 self-center md:size-5"
 						/>
@@ -183,7 +183,7 @@
 						<div class="flex gap-x-1">
 							{#each ['thermal', 'verdant', 'oceanic', 'regal'] as pack}
 								<img
-									src="https://cdn.islandstats.xyz/icons/chroma_pack/{pack}.png"
+									src="https://islandcdn.themysterys.com/icons/chroma_pack/{pack}.png"
 									alt="{pack} Chroma Pack"
 									class="size-3 md:size-5 {chromaPacks?.includes(pack) ? '' : 'grayscale'}"
 								/>
@@ -194,7 +194,7 @@
 					<!-- tradable -->
 					{#if cosmetic.type === 'LIMITED'}
 						<img
-							src="https://cdn.islandstats.xyz/icons/tooltip/tradeable.png"
+							src="https://islandcdn.themysterys.com/icons/tooltip/tradeable.png"
 							alt="Tradeable Icon"
 							class="mt-4 h-4 w-24"
 						/>

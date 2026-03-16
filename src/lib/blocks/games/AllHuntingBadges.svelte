@@ -97,7 +97,7 @@
 						<div class="flex gap-x-2">
 							<img
 								class="size-12 lg:size-16"
-								src={`https://cdn.islandstats.xyz/badges/${badge.icon}.png`}
+								src={`https://islandcdn.themysterys.com/badges/${badge.icon}.png`}
 								alt={badge.name}
 							/>
 							<div class="flex flex-col gap-y-1">
@@ -146,7 +146,7 @@
 								</p>
 								<p class="flex gap-x-1 text-sm text-neutral-300 lg:text-base">
 									<img
-										src="https://cdn.islandstats.xyz/icons/trophies/red.png"
+										src="https://islandcdn.themysterys.com/icons/trophies/red.png"
 										alt="Trophies Icon"
 										class="size-5 self-center"
 									/>
@@ -184,7 +184,7 @@
 
 				<div class="absolute -top-2 -right-2 hidden rounded-md bg-neutral-800 md:flex">
 					<img
-						src={`https://cdn.islandstats.xyz/games/${badge.game}/icon.png`}
+						src={`https://islandcdn.themysterys.com/games/${badge.game}/icon.png`}
 						alt={badge.name}
 						class="size-10 p-1"
 					/>

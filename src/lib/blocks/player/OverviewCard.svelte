@@ -80,7 +80,8 @@
 				<p class="flex gap-x-1 text-sm md:gap-x-2 md:text-base lg:text-lg">
 					<span class="self-center">Progress to</span>
 					<img
-						src="https://cdn.islandstats.xyz/icons/crowns/{player.crownLevel.levelData.level + 1 ===
+						src="https://islandcdn.themysterys.com/icons/crowns/{player.crownLevel.levelData.level +
+							1 ===
 						player.crownLevel.levelData.nextEvolutionLevel
 							? player.crownLevel.levelData.evolution + 1
 							: player.crownLevel.levelData.evolution}.png"
@@ -116,7 +117,7 @@
 				<p class="flex items-center gap-x-1 text-sm md:gap-x-2 md:text-base lg:text-lg">
 					<span class="flex flex-row gap-x-1.5 text-neutral-300">
 						<img
-							src={`https://cdn.islandstats.xyz/icons/crowns/${player.crownLevel.levelData.evolution + 1}.png`}
+							src={`https://islandcdn.themysterys.com/icons/crowns/${player.crownLevel.levelData.evolution + 1}.png`}
 							alt={`Crown Level ${player.crownLevel.levelData.evolution} Icon`}
 							class="size-4 self-center md:size-5"
 						/>
@@ -127,7 +128,7 @@
 					<span>in</span>
 					<span class="flex flex-row gap-x-1 text-neutral-300">
 						<img
-							src={`https://cdn.islandstats.xyz/icons/trophies/yellow.png`}
+							src={`https://islandcdn.themysterys.com/icons/trophies/yellow.png`}
 							alt="Trophy Icon"
 							class="size-4 self-center md:size-5"
 						/>
@@ -150,7 +151,7 @@
 				<p class="flex gap-x-1 text-sm md:gap-x-2 md:text-base lg:text-lg">
 					<span class="self-center">Progress to</span>
 					<img
-						src="https://cdn.islandstats.xyz/factions/{player.factions
+						src="https://islandcdn.themysterys.com/factions/{player.factions
 							?.find((f) => f.selected)
 							?.name.split('_')[0]
 							.toLowerCase()}/{isNextFactionLevelEvolution(player)
@@ -203,7 +204,7 @@
 				{#each trophies(player) as trophy}
 					<div class="flex items-center gap-x-2 text-lg">
 						<img
-							src="https://cdn.islandstats.xyz/icons/{trophy.icon}.png"
+							src="https://islandcdn.themysterys.com/icons/{trophy.icon}.png"
 							alt="{trophy.name} Trophy Icon"
 							class="inline-block size-6 self-center"
 						/>
@@ -232,7 +233,7 @@
 				{#each wallet(player) as currency}
 					<div class="flex items-center gap-x-2 text-lg">
 						<img
-							src="https://cdn.islandstats.xyz/icons/currency/{currency.icon}.png"
+							src="https://islandcdn.themysterys.com/icons/currency/{currency.icon}.png"
 							alt="{currency.name} Trophy Icon"
 							class="inline-block size-6 self-center"
 						/>

@@ -14,7 +14,8 @@
 >
 	<div class="absolute top-1/2 right-4 hidden sm:flex">
 		<img
-			src="https://cdn.islandstats.xyz/icons/crowns/{player.crownLevel.levelData.evolution}.png"
+			src="https://islandcdn.themysterys.com/icons/crowns/{player.crownLevel.levelData
+				.evolution}.png"
 			alt=""
 			class="pointer-events-none top-1/2 right-4 size-32 -translate-y-1/2 -rotate-12 opacity-20 blur-[1px] lg:size-44"
 		/>
@@ -44,7 +45,7 @@
 						<Tooltip>
 							{#snippet trigger()}
 								<img
-									src="https://cdn.islandstats.xyz/ranks/{getRankIcon(player.ranks)}.png"
+									src="https://islandcdn.themysterys.com/ranks/{getRankIcon(player.ranks)}.png"
 									alt="{getRankString(player.ranks)} Rank Icon"
 									class="size-7 cursor-pointer self-center rounded-sm bg-neutral-600 lg:size-10"
 								/>
@@ -60,8 +61,8 @@
 							<Tooltip>
 								{#snippet trigger()}
 									<img
-										src="https://cdn.islandstats.xyz/ranks/plus_{player.mccPlusStatus.evolution +
-											1}_simple.png"
+										src="https://islandcdn.themysterys.com/ranks/plus_{player.mccPlusStatus
+											.evolution + 1}_simple.png"
 										alt="MCC Plus Icon"
 										class="size-5 cursor-pointer self-center lg:size-6"
 									/>
@@ -117,7 +118,8 @@
 		</div>
 		<div class="mr-8 hidden self-center sm:flex lg:mr-14">
 			<img
-				src="https://cdn.islandstats.xyz/icons/crowns/{player.crownLevel.levelData.evolution}.png"
+				src="https://islandcdn.themysterys.com/icons/crowns/{player.crownLevel.levelData
+					.evolution}.png"
 				alt="Crown Level Icon"
 				class="mr-2 size-8 self-center"
 			/>

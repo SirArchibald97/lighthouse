@@ -116,7 +116,7 @@
 									<img
 										src={tab.icon.startsWith('/')
 											? tab.icon
-											: `https://cdn.islandstats.xyz/${tab.icon}.png`}
+											: `https://islandcdn.themysterys.com/${tab.icon}.png`}
 										alt={`${tab.alt} Icon`}
 										class="size-6"
 									/>
@@ -140,7 +140,7 @@
 									<img
 										src={currentTab?.icon.startsWith('/')
 											? currentTab.icon
-											: `https://cdn.islandstats.xyz/${currentTab?.icon}.png`}
+											: `https://islandcdn.themysterys.com/${currentTab?.icon}.png`}
 										alt={`${currentTab?.alt} Icon`}
 										class="size-6"
 									/>
@@ -166,7 +166,7 @@
 									>
 										<p class="flex gap-x-2">
 											<img
-												src={`https://cdn.islandstats.xyz/${tab.icon}.png`}
+												src={`https://islandcdn.themysterys.com/${tab.icon}.png`}
 												alt={`${tab.alt} Icon`}
 												class="size-6"
 											/>

@@ -3,23 +3,29 @@
 	import { calculatePercentage, getCrownColour, getCrownColourHex } from '$lib/utils';
 
 	const { player, collection }: { player: Player; collection: string } = $props();
-	// svelte-ignore state_referenced_locally
-	const cosmetics = player.collections!.cosmetics.filter(
-		(c) => c.cosmetic.collection === collection
+
+	const cosmetics = $derived(
+		player.collections!.cosmetics.filter((c) => c.cosmetic.collection === collection)
 	);
-	const earnedRep =
+	const earnedRep = $derived(
 		cosmetics!.reduce(
 			(acc, c) => acc + (c.cosmetic.royalReputation?.reputationAmount || 0) * c.donationsMade,
 			0
-		) || 0;
-	const totalRep =
+		) || 0
+	);
+	const totalRep = $derived(
 		cosmetics!.reduce(
 			(acc, c) =>
 				acc +
 				(c.cosmetic.royalReputation?.reputationAmount || 0) *
 					(c.cosmetic.royalReputation?.donationLimit || 0),
 			0
-		) || 0;
+		) || 0
+	);
+	const earnedFullChromas = $derived(
+		cosmetics!.filter((c) => c.owned && c.cosmetic.colorable && c.chromaPacks.length === 4).length
+	);
+	const totalFullChromas = $derived(cosmetics!.filter((c) => c.cosmetic.colorable).length);
 </script>
 
 <div class="flex w-full flex-col gap-2 lg:grid lg:grid-cols-3">
@@ -39,7 +45,8 @@
 		>
 			<span class="flex size-10 items-center justify-center rounded-full bg-neutral-900 lg:size-14">
 				<img
-					src="https://cdn.islandstats.xyz/icons/trophies/{cosmetics![0].cosmetic.isBonusTrophies
+					src="https://islandcdn.themysterys.com/icons/trophies/{cosmetics![0]?.cosmetic
+						.isBonusTrophies
 						? 'silver'
 						: 'purple'}.png"
 					alt="Style Trophy Icon"
@@ -53,7 +60,8 @@
 			</p>
 			<div class="flex gap-x-1 tabular-nums">
 				<img
-					src="https://cdn.islandstats.xyz/icons/trophies/{cosmetics![0].cosmetic.isBonusTrophies
+					src="https://islandcdn.themysterys.com/icons/trophies/{cosmetics![0]?.cosmetic
+						.isBonusTrophies
 						? 'silver'
 						: 'purple'}.png"
 					alt="Style Trophy Icon"
@@ -81,85 +89,81 @@
 	</div>
 
 	<!-- ROYAL REP -->
-	<div class="flex gap-x-4 rounded-md bg-neutral-900 p-2">
-		<span
-			class="flex size-14 items-center justify-center rounded-full bg-neutral-100 lg:size-18 {getCrownColour(
-				player.crownLevel.levelData.level
-			)}"
-			style="background: conic-gradient({getCrownColourHex(
-				player.crownLevel.levelData.level
-			)} {Math.floor((earnedRep / totalRep) * 360)}deg, oklch(0.269 0 0) 0deg)"
-		>
-			<span class="flex size-10 items-center justify-center rounded-full bg-neutral-900 lg:size-14">
-				<img
-					src="https://cdn.islandstats.xyz/icons/currency/royal_reputation.png"
-					alt="Royal Reputation Icon"
-					class="size-6 lg:size-8"
-				/>
+	{#if totalRep > 0}
+		<div class="flex gap-x-4 rounded-md bg-neutral-900 p-2">
+			<span
+				class="flex size-14 items-center justify-center rounded-full bg-neutral-100 lg:size-18 {getCrownColour(
+					player.crownLevel.levelData.level
+				)}"
+				style="background: conic-gradient({getCrownColourHex(
+					player.crownLevel.levelData.level
+				)} {Math.floor((earnedRep / totalRep) * 360)}deg, oklch(0.269 0 0) 0deg)"
+			>
+				<span
+					class="flex size-10 items-center justify-center rounded-full bg-neutral-900 lg:size-14"
+				>
+					<img
+						src="https://islandcdn.themysterys.com/icons/currency/royal_reputation.png"
+						alt="Royal Reputation Icon"
+						class="size-6 lg:size-8"
+					/>
+				</span>
 			</span>
-		</span>
-		<div class="self-center">
-			<p class="text-base font-semibold lg:text-lg">Royal Reputation</p>
-			<div class="flex gap-x-1 tabular-nums">
-				<img
-					src="https://cdn.islandstats.xyz/icons/currency/royal_reputation.png"
-					alt="Royal Reputation Icon"
-					class="size-6 self-center"
-				/>
-				<p class="text-base tabular-nums">
-					<span>{earnedRep.toLocaleString()}</span>
-					<span> / </span>
-					<span>{totalRep.toLocaleString()}</span>
-					<span class="text-neutral-500">({calculatePercentage(earnedRep, totalRep) || 100}%)</span>
-				</p>
+			<div class="self-center">
+				<p class="text-base font-semibold lg:text-lg">Royal Reputation</p>
+				<div class="flex gap-x-1 tabular-nums">
+					<img
+						src="https://islandcdn.themysterys.com/icons/currency/royal_reputation.png"
+						alt="Royal Reputation Icon"
+						class="size-6 self-center"
+					/>
+					<p class="text-base tabular-nums">
+						<span>{earnedRep.toLocaleString()}</span>
+						<span> / </span>
+						<span>{totalRep.toLocaleString()}</span>
+						<span class="text-neutral-500"
+							>({calculatePercentage(earnedRep, totalRep) || 100}%)</span
+						>
+					</p>
+				</div>
 			</div>
 		</div>
-	</div>
+	{/if}
 
 	<!-- CHROMAS -->
-	<div class="flex gap-x-4 rounded-md bg-neutral-900 p-2">
-		<span
-			class="flex size-14 items-center justify-center rounded-full bg-neutral-100 lg:size-18 {getCrownColour(
-				player.crownLevel.levelData.level
-			)}"
-			style="background: conic-gradient({getCrownColourHex(
-				player.crownLevel.levelData.level
-			)} {Math.floor(
-				(cosmetics!.filter((c) => c.owned && c.cosmetic.colorable && c.chromaPacks.length === 4)
-					.length /
-					cosmetics!.filter((c) => c.cosmetic.colorable).length) *
-					360
-			)}deg, oklch(0.269 0 0) 0deg)"
-		>
-			<span class="flex size-10 items-center justify-center rounded-full bg-neutral-900 lg:size-14">
-				<img
-					src="https://cdn.islandstats.xyz/icons/chroma_pack/prismatic.webp"
-					alt="Chroma Icon"
-					class="size-6 lg:size-8"
-				/>
+	{#if totalFullChromas > 0}
+		<div class="flex gap-x-4 rounded-md bg-neutral-900 p-2">
+			<span
+				class="flex size-14 items-center justify-center rounded-full bg-neutral-100 lg:size-18 {getCrownColour(
+					player.crownLevel.levelData.level
+				)}"
+				style="background: conic-gradient({getCrownColourHex(
+					player.crownLevel.levelData.level
+				)} {Math.floor((earnedFullChromas / totalFullChromas) * 360)}deg, oklch(0.269 0 0) 0deg)"
+			>
+				<span
+					class="flex size-10 items-center justify-center rounded-full bg-neutral-900 lg:size-14"
+				>
+					<img
+						src="https://islandcdn.themysterys.com/icons/chroma_pack/prismatic.webp"
+						alt="Chroma Icon"
+						class="size-6 lg:size-8"
+					/>
+				</span>
 			</span>
-		</span>
-		<div class="self-center">
-			<p class="text-base font-semibold lg:text-lg">Full Chromas</p>
-			<div class="flex gap-x-1 tabular-nums">
-				<p class="text-base tabular-nums">
-					<span
-						>{cosmetics!
-							.filter((c) => c.owned && c.cosmetic.colorable && c.chromaPacks.length === 4)
-							.length.toLocaleString()}</span
-					>
-					<span> / </span>
-					<span>{cosmetics!.filter((c) => c.cosmetic.colorable).length.toLocaleString()}</span>
-					<span class="text-neutral-500"
-						>({calculatePercentage(
-							cosmetics!.filter(
-								(c) => c.owned && c.cosmetic.colorable && c.chromaPacks.length === 4
-							).length,
-							cosmetics!.filter((c) => c.cosmetic.colorable).length
-						) || 100}%)</span
-					>
-				</p>
+			<div class="self-center">
+				<p class="text-base font-semibold lg:text-lg">Full Chromas</p>
+				<div class="flex gap-x-1 tabular-nums">
+					<p class="text-base tabular-nums">
+						<span>{earnedFullChromas.toLocaleString()}</span>
+						<span> / </span>
+						<span>{totalFullChromas.toLocaleString()}</span>
+						<span class="text-neutral-500"
+							>({calculatePercentage(earnedFullChromas, totalFullChromas)}%)</span
+						>
+					</p>
+				</div>
 			</div>
 		</div>
-	</div>
+	{/if}
 </div>
