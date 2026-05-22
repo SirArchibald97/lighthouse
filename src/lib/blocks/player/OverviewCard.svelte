@@ -161,7 +161,7 @@
 						class="inline-block aspect-3/2 h-5 self-center md:h-6"
 					/>
 					<span class="self-center font-semibold tabular-nums"
-						>{player.factions?.find((f) => f.selected)?.levelData.level}</span
+						>{player.factions?.find((f) => f.selected)?.levelData.level + 1}</span
 					>
 				</p>
 			</div>
